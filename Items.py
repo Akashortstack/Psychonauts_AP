@@ -3,14 +3,7 @@ import typing
 from BaseClasses import Item
 from .Names import ItemName
 
-
-class PsyItem(Item):
-    game: str = "Psychonauts"
-
-
-class ItemData(typing.NamedTuple):
-    quantity: int = 0
-    psyid: int = 0
+from .Subclasses import ItemData
     
 ASProps_Table = {
     ItemName.LungfishCall: ItemData(1, 1)

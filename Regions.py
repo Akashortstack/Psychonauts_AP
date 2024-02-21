@@ -4,6 +4,8 @@ from BaseClasses import MultiWorld, Region
 
 from . import LocationName, RegionName, Events_Table
 
+from .Subclasses import PSYLocation
+
 PSYREGIONS: typing.Dict[str, typing.List[str]] = {
     "Menu": [],
     RegionName.CASA: [
