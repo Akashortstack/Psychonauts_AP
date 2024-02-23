@@ -35,7 +35,7 @@ WWProps_Table = {
     ItemName.Musket: ItemData(1, 18)
 }
     
-Powers_Table = {
+PsiPowers_Table = {
     ItemName.Marksmanship1: ItemData(1, 19)
     ItemName.Marksmanship2: ItemData(1, 20)
     ItemName.Marksmanship3: ItemData(1, 21)
@@ -82,7 +82,7 @@ ConfusionAmmo_Table = {
     ItemName.ConfusionUp4: ItemData(1, 53)       
 }
 
-ChallangeMarker_Table = {
+ChallengeMarker_Table = {
     ItemName.ChallengeMarker1: ItemData(1, 54)
     ItemName.ChallengeMarker2: ItemData(1, 55)
     ItemName.ChallengeMarker3: ItemData(1, 56)
@@ -449,4 +449,34 @@ OtherItems_Table = {
     ItemName.Feather: ItemData(1, 366)    
     ItemName.CobwebDuster: ItemData(1, 367)    
 }
+
+item_dictionary_table = {
+    **ASProps_Table
+    **MMProps_Table
+    **THProps_Table
+    **WWProps_Table
+    **PsiPowers_Table
+    **MaxAmmo_Table
+    **MaxLives_Table
+    **ConfusionAmmo_Table
+    **ChallengeMarker_Table
+    **BrainJar_Table
+    **ScavHunt_Table
+    **SuitcaseTags_Table
+    **PurseTags_Table
+    **HatboxTags_Table
+    **SteamerTags_Table
+    **DuffleTags_Table
+    **Suitcase_Table
+    **Purse_Table
+    **Hatbox_Table
+    **Steamertrunk_Table
+    **Dufflebag_Table
+    **Vault_Table
+    **AHSmall_Table
+    **AHLarge_Table
+    **PsiCards_Table
+    **OtherItems_Table
+}
+
 
