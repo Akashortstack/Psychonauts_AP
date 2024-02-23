@@ -8,7 +8,6 @@ class PSYLocation(Location):
 
 class LocationData(typing.NamedTuple):
     locid: int
-    yml: str
 
 
 class PSYItem(Item):

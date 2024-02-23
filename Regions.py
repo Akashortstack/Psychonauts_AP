@@ -16,6 +16,7 @@ PSYREGIONS: typing.Dict[str, typing.List[str]] = {
 
     RegionName.CAGP: [
         LocationName.TopofGPCCard,
+        LocationName.UnderGPCCard,
         LocationName.MountainLionLogBridgeCard,
         LocationName.AboveEntranceLakeCard,
         LocationName.RockWallBehindTreeCard,
@@ -49,6 +50,7 @@ PSYREGIONS: typing.Dict[str, typing.List[str]] = {
     RegionName.CAMA: [
         LocationName.FenceNearKidsCabinsCard,
         LocationName.UnderLodgeFrontStepsCard,
+        LocationName.BehindTreeNearLodgeCard,
         LocationName.UndertheLodgeGoldDoubloon,
         LocationName.Loudspeaker1PlatformCard,
         LocationName.UnderLodgeMetalRoofCard,
@@ -376,7 +378,10 @@ PSYREGIONS: typing.Dict[str, typing.List[str]] = {
         LocationName.SkyscraperAfterBridge, 
         LocationName.TunnelSuitcaseTag, 
         LocationName.FinalSkyscrapersLeft, 
-        LocationName.FinalSkyscrapersRight, 
+        LocationName.FinalSkyscrapersRight,
+        LocationName.KochamaraIntroLeft, 
+        LocationName.KochamaraIntroRight,
+        LocationName.LungfishopolisComplete, 
     ],
     
     RegionName.MMI1Fridge: [
