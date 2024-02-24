@@ -25,7 +25,7 @@ FredsLetter = "Fred's Letter"
 PricelessCoin = "Priceless Coin"
 Musket = "Musket"
 
-#19 Psi Powers Remove Duplicates?
+#19 Psi Powers 
 Marksmanship1 = "Marksmanship 1"
 Marksmanship2 = "Marksmanship 2"
 Marksmanship3 = "Marksmanship 3"
@@ -291,7 +291,7 @@ AHLarge3 = "AHLarge 3"
 AHLarge4 = "AHLarge 4"
 AHLarge5 = "AHLarge 5"
 
-#111 PsiCards, filler item, remove duplicates?
+#111 PsiCards, "Filler" item but rando uses unique names and IDs
 PsiCard1 = "PsiCard 1"
 PsiCard2 = "PsiCard 2"
 PsiCard3 = "PsiCard 3"
@@ -406,6 +406,6 @@ PsiCard111 = "PsiCard 111"
 
 #Other Items
 OarsmansBadge = "Oarsman's Badge"
-Button = "Sasha's Button"
+Button = "Button"
 Feather = "Crow Feather"
 CobwebDuster = "Cobweb Duster"
