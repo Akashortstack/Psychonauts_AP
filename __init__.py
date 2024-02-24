@@ -45,8 +45,8 @@ class PSYWorld(World):
     web = PsychonautsWeb()
 
     required_client_version = (0, 4, 4)
-    options_dataclass = KingdomHearts2Options
-    options: KingdomHearts2Options
+    options_dataclass = PsychonautsOptions
+    options: PsychonautsOptions
     item_name_to_id = {item: item_id
                        for item_id, item in enumerate(item_dictionary_table.keys(), 0x130000)}
     location_name_to_id = {item: location

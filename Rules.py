@@ -7,7 +7,7 @@ from worlds.generic.Rules import add_rule, forbid_items, add_item_rule
 class PsyRules:
     player: int
     world: PsyWorld
-    # World Rules: Rules for the visit locks
+    # World Rules: Rules for items and powers
     
     world_rules: Dict[str, Callable[[CollectionState], bool]]
     location_rules: Dict[str, Callable[[CollectionState], bool]]
