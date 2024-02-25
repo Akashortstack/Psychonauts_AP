@@ -27,7 +27,7 @@ class PsychonautsWeb(WebWorld):
             "Multiworld Setup Guide",
             "A guide to playing Psychonauts with Archipelago.",
             "English",
-            # File does not exist yet!
+            # File does not exist yet!!!
             "setup_en.md",
             "setup/en",
             ["Akashortstack"]
@@ -150,17 +150,3 @@ class PSYWorld(World):
         Generates the seed file for Randomizer Scripts folder 
         """
         seed_psy(self, output_directory)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
