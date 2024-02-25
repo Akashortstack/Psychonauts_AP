@@ -501,18 +501,31 @@ useful_set = {
     BrainJar_Table.keys(),
     ScavHunt_Table.keys(),
     SuitcaseTags_Table.keys(),
-    Suitcase_Table.keys(),
     PurseTags_Table.keys(),
-    Purse_Table.keys(),
     HatboxTags_Table.keys(),
-    Hatbox_Table.keys(),
     SteamerTags_Table.keys(),
-    Steamertrunk_Table.keys(),
     DuffleTags_Table.keys(),
+    Suitcase_Table.keys(),
+    Purse_Table.keys(),
+    Hatbox_Table.keys(),
+    Steamertrunk_Table.keys(),
     Dufflebag_Table.keys(),
     Vault_Table.keys(),
-    AHLarge_Table.keys(),]
+    AHLarge_Table.keys(),
+    ]
     for item_name in keys if item_name not in progression_set
+}
+
+local_set = {
+    # Baggage must be local only
+    item_name for keys in [
+    Suitcase_Table.keys(),
+    Purse_Table.keys(),
+    Hatbox_Table.keys(),
+    Steamertrunk_Table.keys(),
+    Dufflebag_Table.keys(),]
+    for item_name in keys
+
 }
 
 
