@@ -12,14 +12,14 @@ from .Options import PsychonautsOptions
 from .Regions import create_regions, connect_regions
 from .Rules import *
 from .Subclasses import PSYItem
+from .PsychoSeed import gen_psy_seed
 
+# If we need a custom client, call for it here
+# def launch_client():
+    # from .Client import launch
+    # launch_subprocess(launch, name="PSYClient")
 
-def launch_client():
-    from .Client import launch
-    launch_subprocess(launch, name="PSYClient")
-
-
-components.append(Component("PSY Client", "PSYClient", func=launch_client, component_type=Type.CLIENT))
+# components.append(Component("PSY Client", "PSYClient", func=launch_client, component_type=Type.CLIENT))
 
 
 class PsychonautsWeb(WebWorld):
@@ -145,8 +145,10 @@ class PSYWorld(World):
         universal_logic = Rules.PsyWorldRules(self)
         universal_logic.set_psy_rules()
 
+    # PsychoSeed.py needs to be functional to output a seed/patch file
+    # Example found in /docs
     def generate_output(self, output_directory: str):
         """
         Generates the seed file for Randomizer Scripts folder 
         """
-        seed_psy(self, output_directory)
+        gen_psy_seed(self, output_directory)

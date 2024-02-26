@@ -204,8 +204,9 @@ class PsyWorldRules(PsyRules):
 
             RegionName.MCTCEscort: lambda state: self.has_telekinesis(state) and self.has_levitation(state),
 
-            # RegionName.MCTCBoss: lambda state: self.has_pyrokinesis and self.has_all([ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake ],state),
-
+            # Requirements to reach this may vary based on future settings, 
+            # Completing this region = Victory
+            RegionName.MCTCBoss: lambda state: self.has_pyrokinesis and self.has_all([ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake ],state),
 
         }
 
@@ -213,4 +214,6 @@ class PsyWorldRules(PsyRules):
         for region_name, rules in self.region_rules.items():
             region = self.multiworld.get_region(region_name, self.player)
             for entrance in region.entrances:
-                entrance.access_rule = rules    
+                entrance.access_rule = rules
+                
+        world.multiworld.completion_condition[world.player] = lambda state: state.has("Victory", world.player)    

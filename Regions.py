@@ -603,6 +603,7 @@ PSYREGIONS: typing.Dict[str, typing.List[str]] = {
         LocationName.FinalBossEvent,
     ],
 
+    # should only have an item if Cobweb Duster vanilla
     RegionName.FordShop: [
         LocationName.ShopCobwebDuster, 
     ],

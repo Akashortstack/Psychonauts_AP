@@ -13,7 +13,7 @@ function RandoSeed(Ob)
     if ( not Ob ) then
         Ob = CreateObject('ScriptBase')
         Ob.seed = {}
-        
+
         -- This displays seed-name on menu screen, can be modified to any text
         Ob.seedname = 'YB81vZNOxgv1UINW'
         --[[ Controls cobweb duster placement inside the game.
@@ -67,7 +67,7 @@ function RandoSeed(Ob)
     --[[ This table controls the item type and location of each randomized collectible.
     Value corresponds to item type, and index corresponds with location.
 
-    Values 1-367 are used by the base Randomizer.
+    Values 1-367 are items used by the base Randomizer.
     Values 368-684 are reserved for Archipelago Items, starting with "AP Item 1", through "AP Item 317"
     This allows for a theoretical seed containing 50 Baggage Items (all local) and 317 AP items from other worlds
     Final three indexes are "Dummy" locations used by generator logic, not actually accessible    

@@ -424,6 +424,6 @@ TunnelOfLoveRailDufflebagTag = "(MCTC) Tunnel of Love Rail (Dufflebag Tag)"
 NextToTheFatLadyDufflebag = "(MCTC) Next to the Fat Lady (Dufflebag)"
 FinalBossEvent = "(MCTC) Final Boss Defeated"
 
-#Ford's Shop
+#Ford's Shop, only a location if Cobweb Duster vanilla
 ShopCobwebDuster = "(CALI) Ford's Shop Cobweb Duster"
 
