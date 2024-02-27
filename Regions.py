@@ -6,6 +6,8 @@ from .Names import LocationName, RegionName #Events_Table
 
 from .Subclasses import PSYLocation
 
+from . import Locations
+
 PSYREGIONS: typing.Dict[str, typing.List[str]] = {
     "Menu": [],
     RegionName.CASA: [

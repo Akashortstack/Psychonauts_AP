@@ -1,6 +1,6 @@
 import typing
 from dataclasses import dataclass
-from Options import Choice, Range, Toggle, ItemDict, PerGameCommonOptions,
+from Options import Choice, Range, Toggle, ItemDict, PerGameCommonOptions
 
 class StartingLevitation(Toggle):
     """Start with Levitation Level 1"""

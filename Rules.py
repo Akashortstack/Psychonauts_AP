@@ -4,15 +4,23 @@ from BaseClasses import CollectionState
 from .Names import LocationName, ItemName, RegionName
 from worlds.generic.Rules import add_rule, forbid_items, add_item_rule
 
+# I don't know what is going on here, but it works
+# Thanks Jared :)
+
+if TYPE_CHECKING:
+    from . import PSYWorld
+else:
+    PSYWorld = object
+
 class PsyRules:
     player: int
-    world: PsyWorld
+    world: PSYWorld
     # World Rules: Rules for items and powers
     
     world_rules: Dict[str, Callable[[CollectionState], bool]]
     location_rules: Dict[str, Callable[[CollectionState], bool]]
 
-    def __init__(self, world: PsyWorld) -> None:
+    def __init__(self, world: PSYWorld) -> None:
         self.player = world.player
         self.world = world
         self.multiworld = world.multiworld
@@ -90,7 +98,7 @@ class PsyRules:
         
 
 class PsyWorldRules(PsyRules):
-    def __init__(self, psyworld: PsyWorld) -> None:
+    def __init__(self, psyworld: PSYWorld) -> None:
         # These Rules are Always in effect
         super().__init__(psyworld)
         self.region_rules = {
