@@ -2,7 +2,7 @@ import typing
 
 from BaseClasses import MultiWorld, Region
 
-from . import LocationName, RegionName, Events_Table
+from .Names import LocationName, RegionName #Events_Table
 
 from .Subclasses import PSYLocation
 
@@ -707,6 +707,6 @@ def create_regions(self):
 
     multiworld = self.multiworld
     player = self.player
-
-    multiworld.regions += [create_region(multiworld, player, self.location_name_to_id, region, locations) for region, locations in
+    # This code might not work correctly...
+    multiworld.regions += [PSYLocation(player, self.location_name_to_id, region, locations) for region, locations in
                         PSYREGIONS.items()]

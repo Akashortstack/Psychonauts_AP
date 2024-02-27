@@ -453,32 +453,32 @@ OtherItems_Table = {
 }
 
 item_dictionary_table = {
-    **RequiredProps_Table
-    **MMProps_Table
-    **THProps_Table
-    **WWProps_Table
-    **PsiPowers_Table
-    **MaxAmmo_Table
-    **MaxLives_Table
-    **ConfusionAmmo_Table
-    **ChallengeMarker_Table
-    **BrainJar_Table
-    **ScavHunt_Table
-    **SuitcaseTags_Table
-    **PurseTags_Table
-    **HatboxTags_Table
-    **SteamerTags_Table
-    **DuffleTags_Table
-    **Suitcase_Table
-    **Purse_Table
-    **Hatbox_Table
-    **Steamertrunk_Table
-    **Dufflebag_Table
-    **Vault_Table
-    **AHSmall_Table
-    **AHLarge_Table
-    **PsiCards_Table
-    **OtherItems_Table
+    **RequiredProps_Table,
+    **MMProps_Table,
+    **THProps_Table,
+    **WWProps_Table,
+    **PsiPowers_Table,
+    **MaxAmmo_Table,
+    **MaxLives_Table,
+    **ConfusionAmmo_Table,
+    **ChallengeMarker_Table,
+    **BrainJar_Table,
+    **ScavHunt_Table,
+    **SuitcaseTags_Table,
+    **PurseTags_Table,
+    **HatboxTags_Table,
+    **SteamerTags_Table,
+    **DuffleTags_Table,
+    **Suitcase_Table,
+    **Purse_Table,
+    **Hatbox_Table,
+    **Steamertrunk_Table,
+    **Dufflebag_Table,
+    **Vault_Table,
+    **AHSmall_Table,
+    **AHLarge_Table,
+    **PsiCards_Table,
+    **OtherItems_Table,
 }
 
 progression_set = {
@@ -488,7 +488,7 @@ progression_set = {
         THProps_Table.keys(),
         WWProps_Table.keys(),
         PsiPowers_Table.keys(),
-        Events_Table,
+        # Events_Table,
     ]
     for item_name in keys
 }

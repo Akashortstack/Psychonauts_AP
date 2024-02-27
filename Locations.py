@@ -425,17 +425,17 @@ MC_Checks = {
 }
 
 all_locations = {
-    **CA_Checks
-    **Rank_Checks
-    **AS_Checks
-    **BB_Checks
-    **SA_Checks
-    **MI_Checks
-    **NI_Checks
-    **LO_Checks
-    **MM_Checks
-    **TH_Checks
-    **WW_Checks
-    **BV_Checks
-    **MC_Checks
+    **CA_Checks,
+    **Rank_Checks,
+    **AS_Checks,
+    **BB_Checks,
+    **SA_Checks,
+    **MI_Checks,
+    **NI_Checks,
+    **LO_Checks,
+    **MM_Checks,
+    **TH_Checks,
+    **WW_Checks,
+    **BV_Checks,
+    **MC_Checks,
 }
