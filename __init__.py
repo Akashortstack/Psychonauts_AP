@@ -12,7 +12,8 @@ from .Options import PsychonautsOptions
 from .Regions import create_regions, connect_regions
 from .Rules import *
 from .Subclasses import PSYItem
-from .PsychoSeed import gen_psy_seed
+# import this when its finished
+# from .PsychoSeed import gen_psy_seed
 
 # If we need a custom client, call for it here
 # def launch_client():
