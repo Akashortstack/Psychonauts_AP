@@ -419,6 +419,8 @@ MC_Checks = {
     LocationName.TunnelOfLoveCornerSuitcase: LocationData(362), 
     LocationName.TunnelOfLoveRailDufflebagTag: LocationData(363), 
     LocationName.NextToTheFatLadyDufflebag: LocationData(364),
+    # not a real location, always contains Victory
+    LocationName.FinalBossEvent: LocationData(365),
         
 }
 

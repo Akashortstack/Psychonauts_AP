@@ -27,7 +27,7 @@ class PsychonautsWeb(WebWorld):
             "Multiworld Setup Guide",
             "A guide to playing Psychonauts with Archipelago.",
             "English",
-            # File does not exist yet!!!
+            # Not finished yet
             "setup_en.md",
             "setup/en",
             ["Akashortstack"]
@@ -47,35 +47,26 @@ class PSYWorld(World):
     required_client_version = (0, 4, 4)
     options_dataclass = PsychonautsOptions
     options: PsychonautsOptions
-    item_name_to_id = {item: item_id
-                       for item_id, item in enumerate(item_dictionary_table.keys(), 0x130000)}
-    location_name_to_id = {item: location
-                           for location, item in enumerate(all_locations.keys(), 0x130000)}
+    item_name_to_id = item_dictionary_table
 
-    item_name_groups = item_groups
-    location_name_groups = location_groups
+    location_name_to_id = all_locations
 
-    plando_locations: Dict[str, str]
-    filler_items: List[str]
-    item_quantity_dict: Dict[str, int]
-    local_items: Dict[int, int]
-    total_locations: int
+    def generate_early(self) -> None:
+        """
+        Using this to make Baggage local only.
+        """ 
+        for item in local_set:
+            self.multiworld.local_items[self.player].value.add(item)
 
-    def __init__(self, multiworld: "MultiWorld", player: int):
-        super().__init__(multiworld, player)
-
-
-    def fill_slot_data(self) -> dict:
-
-        slot_data = self.options.as_dict("Goal")
+    def pre_fill(self) -> None:
         
-        return slot_data
+        self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_item("Victory"))
+       
 
     def create_item(self, name: str) -> Item:
         """
         Returns created PSYItem
         """
-        # data = item_dictionary_table[name]
         if name in progression_set:
             item_classification = ItemClassification.progression
         elif name in useful_set:
@@ -96,40 +87,9 @@ class PSYWorld(World):
         Fills ItemPool 
         """
 
-        itempool = [self.create_item(item) for item, data in self.item_quantity_dict.items() for _ in range(data)]
-
-        # Creating filler for unfilled locations
-        itempool += [self.create_filler() for _ in range(self.total_locations - len(itempool))]
+        itempool = [self.create_item(item) for item, data in self.item_name_to_id.items() for _ in range(data)]
 
         self.multiworld.itempool += itempool
-
-
-    def generate_early(self) -> None:
-        """
-        Determines the quantity of items and maps plando locations to items.
-        """
-        # Item: Quantity Map
-        self.total_locations = len(all_locations.keys())
-
-        self.item_quantity_dict = {item: data.quantity for item, data in item_dictionary_table.items()}
-
-        # Dictionary to mark locations with their plandoed item
-
-        self.plando_locations = dict()
-        self.starting_invo_verify()
-
-
-        self.set_excluded_locations()
-
-
-    def pre_fill(self):
-        """
-        Plandoing Events and Fill_Restrictive
-        """
-
-        for location, item in self.plando_locations.items():
-            self.multiworld.get_location(location, self.player).place_locked_item(
-                    self.create_item(item))
 
     def create_regions(self):
         """
@@ -147,8 +107,8 @@ class PSYWorld(World):
 
     # PsychoSeed.py needs to be functional to output a seed/patch file
     # Example found in /docs
-    def generate_output(self, output_directory: str):
-        """
-        Generates the seed file for Randomizer Scripts folder 
-        """
-        gen_psy_seed(self, output_directory)
+    # def generate_output(self, output_directory: str):
+    #    """
+     #   Generates the seed file for Randomizer Scripts folder 
+      #  """
+       # gen_psy_seed(self, output_directory)

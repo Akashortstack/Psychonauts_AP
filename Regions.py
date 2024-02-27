@@ -702,3 +702,11 @@ def connect_regions(self):
     for source, target in PSYRegionConnections.items():
         source_region = multiworld.get_region(source, player)
         source_region.add_exits(target)
+
+def create_regions(self):
+
+    multiworld = self.multiworld
+    player = self.player
+
+    multiworld.regions += [create_region(multiworld, player, self.location_name_to_id, region, locations) for region, locations in
+                        PSYREGIONS.items()]
