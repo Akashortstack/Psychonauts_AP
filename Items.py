@@ -439,9 +439,10 @@ PsiCards_Table = {
     ItemName.PsiCard106: ItemData(1, 358),
     ItemName.PsiCard107: ItemData(1, 359),
     ItemName.PsiCard108: ItemData(1, 360),
-    ItemName.PsiCard109: ItemData(1, 361),
-    ItemName.PsiCard110: ItemData(1, 362),
-    ItemName.PsiCard111: ItemData(1, 363),    
+    # Used to fill Dummy Locations in base randomizer
+    # ItemName.PsiCard109: ItemData(1, 361),
+    # ItemName.PsiCard110: ItemData(1, 362),
+    # ItemName.PsiCard111: ItemData(1, 363),    
 }
 
 OtherItems_Table = {

@@ -63,7 +63,7 @@ class PSYWorld(World):
         
         self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_item("Victory"))
        
-
+       
     def create_item(self, name: str) -> Item:
         """
         Returns created PSYItem
