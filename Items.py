@@ -514,7 +514,7 @@ useful_set = {
     Vault_Table.keys(),
     AHLarge_Table.keys(),
     ]
-    for item_name in keys if item_name not in progression_set
+    for item_name in keys
 }
 
 local_set = {
@@ -528,8 +528,6 @@ local_set = {
     for item_name in keys
 
 }
-
-
         
 
 

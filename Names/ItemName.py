@@ -409,3 +409,6 @@ OarsmansBadge = "Oarsman's Badge"
 Button = "Button"
 Feather = "Crow Feather"
 CobwebDuster = "Cobweb Duster"
+
+#Needed for Victory!
+Victory = "Victory"

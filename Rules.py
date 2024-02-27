@@ -4,7 +4,7 @@ from BaseClasses import CollectionState
 from .Names import LocationName, ItemName, RegionName
 from worlds.generic.Rules import add_rule, forbid_items, add_item_rule
 
-# I don't know what is going on here, but it works
+# I don't know what is going on here, but it works???
 # Thanks Jared :)
 
 if TYPE_CHECKING:
@@ -138,7 +138,7 @@ class PsyWorldRules(PsyRules):
 
             RegionName.SACULev: self.has_levitation,
 
-            RegionName.MILL: self.has_levitation,
+            RegionName.MIFL: self.has_levitation,
 
             RegionName.NIMPMark: self.has_marksmanship,
 
@@ -168,7 +168,7 @@ class PsyWorldRules(PsyRules):
 
             RegionName.THMSStorage: self.has_invisibility,
 
-            RegionName.THCW: lambda state: self.has_pyrokinesis(state) and (self.has_candle1(state) or self.has_candle2(state)),
+            RegionName.THCW: lambda state: self.has_pyrokinesis(state) and self.has_candle1(state) and self.has_levitation(state),
 
             RegionName.THFB: lambda state: self.has_candle1(state) and self.has_candle2(state),
 
@@ -214,7 +214,7 @@ class PsyWorldRules(PsyRules):
 
             # Requirements to reach this may vary based on future settings, 
             # Completing this region = Victory
-            RegionName.MCTCBoss: lambda state: self.has_pyrokinesis and self.has_all([ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake ],state),
+            RegionName.MCTCBoss: lambda state: self.has_pyrokinesis and self.has_all([ItemName.Button, ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake ],state),
 
         }
 
@@ -224,4 +224,4 @@ class PsyWorldRules(PsyRules):
             for entrance in region.entrances:
                 entrance.access_rule = rules
                 
-        world.multiworld.completion_condition[world.player] = lambda state: state.has("Victory", world.player)    
+        self.multiworld.completion_condition[self.player] = lambda state: state.has(ItemName.Victory, self.player, 1)    

@@ -709,6 +709,19 @@ def create_regions(self):
 
     multiworld = self.multiworld
     player = self.player
+    active_locations = self.location_name_to_id
+
     # This code might not work correctly...
-    multiworld.regions += [PSYLocation(player, self.location_name_to_id, region, locations) for region, locations in
+    multiworld.regions += [create_region(multiworld, player, self.location_name_to_id, region, locations) for region, locations in
                         PSYREGIONS.items()]
+
+def create_region(multiworld, player: int, active_locations, name: str, locations=None):
+    ret = Region(name, player, multiworld)
+    if locations:
+        loc_to_id = {loc: active_locations.get(loc, 0) for loc in locations if active_locations.get(loc, None)}
+        ret.add_locations(loc_to_id, PSYLocation)
+        loc_to_event = {loc: active_locations.get(loc, None) for loc in locations if
+                        not active_locations.get(loc, None)}
+        # ret.add_locations(loc_to_event, PSYLocation)
+
+    return ret
