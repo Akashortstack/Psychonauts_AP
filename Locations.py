@@ -3,7 +3,7 @@ import typing
 from BaseClasses import Location
 from .Names import LocationName, ItemName, RegionName
 from .Subclasses import LocationData
-from .Regions import PSYREGIONS
+# from .Regions import PSYREGIONS
 
 # eventid matches Randomizer Seed index in table
 CA_Checks = {
@@ -423,7 +423,7 @@ MC_Checks = {
     LocationName.NextToTheFatLadyDufflebag: LocationData(364),
 
     # not a real location, always contains Victory
-    LocationName.FinalBossEvent: LocationData(365),
+    LocationName.FinalBossEvent: LocationData(0),
         
 }
 

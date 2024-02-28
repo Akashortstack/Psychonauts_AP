@@ -94,7 +94,11 @@ class PsyRules:
     def has_confusion(self, state: CollectionState) -> bool:
         return state.has_any([ItemName.Confusion1, ItemName.Confusion2], self.player)
 
+    def has_upperasylumaccess(self, state: CollectionState) -> bool:
+        return state.has_all([ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket], self.player)
 
+    def has_finalbossaccess(self, state: CollectionState) -> bool:
+        return state.has_all([ItemName.Button, ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake], self.player)
         
 
 class PsyWorldRules(PsyRules):
@@ -128,7 +132,7 @@ class PsyWorldRules(PsyRules):
 
             RegionName.ASCOLev: self.has_levitation,
 
-            RegionName.ASUP: lambda state: self.has_all([ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket ],state),
+            RegionName.ASUP: self.has_upperasylumaccess,
 
             RegionName.ASUPTele: self.has_telekinesis,
 
@@ -214,7 +218,7 @@ class PsyWorldRules(PsyRules):
 
             # Requirements to reach this may vary based on future settings, 
             # Completing this region = Victory
-            RegionName.MCTCBoss: lambda state: self.has_pyrokinesis and self.has_all([ItemName.Button, ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake ],state),
+            RegionName.MCTCBoss: lambda state: self.has_pyrokinesis(state) and self.has_finalbossaccess(state),
 
         }
 

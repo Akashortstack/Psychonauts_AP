@@ -49,7 +49,7 @@ class PSYWorld(World):
     options_dataclass = PsychonautsOptions
     options: PsychonautsOptions
 
-    base_id = 42690000
+    base_id = 0
 
     item_name_to_id = {name: id for
                        id, name in enumerate(item_dictionary_table.keys(), base_id)}
