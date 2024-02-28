@@ -48,9 +48,14 @@ class PSYWorld(World):
     required_client_version = (0, 4, 4)
     options_dataclass = PsychonautsOptions
     options: PsychonautsOptions
-    item_name_to_id = item_dictionary_table
 
-    location_name_to_id = all_locations
+    base_id = 1
+
+    item_name_to_id = {name: id 
+        for id, name in enumerate(item_dictionary_table.keys(), base_id)}
+
+    location_name_to_id = {name: id 
+        for id, name in enumerate(all_locations.keys(), base_id)}
 
     def generate_early(self) -> None:
         """
@@ -78,10 +83,10 @@ class PSYWorld(World):
 
         return created_item
 
-    def create_event_item(self, name: str) -> Item:
-        item_classification = ItemClassification.progression
-        created_item = PsyItem(name, item_classification, None, self.player)
-        return created_item
+    #def create_event_item(self, name: str) -> Item:
+    #    item_classification = ItemClassification.progression
+    #    created_item = PsyItem(name, item_classification, None, self.player)
+    #    return created_item
 
     def create_items(self) -> None:
         """

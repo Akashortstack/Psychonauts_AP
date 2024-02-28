@@ -70,6 +70,7 @@ PSYREGIONS: typing.Dict[str, typing.List[str]] = {
         LocationName.ParkingLotBasketballHoopCard,
         LocationName.ParkingLotOuthouseCard,
         LocationName.RockNearBenchCard,
+        
     ],
 
     RegionName.CAMALev: [
@@ -160,7 +161,7 @@ PSYREGIONS: typing.Dict[str, typing.List[str]] = {
     ],
 
     RegionName.CALI: [
-        LocationName.MainLodgeRaftersVoodooDoll, 
+        LocationName.MainLodgeRaftersVoodooDoll,
     ],
 
     RegionName.CAJA: [
@@ -606,9 +607,9 @@ PSYREGIONS: typing.Dict[str, typing.List[str]] = {
     ],
 
     # should only have an item if Cobweb Duster vanilla
-    RegionName.FordShop: [
-        LocationName.ShopCobwebDuster, 
-    ],
+    #RegionName.FordShop: [
+    #    LocationName.ShopCobwebDuster, 
+    #],
 
     # RegionName.DUMMYLOCATIONS
         # NOT COLLECTIBLE
@@ -632,7 +633,7 @@ def connect_regions(self):
         RegionName.RANK5to15: {RegionName.RANK20to101, },
 
         RegionName.CAGP: {RegionName.CAGPSquirrel, RegionName.CAGPGeyser, RegionName.CAMA, RegionName.CAKC, RegionName.CARE, 
-            RegionName.CABH, RegionName.CALI, RegionName.FordShop, },
+            RegionName.CABH, RegionName.CALI, },
 
         RegionName.CAMA: {RegionName.CAMALev, },
 
@@ -709,6 +710,9 @@ def create_regions(self):
 
     multiworld = self.multiworld
     player = self.player
-    # This code might not work correctly...
-    multiworld.regions += [PSYLocation(player, self.location_name_to_id, region, locations) for region, locations in
+    active_locations = self.location_name_to_id
+
+    # REPLACE create_region TO ACTUALLY WORK
+    multiworld.regions += [create_region(multiworld, player, self.location_name_to_id, region, locations) for region, locations in
                         PSYREGIONS.items()]
+

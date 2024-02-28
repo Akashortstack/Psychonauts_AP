@@ -116,7 +116,9 @@ CA_Checks = {
     LocationName.TopofBigRockChallengeMarker: LocationData(107), 
     LocationName.MainLodgeRaftersVoodooDoll: LocationData(108), 
     LocationName.TopofSanctuaryCard: LocationData(109), 
-    LocationName.BottomofSanctuaryCard: LocationData(110), 
+    LocationName.BottomofSanctuaryCard: LocationData(110),
+    # only if cobwebduster is vanilla
+    #LocationName.ShopCobwebDuster: LocationData(366), 
 }
 
 Rank_Checks = {
@@ -419,6 +421,7 @@ MC_Checks = {
     LocationName.TunnelOfLoveCornerSuitcase: LocationData(362), 
     LocationName.TunnelOfLoveRailDufflebagTag: LocationData(363), 
     LocationName.NextToTheFatLadyDufflebag: LocationData(364),
+
     # not a real location, always contains Victory
     LocationName.FinalBossEvent: LocationData(365),
         
