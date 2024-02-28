@@ -49,13 +49,13 @@ class PSYWorld(World):
     options_dataclass = PsychonautsOptions
     options: PsychonautsOptions
 
-    base_id = 1
+    base_id = 42690000
 
-    item_name_to_id = {name: id 
-        for id, name in enumerate(item_dictionary_table.keys(), base_id)}
+    item_name_to_id = {name: id for
+                       id, name in enumerate(item_dictionary_table.keys(), base_id)}
 
-    location_name_to_id = {name: id 
-        for id, name in enumerate(all_locations.keys(), base_id)}
+    location_name_to_id = {name: id for
+                       id, name in enumerate(all_locations.keys(), base_id)}
 
     def generate_early(self) -> None:
         """
