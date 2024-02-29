@@ -3,7 +3,7 @@
 LungfishCall = "Lungfish Call" 
 GloriasTrophy = "Gloria's Trophy" 
 StraightJacket = "Straight Jacket" 
-LobatoPainting = "Lobato Painting" 
+LobotoPainting = "Loboto Painting" 
 Cake = "Cake" 
 LilisBracelet = "Lilis Bracelet"
 

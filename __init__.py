@@ -13,7 +13,7 @@ from .Regions import create_psyregions, connect_regions
 from .Rules import *
 from .Subclasses import PSYItem
 # import this when its finished
-# from .PsychoSeed import gen_psy_seed
+from .PsychoSeed import gen_psy_seed
 
 # If we need a custom client, call for it here
 # def launch_client():
@@ -63,10 +63,6 @@ class PSYWorld(World):
         """ 
         for item in local_set:
             self.multiworld.local_items[self.player].value.add(item)
-
-    # def pre_fill(self) -> None:
-    #    
-    #    self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_item(ItemName.Victory))
        
        
     def create_item(self, name: str) -> Item:
@@ -121,8 +117,8 @@ class PSYWorld(World):
 
     # PsychoSeed.py needs to be functional to output a seed/patch file
     # Example found in /docs
-    # def generate_output(self, output_directory: str):
-    #    """
-     #   Generates the seed file for Randomizer Scripts folder 
-      #  """
-       # gen_psy_seed(self, output_directory)
+    def generate_output(self, output_directory: str):
+        """
+        Generates the seed file for Randomizer Scripts folder 
+        """
+        gen_psy_seed(self, output_directory)

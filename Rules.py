@@ -9,19 +9,17 @@ from worlds.generic.Rules import add_rule, forbid_items, add_item_rule
 
 if TYPE_CHECKING:
     from . import PSYWorld
-else:
-    PSYWorld = object
+
 
 class PsyRules:
     player: int
-    world: PSYWorld
+    world: "PSYWorld"
     
     region_rules: Dict[str, Callable[[CollectionState], bool]]
 
-    def __init__(self, world: PSYWorld) -> None:
+    def __init__(self, world: "PSYWorld") -> None:
         self.player = world.player
         self.world = world
-        self.multiworld = world.multiworld
 
         self.region_rules = {
             RegionName.CAGP: self.has_button,
