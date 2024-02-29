@@ -114,7 +114,7 @@ class PSYWorld(World):
         Sets the Logic for the Regions and Locations.
         """
         universal_logic = Rules.PsyRules(self)
-        universal_logic.set_psy_rules(self.multiworld, self.player)
+        universal_logic.set_psy_rules()
         # place "Victory" at "Final Boss" and set collection as win condition
         self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_event_item("Victory"))
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)   
