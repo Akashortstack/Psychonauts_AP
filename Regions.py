@@ -1,6 +1,4 @@
 
-#in case this method of create_psyregions should be used instead, 
-# avoids dictionary entirely for create_regions
 
 import typing
 
@@ -17,7 +15,7 @@ def create_psyregions(world: MultiWorld, player: int):
 
     regMenu = Region("Menu", player, world)
     locMenu_names = []
-    regMenu.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMenu_names]
+    regMenu.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMenu_names]
     world.regions.append(regMenu)
 
     regCASA = Region(RegionName.CASA, player, world)
@@ -26,7 +24,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.StaircaseLedgesCard,
         LocationName.UpperLedgeFossil,
     ]
-    regCASA.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCASA_names]
+    regCASA.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCASA_names]
     world.regions.append(regCASA)
 
 
@@ -55,21 +53,21 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.BranchAboveSquirrelCard,
         LocationName.CreekGrateGlassEye,
     ]
-    regCAGP.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAGP_names]
+    regCAGP.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAGP_names]
     world.regions.append(regCAGP)
 
     regCAGPSquirrel = Region(RegionName.CAGPSquirrel, player, world)
     locCAGPSquirrel_names = [
         LocationName.SquirrelsAcornGoldenAcorn,
     ]
-    regCAGPSquirrel.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAGPSquirrel_names]
+    regCAGPSquirrel.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAGPSquirrel_names]
     world.regions.append(regCAGPSquirrel)
 
     regCAGPGeyser = Region(RegionName.CAGPGeyser, player, world)
     locCAGPGeyser_names = [
         LocationName.GeyserMinersSkull,
     ]
-    regCAGPGeyser.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAGPGeyser_names]
+    regCAGPGeyser.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAGPGeyser_names]
     world.regions.append(regCAGPGeyser)
 
     regCAMA = Region(RegionName.CAMA, player, world)
@@ -95,14 +93,14 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.ParkingLotOuthouseCard,
         LocationName.RockNearBenchCard,  
     ]
-    regCAMA.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAMA_names]
+    regCAMA.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAMA_names]
     world.regions.append(regCAMA)
 
     regCAMALev = Region(RegionName.CAMALev, player, world)
     locCAMALev_names = [
         LocationName.ParkingLotHistoryBoardCard,
     ]
-    regCAMALev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAMALev_names]
+    regCAMALev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAMALev_names]
     world.regions.append(regCAMALev)
 
     regCAKC = Region(RegionName.CAKC, player, world)
@@ -120,21 +118,21 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.DeepCavePathCard,
         LocationName.DeepCaveLadderCard,
     ]
-    regCAKC.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAKC_names]
+    regCAKC.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAKC_names]
     world.regions.append(regCAKC)
 
     regCAKCLev = Region(RegionName.CAKCLev, player, world)
     locCAKCLev_names = [
         LocationName.HighUpTightropeCard,
     ]
-    regCAKCLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAKCLev_names]
+    regCAKCLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAKCLev_names]
     world.regions.append(regCAKCLev)
 
     regCAKCPyro = Region(RegionName.CAKCPyro, player, world)
     locCAKCPyro_names = [
         LocationName.CaveRefrigeratorTurkeySandwich,
     ]
-    regCAKCPyro.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAKCPyro_names]
+    regCAKCPyro.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAKCPyro_names]
     world.regions.append(regCAKCPyro)
 
     regCARE = Region(RegionName.CARE, player, world)
@@ -164,21 +162,21 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.SwampBirdsNestCondorEgg, 
         LocationName.CollapsedCaveChallengeMarker, 
     ]
-    regCARE.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCARE_names]
+    regCARE.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCARE_names]
     world.regions.append(regCARE)
 
     regCARELev = Region(RegionName.CARELev, player, world)
     locCARELev_names = [
         LocationName.FireplaceTreeTopDinosaurBone, 
     ]
-    regCARELev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCARELev_names]
+    regCARELev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCARELev_names]
     world.regions.append(regCARELev)
 
     regCAREMark = Region(RegionName.CAREMark, player, world)
     locCAREMark_names = [
         LocationName.HornetNestFertilityIdol,
     ]
-    regCAREMark.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAREMark_names]
+    regCAREMark.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAREMark_names]
     world.regions.append(regCAREMark)
 
     regCABH = Region(RegionName.CABH, player, world)
@@ -202,21 +200,21 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.TinyIslandCard, 
         LocationName.RockWallGapPsychonautsComic1, 
     ]
-    regCABH.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCABH_names]
+    regCABH.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCABH_names]
     world.regions.append(regCABH)
 
     regCABHLev = Region(RegionName.CABHLev, player, world)
     locCABHLev_names = [
         LocationName.TopofBigRockChallengeMarker, 
     ]
-    regCABHLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCABHLev_names]
+    regCABHLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCABHLev_names]
     world.regions.append(regCABHLev)
 
     regCALI = Region(RegionName.CALI, player, world)
     locCALI_names = [
         LocationName.MainLodgeRaftersVoodooDoll,
     ]
-    regCALI.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCALI_names]
+    regCALI.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCALI_names]
     world.regions.append(regCALI)
 
     regCAJA = Region(RegionName.CAJA, player, world)
@@ -224,7 +222,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.TopofSanctuaryCard, 
         LocationName.BottomofSanctuaryCard, 
     ]
-    regCAJA.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locCAJA_names]
+    regCAJA.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locCAJA_names]
     world.regions.append(regCAJA)
 
     regRANK5to15 = Region(RegionName.RANK5to15, player, world)
@@ -233,7 +231,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.PSIRank10, 
         LocationName.PSIRank15,        
     ]
-    regRANK5to15.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locRANK5to15_names]
+    regRANK5to15.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locRANK5to15_names]
     world.regions.append(regRANK5to15)
 
     regRANK20to101 = Region(RegionName.RANK20to101, player, world)
@@ -256,7 +254,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.PSIRank95, 
         LocationName.PSIRank101,
     ]
-    regRANK20to101.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locRANK20to101_names]
+    regRANK20to101.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locRANK20to101_names]
     world.regions.append(regRANK20to101)
 
     regASGR = Region(RegionName.ASGR, player, world)
@@ -271,14 +269,14 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.CornerNearFence, 
         LocationName.LedgeBeforeGloria,
     ]
-    regASGR.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locASGR_names]
+    regASGR.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locASGR_names]
     world.regions.append(regASGR)
 
     regASGRLev = Region(RegionName.ASGRLev, player, world)
     locASGRLev_names = [
         LocationName.PillarAboveGate, 
     ]
-    regASGRLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locASGRLev_names]
+    regASGRLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locASGRLev_names]
     world.regions.append(regASGRLev)
 
     regASCO = Region(RegionName.ASCO, player, world)
@@ -292,14 +290,14 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.BehindElevator, 
         LocationName.JunkCorner, 
     ]
-    regASCO.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locASCO_names]
+    regASCO.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locASCO_names]
     world.regions.append(regASCO)
 
     regASCOLev = Region(RegionName.ASCOLev, player, world)
     locASCOLev_names = [
         LocationName.AboveEdgar,
     ]
-    regASCOLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locASCOLev_names]
+    regASCOLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locASCOLev_names]
     world.regions.append(regASCOLev)
 
     regASUP = Region(RegionName.ASUP, player, world)
@@ -329,7 +327,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.PipesBelowChairDoor, 
         
     ]
-    regASUP.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locASUP_names]
+    regASUP.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locASUP_names]
     world.regions.append(regASUP)
 
     regASUPTele = Region(RegionName.ASUPTele, player, world)
@@ -338,7 +336,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.PipeSlideNearChairDoor, 
         LocationName.RaftersAboveChairDoor,
     ]
-    regASUPTele.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locASUPTele_names]
+    regASUPTele.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locASUPTele_names]
     world.regions.append(regASUPTele)
 
     regASLB = Region(RegionName.ASLB, player, world)
@@ -352,7 +350,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.LabTopRailingRight, 
         LocationName.TeaRoom, 
     ]
-    regASLB.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locASLB_names]
+    regASLB.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locASLB_names]
     world.regions.append(regASLB)
 
     regBBA1 = Region(RegionName.BBA1, player, world)
@@ -362,7 +360,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.PoleClimbingTutorialFloor, 
         LocationName.BelowTheTripleTrampolines,
     ]
-    regBBA1.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBBA1_names]
+    regBBA1.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBBA1_names]
     world.regions.append(regBBA1)
 
     regBBA2 = Region(RegionName.BBA2, player, world)
@@ -378,14 +376,14 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.EndOfObstacleCourseRight, 
         LocationName.BasicBrainingComplete, 
     ]
-    regBBA2.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBBA2_names]
+    regBBA2.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBBA2_names]
     world.regions.append(regBBA2)
 
     regBBA2Duster = Region(RegionName.BBA2Duster, player, world)
     locBBA2Duster_names = [
         LocationName.TrapezeCobweb, 
     ]
-    regBBA2Duster.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBBA2Duster_names]
+    regBBA2Duster.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBBA2Duster_names]
     world.regions.append(regBBA2Duster)
 
     regSACU = Region(RegionName.SACU, player, world)
@@ -407,7 +405,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.FlameTowerTop2, 
         LocationName.SashasShootingGalleryComplete,
     ]
-    regSACU.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locSACU_names]
+    regSACU.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locSACU_names]
     world.regions.append(regSACU)
 
 
@@ -415,7 +413,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locSACULev_names = [
         LocationName.RoundPlatformsFarFromValve, 
     ]
-    regSACULev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locSACULev_names]
+    regSACULev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locSACULev_names]
     world.regions.append(regSACULev)
 
 
@@ -437,7 +435,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.MillasPartyRoom, 
         LocationName.MillasDancePartyComplete, 
     ]
-    regMIFL.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMIFL_names]
+    regMIFL.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMIFL_names]
     world.regions.append(regMIFL)
 
     regNIMP = Region(RegionName.NIMP, player, world)
@@ -446,7 +444,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.BehindTheEgg, 
         LocationName.ShadowMonsterPath, 
     ]
-    regNIMP.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locNIMP_names]
+    regNIMP.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locNIMP_names]
     world.regions.append(regNIMP)
 
 
@@ -463,7 +461,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.BehindThornTowerMid, 
         LocationName.BehindThornTowerRight, 
     ]
-    regNIMPMark.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locNIMPMark_names]
+    regNIMPMark.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locNIMPMark_names]
     world.regions.append(regNIMPMark)
 
 
@@ -471,7 +469,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locNIBA_names = [
         LocationName.BrainTumblerExperimentComplete, 
     ]
-    regNIBA.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locNIBA_names]
+    regNIBA.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locNIBA_names]
     world.regions.append(regNIBA)
 
     regLOMA = Region(RegionName.LOMA, player, world)
@@ -481,7 +479,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.SkyscraperBeforeDam, 
         
     ]
-    regLOMA.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locLOMA_names]
+    regLOMA.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locLOMA_names]
     world.regions.append(regLOMA)
 
 
@@ -505,7 +503,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.KochamaraIntroRight,
         LocationName.LungfishopolisComplete, 
     ]
-    regLOMAShield.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locLOMAShield_names]
+    regLOMAShield.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locLOMAShield_names]
     world.regions.append(regLOMAShield)
 
         
@@ -513,7 +511,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locMMI1Fridge_names = [
         LocationName.BoydsFridgeClv, 
     ]
-    regMMI1Fridge.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMMI1Fridge_names]
+    regMMI1Fridge.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMMI1Fridge_names]
     world.regions.append(regMMI1Fridge)
 
 
@@ -523,7 +521,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.SecondHouseRollingPin, 
         LocationName.CarTrunk1StopSign, 
     ]
-    regMMI1BeforeSign.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMMI1BeforeSign_names]
+    regMMI1BeforeSign.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMMI1BeforeSign_names]
     world.regions.append(regMMI1BeforeSign)
 
 
@@ -539,7 +537,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.CarTrunk3WateringCan, 
         LocationName.PostOfficeRoofOneUp, 
     ]
-    regMMI1AfterSign.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMMI1AfterSign_names]
+    regMMI1AfterSign.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMMI1AfterSign_names]
     world.regions.append(regMMI1AfterSign)
 
 
@@ -548,7 +546,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.LandscapersHouseBackyardSuitcaseTag, 
         LocationName.LandscapersHouseTablePurse, 
     ]
-    regMMI1Hedgetrimmers.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMMI1Hedgetrimmers_names]
+    regMMI1Hedgetrimmers.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMMI1Hedgetrimmers_names]
     world.regions.append(regMMI1Hedgetrimmers)
 
 
@@ -556,7 +554,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locMMI1RollingPin_names = [
         LocationName.LandscapersHouseKitchenAmmoUp, 
     ]
-    regMMI1RollingPin.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMMI1RollingPin_names]
+    regMMI1RollingPin.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMMI1RollingPin_names]
     world.regions.append(regMMI1RollingPin)
 
 
@@ -566,7 +564,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.PowerlineIslandLeftMemoryVault, 
         LocationName.PowerlineIslandRightMaxLives, 
     ]
-    regMMI1Powerlines.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMMI1Powerlines_names]
+    regMMI1Powerlines.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMMI1Powerlines_names]
     world.regions.append(regMMI1Powerlines)
 
 
@@ -576,7 +574,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.PostOfficeLobbySuitcase, 
         LocationName.PostOfficeBasementPlunger, 
     ]
-    regMMI1Duster.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMMI1Duster_names]
+    regMMI1Duster.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMMI1Duster_names]
     world.regions.append(regMMI1Duster)
 
 
@@ -584,7 +582,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locMMI2_names = [
         LocationName.BehindBookDepositorySteamerTrunk,  
     ]
-    regMMI2.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMMI2_names]
+    regMMI2.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMMI2_names]
     world.regions.append(regMMI2)
 
 
@@ -592,7 +590,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locMMDM_names = [
         LocationName.MilkmanComplete, 
     ]
-    regMMDM.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMMDM_names]
+    regMMDM.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMMDM_names]
     world.regions.append(regMMDM)
 
 
@@ -602,7 +600,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.BelowTheSpotlightSteamertrunkTag, 
         LocationName.BehindStagePurseTag, 
     ]
-    regTHMS.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locTHMS_names]
+    regTHMS.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locTHMS_names]
     world.regions.append(regTHMS)
 
 
@@ -610,7 +608,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locTHMSLev_names = [
         LocationName.InTheAudienceAmmoUp, 
     ]
-    regTHMSLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locTHMSLev_names]
+    regTHMSLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locTHMSLev_names]
     world.regions.append(regTHMSLev)
 
 
@@ -618,7 +616,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locTHMSDuster_names = [
         LocationName.BehindStageCobwebSuitcase, 
     ]
-    regTHMSDuster.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locTHMSDuster_names]
+    regTHMSDuster.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locTHMSDuster_names]
     world.regions.append(regTHMSDuster)
 
 
@@ -630,7 +628,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.StorageRoomRightUpperCandle1, 
         LocationName.BonitasRoom, 
     ]
-    regTHMSStorage.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locTHMSStorage_names]
+    regTHMSStorage.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locTHMSStorage_names]
     world.regions.append(regTHMSStorage)
 
 
@@ -645,7 +643,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.CandleBasketCandle2, 
         LocationName.CurtainSlideConfusionAmmoUp, 
     ]
-    regTHCW.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locTHCW_names]
+    regTHCW.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locTHCW_names]
     world.regions.append(regTHCW)
 
 
@@ -653,7 +651,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locTHFB_names = [
         LocationName.GloriasTheaterComplete,
     ]
-    regTHFB.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locTHFB_names]
+    regTHFB.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locTHFB_names]
     world.regions.append(regTHFB)
 
 
@@ -671,7 +669,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.CastleWallSteamertrunk,
         LocationName.HelpTheCarpenter,
     ]
-    regWWMA.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMA_names]
+    regWWMA.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMA_names]
     world.regions.append(regWWMA)
 
 
@@ -680,7 +678,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.TopOfVillager3sHouseAmmoUp, 
         LocationName.TopOfKnightsHouseConfusionAmmoUp, 
     ]
-    regWWMALev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMALev_names]
+    regWWMALev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMALev_names]
     world.regions.append(regWWMALev)
 
 
@@ -689,7 +687,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.CarpentersRoofVault,
         LocationName.TightropeRoomDufflebag, 
     ]
-    regWWMACarpRoof.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMACarpRoof_names]
+    regWWMACarpRoof.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMACarpRoof_names]
     world.regions.append(regWWMACarpRoof)
 
 
@@ -699,7 +697,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.FredsHouseBasementHatbox, 
         LocationName.BlacksmithsLeftBuildingPurse, 
     ]
-    regWWMADuster.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMADuster_names]
+    regWWMADuster.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMADuster_names]
     world.regions.append(regWWMADuster)
 
 
@@ -707,7 +705,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locWWMADusterLev_names = [
         LocationName.BlacksmithsRightBuildingSteamertrunkTag, 
     ]
-    regWWMADusterLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMADusterLev_names]
+    regWWMADusterLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMADusterLev_names]
     world.regions.append(regWWMADusterLev)
 
 
@@ -715,7 +713,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locWWMADusterLevPyro_names = [
         LocationName.BlacksmithsHaybaleTheMusket, 
     ]
-    regWWMADusterLevPyro.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMADusterLevPyro_names]
+    regWWMADusterLevPyro.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMADusterLevPyro_names]
     world.regions.append(regWWMADusterLevPyro)
 
 
@@ -723,7 +721,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locWWMAV1_names = [
         LocationName.HelpVillager1, 
     ]
-    regWWMAV1.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMAV1_names]
+    regWWMAV1.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMAV1_names]
     world.regions.append(regWWMAV1)
 
 
@@ -731,7 +729,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locWWMAKnight_names = [
         LocationName.HelpTheKnight, 
     ]
-    regWWMAKnight.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMAKnight_names]
+    regWWMAKnight.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMAKnight_names]
     world.regions.append(regWWMAKnight)
 
 
@@ -739,7 +737,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locWWMAV2_names = [
         LocationName.HelpVillager2, 
     ]
-    regWWMAV2.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMAV2_names]
+    regWWMAV2.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMAV2_names]
     world.regions.append(regWWMAV2)
 
 
@@ -748,7 +746,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.HelpVillager3,
         LocationName.WaterlooWorldComplete, 
     ]
-    regWWMAV3.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locWWMAV3_names]
+    regWWMAV3.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locWWMAV3_names]
     world.regions.append(regWWMAV3)
 
 
@@ -756,7 +754,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locBVRB_names = [
         LocationName.ClubStreetLadySteamertrunk, 
     ]
-    regBVRB.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVRB_names]
+    regBVRB.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVRB_names]
     world.regions.append(regBVRB)
 
 
@@ -765,7 +763,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.ClubStreetMetalBalconyDufflebagTag, 
         LocationName.HeartStreetHIGHBalconyAmmoUp,
     ]
-    regBVRBLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVRBLev_names]
+    regBVRBLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVRBLev_names]
     world.regions.append(regBVRBLev)
 
 
@@ -773,7 +771,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locBVRBTele_names = [
         LocationName.ClubStreetGatedSteamerTrunkTag, 
     ]
-    regBVRBTele.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVRBTele_names]
+    regBVRBTele.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVRBTele_names]
     world.regions.append(regBVRBTele)
 
 
@@ -787,7 +785,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.DiegosHouseGrindrailSuitcase, 
         LocationName.GrindrailBalconyConfusionAmmoUp,
     ]
-    regBVRBDuster.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVRBDuster_names]
+    regBVRBDuster.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVRBDuster_names]
     world.regions.append(regBVRBDuster)
 
 
@@ -795,7 +793,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locBVRBGarden_names = [
         LocationName.TheGardenVault, 
     ]
-    regBVRBGarden.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVRBGarden_names]
+    regBVRBGarden.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVRBGarden_names]
     world.regions.append(regBVRBGarden)
 
 
@@ -803,7 +801,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locBVRBLogs_names = [
         LocationName.BurnTheLogsDufflebag, 
     ]
-    regBVRBLogs.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVRBLogs_names]
+    regBVRBLogs.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVRBLogs_names]
     world.regions.append(regBVRBLogs)
 
 
@@ -813,7 +811,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.TigerWrestler, 
         LocationName.DragonWrestler,
     ]
-    regBVES.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVES_names]
+    regBVES.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVES_names]
     world.regions.append(regBVES)
 
 
@@ -821,7 +819,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locBVESLev_names = [
         LocationName.SanctuaryBalconyPurseTag, 
     ]
-    regBVESLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVESLev_names]
+    regBVESLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVESLev_names]
     world.regions.append(regBVESLev)
 
 
@@ -829,7 +827,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locBVESEagle_names = [
         LocationName.EagleWrestler, 
     ]
-    regBVESEagle.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVESEagle_names]
+    regBVESEagle.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVESEagle_names]
     world.regions.append(regBVESEagle)
 
 
@@ -837,7 +835,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locBVESCobra_names = [
         LocationName.CobraWrestler, 
     ]
-    regBVESCobra.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVESCobra_names]
+    regBVESCobra.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVESCobra_names]
     world.regions.append(regBVESCobra)
 
 
@@ -845,7 +843,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locBVESBoss_names = [
         LocationName.BlackVelvetopiaComplete, 
     ]
-    regBVESBoss.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locBVESBoss_names]
+    regBVESBoss.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locBVESBoss_names]
     world.regions.append(regBVESBoss)
 
 
@@ -856,7 +854,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.CrumblingPathEndRightHatboxTag, 
         LocationName.CrumblingPathEndLeftConfusionAmmoUp, 
     ]
-    regMCTC.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMCTC_names]
+    regMCTC.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMCTC_names]
     world.regions.append(regMCTC)
 
 
@@ -871,7 +869,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.TunnelOfLoveRailDufflebagTag, 
         LocationName.NextToTheFatLadyDufflebag,
     ]
-    regMCTCEscort.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMCTCEscort_names]
+    regMCTCEscort.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMCTCEscort_names]
     world.regions.append(regMCTCEscort)
 
 
@@ -879,7 +877,7 @@ def create_psyregions(world: MultiWorld, player: int):
     locMCTCBoss_names = [
         LocationName.FinalBossEvent,
     ]
-    regMCTCBoss.locations += [PSYLocation(player, loc_name, all_locations[loc_name], regMenu) for loc_name in locMCTCBoss_names]
+    regMCTCBoss.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMenu) for loc_name in locMCTCBoss_names]
     world.regions.append(regMCTCBoss)
 
 
@@ -895,9 +893,7 @@ def create_psyregions(world: MultiWorld, player: int):
     #    LocationName.DUMMYLOCATION3NOTCOLLECTIBLE, 
 
 
-def connect_regions(self):
-    multiworld = self.multiworld
-    player = self.player
+def connect_regions(multiworld: MultiWorld, player: int):
     PSYRegionConnections: typing.Dict[str, typing.Set[str]] = {
         "Menu":                        {RegionName.CASA},
         #Collective Unconscious connections to everything else

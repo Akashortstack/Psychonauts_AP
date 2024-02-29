@@ -15,96 +15,14 @@ else:
 class PsyRules:
     player: int
     world: PSYWorld
-    # World Rules: Rules for items and powers
     
-    world_rules: Dict[str, Callable[[CollectionState], bool]]
-    location_rules: Dict[str, Callable[[CollectionState], bool]]
+    region_rules: Dict[str, Callable[[CollectionState], bool]]
 
     def __init__(self, world: PSYWorld) -> None:
         self.player = world.player
         self.world = world
         self.multiworld = world.multiworld
 
-    def has_button(self, state: CollectionState) -> bool:
-        return state.has(ItemName.Button, self.player)
-
-    def has_lungfishcall(self, state: CollectionState) -> bool:
-        return state.has(ItemName.LungfishCall, self.player)
-    
-    def has_cake(self, state: CollectionState) -> bool:
-        return state.has(ItemName.Cake, self.player)
-    
-    def has_propsign(self, state: CollectionState) -> bool:
-        return state.has(ItemName.PropSign, self.player)
-    
-    def has_propflowers(self, state: CollectionState) -> bool:
-        return state.has(ItemName.PropFlowers, self.player)
-    
-    def has_propplunger(self, state: CollectionState) -> bool:
-        return state.has(ItemName.PropPlunger, self.player)
-    
-    def has_prophedgetrimmers(self, state: CollectionState) -> bool:
-        return state.has(ItemName.PropHedgeTrimmers, self.player)
-    
-    def has_proprollingpin(self, state: CollectionState) -> bool:
-        return state.has(ItemName.PropRollingPin, self.player)
-
-    def has_candle1(self, state: CollectionState) -> bool:
-        return state.has(ItemName.Candle1, self.player)
-
-    def has_candle2(self, state: CollectionState) -> bool:
-        return state.has(ItemName.Candle2, self.player)
-    
-    def has_megaphone(self, state: CollectionState) -> bool:
-        return state.has(ItemName.Megaphone, self.player)
-    
-    def has_fredsletter(self, state: CollectionState) -> bool:
-        return state.has(ItemName.FredsLetter, self.player)
-    
-    def has_pricelesscoin(self, state: CollectionState) -> bool:
-        return state.has(ItemName.PricelessCoin, self.player)
-    
-    def has_musket(self, state: CollectionState) -> bool:
-        return state.has(ItemName.Musket, self.player)
-    
-    def has_cobwebduster(self, state: CollectionState) -> bool:
-        return state.has(ItemName.CobwebDuster, self.player)
-    
-    def has_levitation(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Levitation1, ItemName.Levitation2, ItemName.Levitation3], self.player)
-
-    def has_telekinesis(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Telekinesis1, ItemName.Telekinesis2], self.player)
-
-    def has_pyrokinesis(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Pyrokinesis1, ItemName.Pyrokinesis2], self.player)
-
-    def has_clairvoyance(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Clairvoyance1, ItemName.Clairvoyance2], self.player)
-
-    def has_marksmanship(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Marksmanship1, ItemName.Marksmanship2, ItemName.Marksmanship3], self.player)
-
-    def has_invisibility(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Invisibility1, ItemName.Invisibility2], self.player)
-
-    def has_shield(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Shield1, ItemName.Shield2, ItemName.Shield3], self.player)
-
-    def has_confusion(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Confusion1, ItemName.Confusion2], self.player)
-
-    def has_upperasylumaccess(self, state: CollectionState) -> bool:
-        return state.has_all([ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket], self.player)
-
-    def has_finalbossaccess(self, state: CollectionState) -> bool:
-        return state.has_all([ItemName.Button, ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake], self.player)
-        
-
-class PsyWorldRules(PsyRules):
-    def __init__(self, psyworld: PSYWorld) -> None:
-        # These Rules are Always in effect
-        super().__init__(psyworld)
         self.region_rules = {
             RegionName.CAGP: self.has_button,
 
@@ -222,10 +140,92 @@ class PsyWorldRules(PsyRules):
 
         }
 
+    def has_button(self, state: CollectionState) -> bool:
+        return state.has(ItemName.Button, self.player)
+
+    def has_lungfishcall(self, state: CollectionState) -> bool:
+        return state.has(ItemName.LungfishCall, self.player)
+    
+    def has_cake(self, state: CollectionState) -> bool:
+        return state.has(ItemName.Cake, self.player)
+    
+    def has_propsign(self, state: CollectionState) -> bool:
+        return state.has(ItemName.PropSign, self.player)
+    
+    def has_propflowers(self, state: CollectionState) -> bool:
+        return state.has(ItemName.PropFlowers, self.player)
+    
+    def has_propplunger(self, state: CollectionState) -> bool:
+        return state.has(ItemName.PropPlunger, self.player)
+    
+    def has_prophedgetrimmers(self, state: CollectionState) -> bool:
+        return state.has(ItemName.PropHedgeTrimmers, self.player)
+    
+    def has_proprollingpin(self, state: CollectionState) -> bool:
+        return state.has(ItemName.PropRollingPin, self.player)
+
+    def has_candle1(self, state: CollectionState) -> bool:
+        return state.has(ItemName.Candle1, self.player)
+
+    def has_candle2(self, state: CollectionState) -> bool:
+        return state.has(ItemName.Candle2, self.player)
+    
+    def has_megaphone(self, state: CollectionState) -> bool:
+        return state.has(ItemName.Megaphone, self.player)
+    
+    def has_fredsletter(self, state: CollectionState) -> bool:
+        return state.has(ItemName.FredsLetter, self.player)
+    
+    def has_pricelesscoin(self, state: CollectionState) -> bool:
+        return state.has(ItemName.PricelessCoin, self.player)
+    
+    def has_musket(self, state: CollectionState) -> bool:
+        return state.has(ItemName.Musket, self.player)
+    
+    def has_cobwebduster(self, state: CollectionState) -> bool:
+        return state.has(ItemName.CobwebDuster, self.player)
+    
+    def has_levitation(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Levitation1, ItemName.Levitation2, ItemName.Levitation3], self.player)
+
+    def has_telekinesis(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Telekinesis1, ItemName.Telekinesis2], self.player)
+
+    def has_pyrokinesis(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Pyrokinesis1, ItemName.Pyrokinesis2], self.player)
+
+    def has_clairvoyance(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Clairvoyance1, ItemName.Clairvoyance2], self.player)
+
+    def has_marksmanship(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Marksmanship1, ItemName.Marksmanship2, ItemName.Marksmanship3], self.player)
+
+    def has_invisibility(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Invisibility1, ItemName.Invisibility2], self.player)
+
+    def has_shield(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Shield1, ItemName.Shield2, ItemName.Shield3], self.player)
+
+    def has_confusion(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Confusion1, ItemName.Confusion2], self.player)
+
+    def has_upperasylumaccess(self, state: CollectionState) -> bool:
+        return state.has_all([ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket], self.player)
+
+    def has_finalbossaccess(self, state: CollectionState) -> bool:
+        return state.has_all([ItemName.Button, ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake], self.player)
+        
     def set_psy_rules(self) -> None:
-        for region_name, rules in self.region_rules.items():
-            region = self.multiworld.get_region(region_name, self.player)
-            for entrance in region.entrances:
-                entrance.access_rule = rules
+        multiworld = self.world.multiworld
+
+        for region in multiworld.get_regions(self.player):
+            if region.name in self.region_rules:
+                for entrance in region.entrances:
+                    entrance.access_rule = self.region_rules[region.name]
+            
+
+        
+
+    
                 
         
