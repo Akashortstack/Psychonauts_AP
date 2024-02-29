@@ -3,6 +3,7 @@ import logging
 import yaml
 import os
 import Utils
+import zipfile
 
 from .Items import item_dictionary_table
 from .Locations import all_locations
@@ -11,48 +12,46 @@ from worlds.Files import APContainer
 class PSYContainer(APContainer):
     game: str = 'Psychonauts'
 
-    def __init__(self, patch_data: dict, base_path: str, output_directory: str,
+    def __init__(self, patch_data: str, base_path: str, output_directory: str,
         player=None, player_name: str = "", server: str = ""):
         self.patch_data = patch_data
         self.file_path = base_path
         container_path = os.path.join(output_directory, base_path + ".lua")
         super().__init__(container_path, player, player_name, server)
 
-    def write_contents(self, lua_file_path: str) -> None:
-        with open(lua_file_path, 'w') as lua_file:
-            for filename, yml in self.patch_data.items():
-                lua_file.write(filename + "\n")
-                lua_file.write(yml + "\n\n")
-        super().write_contents(lua_file_path)
-
+    def write_contents(self, opened_lua_file: str) -> None:
+        with opened_lua_file.open(self.file_path + ".lua", "w") as lua_file:
+            # Write the patch data to the Lua file
+            lua_file.write(self.patch_data)
+        super().write_contents(opened_lua_file)
 
 
 def gen_psy_seed(self, output_directory):
 
     mod_name = f"AP-{self.multiworld.seed_name}-P{self.player}-{self.multiworld.get_file_safe_player_name(self.player)}"
 
-    randoseed = []
+    randoseed_parts = []
 
     # First part of lua code structure
-    text1 = '''function RandoSeed(Ob)
+    formattedtext1 = '''function RandoSeed(Ob)
         if ( not Ob ) then
             Ob = CreateObject('ScriptBase')
             Ob.seed = {}
         '''
-    randoseed.append(text1)
+    randoseed_parts.append(formattedtext1)
 
     # append mod_name 
-    randoseed.append(f"   Ob.seedname = '{mod_name}'\n")
+    randoseed_parts.append(f"   Ob.seedname = '{mod_name}'\n")
 
     # append startlevitation setting, make boolean uppercase for Game
     self.multiworld.StartingLevitation[self.player]
     startlevitationsetting = str(self.multiworld.StartingLevitation[self.player]).upper()
-    randoseed.append(f"   Ob.startlevitation = {startlevitationsetting}\n")
+    randoseed_parts.append(f"   Ob.startlevitation = {startlevitationsetting}\n")
 
 
     # append instantdeath setting, make boolean uppercase for Game
     instantdeathsetting = str(self.multiworld.InstantDeathMode[self.player]).upper()
-    randoseed.append(f"   Ob.instantdeath = {instantdeathsetting}\n")
+    randoseed_parts.append(f"   Ob.instantdeath = {instantdeathsetting}\n")
     
     # Section where default settings booleans are written to RandoSeed.lua
     # adding new settings will remove from this list
@@ -77,10 +76,10 @@ def gen_psy_seed(self, output_directory):
         Ob.spoilerlog = FALSE
     end
     '''
-    randoseed.append(default_seed_settings)
+    randoseed_parts.append(default_seed_settings)
 
     # more lua code structure
-    text2 = '''
+    formattedtext2 = '''
 
     function Ob:fillTable()
     local SEED_GOES_HERE = {
@@ -88,7 +87,7 @@ def gen_psy_seed(self, output_directory):
     
     '''
 
-    randoseed.append(text2)
+    randoseed_parts.append(formattedtext2)
     
     # append the item values, need to be in exact order
     # locations are handled by index in table
@@ -97,13 +96,14 @@ def gen_psy_seed(self, output_directory):
     non_local_id = 368
     index = 1
 
-    all_valid_locations = {location for location, data in all_locations.items()}
     for location in self.multiworld.get_filled_locations(self.player):
         
         if location.item:
             if location.item.player == self.player:
-                # need this to make itemcode = item id - 42690000
-                itemcode = item_dictionary_table[location.item] - 42690000
+                # ignore the victory location for now
+                if location.item.name != "Victory":
+                    # need this to make itemcode = item id - 42690000
+                    itemcode = item_dictionary_table[location.item.name]
             else:
                 # item from another game
                 itemcode = non_local_id
@@ -114,25 +114,25 @@ def gen_psy_seed(self, output_directory):
             non_local_id = non_local_id + 1 
 
         # append the item code   
-        randoseed.append(str(itemcode))
+        randoseed_parts.append(str(itemcode))
         # format so that each line has 10 values, for readability
         if index % 10 == 0:
-            randoseed.append(",\n")
+            randoseed_parts.append(",\n")
         else:
-            randoseed.append(", ")
+            randoseed_parts.append(", ")
 
         index = index + 1
 
     # old generator method
     # for i, value in enumerate(seed, start=1):
-    #    randoseed.append(str(value))
+    #    randoseed +=  str(value))
     #    if i % 10 == 0:
-    #        randoseed.append(",\n")
+    #        randoseed +=  ",\n")
     #    else:
-    #        randoseed.append(", ")
+    #        randoseed +=  ", ")
 
     # last part of coding structure
-    text3 = ''' }
+    formattedtext3 = ''' }
         self.seed = SEED_GOES_HERE
         end
         return Ob
@@ -140,8 +140,10 @@ def gen_psy_seed(self, output_directory):
 
     '''
 
-    randoseed.append(text3)
+    randoseed_parts.append(formattedtext3)
 
+    # Combine all the parts into one long piece of text
+    randoseed = ''.join(randoseed_parts)
     
     mod_dir = os.path.join(output_directory, mod_name + "_" + Utils.__version__)
 
