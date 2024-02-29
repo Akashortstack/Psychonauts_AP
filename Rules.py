@@ -228,4 +228,4 @@ class PsyWorldRules(PsyRules):
             for entrance in region.entrances:
                 entrance.access_rule = rules
                 
-        self.multiworld.completion_condition[self.player] = lambda state: state.has(ItemName.Victory, self.player, 1)    
+        

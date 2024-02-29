@@ -7,7 +7,3 @@ class PSYLocation(Location):
 
 class PSYItem(Item):
     game: str = "Psychonauts"
-
-
-    
-    

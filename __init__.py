@@ -49,11 +49,13 @@ class PSYWorld(World):
     options_dataclass = PsychonautsOptions
     options: PsychonautsOptions
 
-    base_id = 0
+    base_id = 42690001
 
-    item_name_to_id = item_dictionary_table
+    item_name_to_id = {item: id + 42690000 for item, id in item_dictionary_table.items()}
 
-    location_name_to_id = all_locations
+    location_name_to_id = {item: id + 42690000 for item, id in all_locations.items()}
+
+    
 
     def generate_early(self) -> None:
         """
@@ -62,9 +64,9 @@ class PSYWorld(World):
         for item in local_set:
             self.multiworld.local_items[self.player].value.add(item)
 
-    def pre_fill(self) -> None:
-        
-        self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_item(ItemName.Victory))
+    # def pre_fill(self) -> None:
+    #    
+    #    self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_item(ItemName.Victory))
        
        
     def create_item(self, name: str) -> Item:
@@ -81,10 +83,14 @@ class PSYWorld(World):
 
         return created_item
 
-    #def create_event_item(self, name: str) -> Item:
-    #    item_classification = ItemClassification.progression
-    #    created_item = PsyItem(name, item_classification, None, self.player)
-    #    return created_item
+    def create_event_item(self, name: str) -> Item:
+        item_classification = ItemClassification.progression
+        created_item = PSYItem(name, item_classification, None, self.player)
+        return created_item
+    
+    def create_event(self, event: str) -> Item:
+        # while we are at it, we can also add a helper to create events
+        return Item(event, True, None, self.player)
 
     def create_items(self):
         """
@@ -109,6 +115,9 @@ class PSYWorld(World):
         """
         universal_logic = Rules.PsyWorldRules(self)
         universal_logic.set_psy_rules()
+        # place "Victory" at "Final Boss" and set collection as win condition
+        self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_event_item("Victory"))
+        self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)   
 
     # PsychoSeed.py needs to be functional to output a seed/patch file
     # Example found in /docs
