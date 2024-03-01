@@ -139,7 +139,7 @@ class PsyRules:
         }
 
     def has_button(self, state: CollectionState) -> bool:
-        return state.has(ItemName.Button, self.player)
+        return state.has(ItemName.SashaButton, self.player)
 
     def has_lungfishcall(self, state: CollectionState) -> bool:
         return state.has(ItemName.LungfishCall, self.player)
@@ -211,7 +211,7 @@ class PsyRules:
         return state.has_all([ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket], self.player)
 
     def has_finalbossaccess(self, state: CollectionState) -> bool:
-        return state.has_all([ItemName.Button, ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake], self.player)
+        return state.has_all([ItemName.SashaButton, ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake], self.player)
         
     def set_psy_rules(self) -> None:
         multiworld = self.world.multiworld
