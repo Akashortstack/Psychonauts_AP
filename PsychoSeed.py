@@ -15,15 +15,12 @@ class PSYContainer(APContainer):
     def __init__(self, patch_data: str, base_path: str, output_directory: str,
         player=None, player_name: str = "", server: str = ""):
         self.patch_data = patch_data
-
-        # file name ALWAYS RandoSeed.lua for randomizer to find
-        self.seed_file_name = f"RandoSeed.lua"
-        container_path = os.path.join(output_directory, self.seed_file_name)
+        self.file_path = base_path
+        container_path = os.path.join(output_directory, base_path + ".zip")
         super().__init__(container_path, player, player_name, server)
 
     def write_contents(self, opened_zipfile: zipfile.ZipFile) -> None:
-        
-        opened_zipfile.writestr(self.seed_file_name, self.patch_data)
+        opened_zipfile.writestr("RandoSeed.lua", self.patch_data)
         super().write_contents(opened_zipfile)
 
 
