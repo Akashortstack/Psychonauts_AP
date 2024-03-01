@@ -25,8 +25,11 @@ class PSYContainer(APContainer):
 
 
 def gen_psy_seed(self, output_directory):
-
+    # Mod name for Zip Folder
     mod_name = f"AP-{self.multiworld.seed_name}-P{self.player}-{self.multiworld.get_file_safe_player_name(self.player)}"
+
+    # Need to clip off the seed name for Display Version to fit in Randomizer
+    rando_display_name = f"AP-P{self.player}-{self.multiworld.get_file_safe_player_name(self.player)}"
 
     randoseed_parts = []
 
@@ -39,17 +42,21 @@ def gen_psy_seed(self, output_directory):
     randoseed_parts.append(formattedtext1)
 
     # append mod_name 
-    randoseed_parts.append(f"   Ob.seedname = '{mod_name}'\n")
+    randoseed_parts.append(f"       Ob.seedname = '{rando_display_name}'\n")
 
-    # append startlevitation setting, make boolean uppercase for Game
-    self.multiworld.StartingLevitation[self.player]
-    startlevitationsetting = str(self.multiworld.StartingLevitation[self.player]).upper()
-    randoseed_parts.append(f"   Ob.startlevitation = {startlevitationsetting}\n")
-
+    # append startlevitation setting
+    if self.multiworld.StartingLevitation[self.player] == False:
+        startlevitationsetting = "FALSE"
+    else:
+        startlevitationsetting = "TRUE"
+    randoseed_parts.append(f"           Ob.startlevitation = {startlevitationsetting}\n")
 
     # append instantdeath setting, make boolean uppercase for Game
-    instantdeathsetting = str(self.multiworld.InstantDeathMode[self.player]).upper()
-    randoseed_parts.append(f"   Ob.instantdeath = {instantdeathsetting}\n")
+    if self.multiworld.InstantDeathMode[self.player] == False:
+        instantdeathsetting = "FALSE"
+    else:
+        instantdeathsetting = "TRUE"
+    randoseed_parts.append(f"           Ob.instantdeath = {instantdeathsetting}\n")
     
     # Section where default settings booleans are written to RandoSeed.lua
     # adding new settings will remove from this list
