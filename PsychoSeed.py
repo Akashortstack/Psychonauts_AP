@@ -105,9 +105,10 @@ def gen_psy_seed(self, output_directory):
         
         if location.item:
             if location.item.player == self.player:
-                # ignore the victory location for now
-                if location.item.name != "Victory":
-                    # need this to make itemcode = item id - 42690000
+                # victory location can have arbitrary number
+                if location.item.name == "Victory":
+                    itemcode = 999
+                else:
                     itemcode = item_dictionary_table[location.item.name]
             else:
                 # item from another game
@@ -128,15 +129,6 @@ def gen_psy_seed(self, output_directory):
 
         index = index + 1
 
-    # old generator method
-    # for i, value in enumerate(seed, start=1):
-    #    randoseed +=  str(value))
-    #    if i % 10 == 0:
-    #        randoseed +=  ",\n")
-    #    else:
-    #        randoseed +=  ", ")
-
-    # last part of coding structure
     formattedtext3 = ''' }
         self.seed = SEED_GOES_HERE
         end
