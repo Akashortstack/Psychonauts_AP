@@ -208,10 +208,10 @@ class PsyRules:
         return state.has_any([ItemName.Confusion1, ItemName.Confusion2], self.player)
 
     def has_upperasylumaccess(self, state: CollectionState) -> bool:
-        return state.has_all([ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket], self.player)
+        return state.has_all([ItemName.LobotoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket], self.player)
 
     def has_finalbossaccess(self, state: CollectionState) -> bool:
-        return state.has_all([ItemName.SashaButton, ItemName.LobatoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake], self.player)
+        return state.has_all([ItemName.SashaButton, ItemName.LobotoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake], self.player)
         
     def set_psy_rules(self) -> None:
         multiworld = self.world.multiworld

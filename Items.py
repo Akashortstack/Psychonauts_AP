@@ -7,9 +7,9 @@ RequiredProps_Table = {
     ItemName.LungfishCall: 1,
     ItemName.GloriasTrophy: 2,
     ItemName.StraightJacket: 3,
-    ItemName.LobatoPainting: 4,
+    ItemName.LobotoPainting: 4,
     ItemName.Cake: 5,
-    ItemName.Button: 254, 
+    ItemName.SashaButton: 254, 
     ItemName.CobwebDuster: 256,
 }
 
