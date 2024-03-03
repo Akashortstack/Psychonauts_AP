@@ -1,5 +1,6 @@
 import logging
 from typing import List
+import settings
 
 from BaseClasses import Tutorial, ItemClassification
 from Fill import fill_restrictive
@@ -16,12 +17,22 @@ from .Subclasses import PSYItem
 from .PsychoSeed import gen_psy_seed
 
 # If we need a custom client, call for it here
-# def launch_client():
-    # from .Client import launch
-    # launch_subprocess(launch, name="PSYClient")
+def launch_client():
+    from .Client import launch
+    launch_subprocess(launch, name="PSYClient")
 
-# components.append(Component("PSY Client", "PSYClient", func=launch_client, component_type=Type.CLIENT))
+components.append(Component("Psychonauts Client", "PSYClient", func=launch_client, component_type=Type.CLIENT))
 
+# borrowed from Wargroove
+class PsychonautsSettings(settings.Group):
+    class RootDirectory(settings.UserFolderPath):
+        """
+        Locate the Psychonauts root directory on your system.
+        This is used by the Psychonauts client, so it knows where to send communication files to
+        """
+        description = "Psychonauts root directory"
+
+    root_directory: RootDirectory = RootDirectory("C:\Program Files (x86)\Steam\steamapps\common\Psychonauts")
 
 class PsychonautsWeb(WebWorld):
     tutorials = [Tutorial(
@@ -45,6 +56,7 @@ class PSYWorld(World):
     game = "Psychonauts"
     web = PsychonautsWeb()
 
+    settings: typing.ClassVar[PsychonautsSettings]
     required_client_version = (0, 4, 4)
     options_dataclass = PsychonautsOptions
     options: PsychonautsOptions
@@ -92,7 +104,6 @@ class PSYWorld(World):
         """
         Fills ItemPool 
         """
-        # trinkets = [self.create_item("Trinket " + str(i+1).zfill(2)) for i in range(0,20)]
         itempool = [self.create_item(item) for item in self.item_name_to_id.keys()]
 
         self.multiworld.itempool += itempool
