@@ -50,17 +50,10 @@ class PsychonautsContext(CommonContext):
         self.syncing = False
         self.awaiting_bridge = False
         options = Utils.get_settings()
-        root_directory = os.path.join(options["psychonauts_options"]["root_directory"])
+        root_directory = options["psychonauts_options"]["root_directory"]
+        
         # self.game_communication_path: files go in this path to pass data between us and the actual game
         self.game_communication_path = find_moddata_folder(root_directory)
-        if not os.path.isfile(os.path.join(root_directory, "psychonauts.exe")):
-            print_error_and_close("PsychonautsClient couldn't find psychonauts.exe. "
-                                  "Unable to infer required game_communication_path")
-        
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root+"/"+file)
 
 
     async def server_auth(self, password_requested: bool = False):
@@ -71,10 +64,6 @@ class PsychonautsContext(CommonContext):
 
     async def connection_closed(self):
         await super(PsychonautsContext, self).connection_closed()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root + "/" + file)
 
     @property
     def endpoints(self):
@@ -85,15 +74,15 @@ class PsychonautsContext(CommonContext):
 
     async def shutdown(self):
         await super(PsychonautsContext, self).shutdown()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root+"/"+file)
 
     def on_package(self, cmd: str, args: dict):
         if cmd in {"Connected"}:
             if not os.path.exists(self.game_communication_path):
                 os.makedirs(self.game_communication_path)
+            # empty ItemsReceived.txt to avoid appending duplicate items lists
+            with open(os.path.join(self.game_communication_path, "ItemsReceived.txt"), 'w') as f:
+                f.write(f"")
+            # probably removing this?
             for ss in self.checked_locations:
                 filename = f"send{ss}"
                 with open(os.path.join(self.game_communication_path, filename), 'w') as f:
@@ -102,14 +91,15 @@ class PsychonautsContext(CommonContext):
             start_index = args["index"]
             if start_index != len(self.items_received):
                 for item in args['items']:
-                    # goal is to update ItemsReceived.txt with new value list
-                    for filename in os.listdir(self.game_communication_path):
-                        if filename.startswith("ItemsReceived"):
-                            with open(os.path.join(self.game_communication_path, filename), 'w') as f:
-                                f.write(item)
+                    # subtract base_id to get real value for game
+                    converted_id = NetworkItem(*item).item - 42690000
+                    with open(os.path.join(self.game_communication_path, "ItemsReceived.txt"), 'a') as f:
+                        f.write(f"{converted_id}\n")
 
 
         if cmd in {"RoomUpdate"}:
+
+            # probably removing this?
             if "checked_locations" in args:
                 for ss in self.checked_locations:
                     filename = f"send{ss}"
