@@ -121,7 +121,7 @@ class PsychonautsContext(CommonContext):
 
 
 async def game_watcher(ctx: PsychonautsContext):
-    # from worlds.Psychonauts.Locations import lookup_id_to_name
+    from worlds.psychonauts.Locations import all_locations
     while not ctx.exit_event.is_set():
         if ctx.syncing == True:
             sync_msg = [{'cmd': 'Sync'}]
@@ -130,14 +130,22 @@ async def game_watcher(ctx: PsychonautsContext):
             await ctx.send_msgs(sync_msg)
             ctx.syncing = False
         sending = []
+        # Initialize an empty table
+        collected_table = []
         victory = False
-        for root, dirs, files in os.walk(ctx.game_communication_path):
-            for file in files:
-                if file.find("send") > -1:
-                    st = file.split("send", -1)[1]
-                    sending = sending+[(int(st))]
-                if file.find("victory") > -1:
-                    victory = True
+        # Open the file in read mode
+        with open(os.path.join(ctx.game_communication_path, "ItemsCollected.txt"), 'r') as f:
+            collected_items = f.readlines()            
+            # Iterate over each line in the file
+            for line in collected_items:
+                # Convert the line to a float and add it to the table
+                value = float(line.strip())
+                # Keep track of already collected values
+                if value not in collected_table:
+                    # add the base_id 42690000
+                    sending = sending+[(int(value + 42690000))]
+                    collected_table.append(value)
+                    
         ctx.locations_checked = sending
         message = [{"cmd": 'LocationChecks', "locations": sending}]
         await ctx.send_msgs(message)

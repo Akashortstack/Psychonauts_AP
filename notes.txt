@@ -1,0 +1,13 @@
+
+Local Brain Jars not showing in AP Client as collected
+
+Prop Items if Local are being sent twice
+
+Max Confusion Ammo displaying wrong name
+Max Lives up wrong, possibly swapped
+
+
+for location in self.multiworld.get_filled_locations(self.player):
+is placing locations in table based on order from Archipelago, not order in Location IDs
+
+Locations Names when checked are correct, items placed in local game are wrong

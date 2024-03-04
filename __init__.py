@@ -13,10 +13,8 @@ from .Options import PsychonautsOptions
 from .Regions import create_psyregions, connect_regions
 from .Rules import *
 from .Subclasses import PSYItem
-# import this when its finished
 from .PsychoSeed import gen_psy_seed
 
-# If we need a custom client, call for it here
 def launch_client():
     from .Client import launch
     launch_subprocess(launch, name="PSYClient")
@@ -126,10 +124,11 @@ class PSYWorld(World):
         self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_event_item("Victory"))
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)   
 
-    # PsychoSeed.py needs to be functional to output a seed/patch file
-    # Example found in /docs
+    
     def generate_output(self, output_directory: str):
         """
         Generates the seed file for Randomizer Scripts folder 
         """
+        # Creates RandoSeed.lua file for Randomizer Mod
+        # Example found in /docs
         gen_psy_seed(self, output_directory)
