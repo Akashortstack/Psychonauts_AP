@@ -48,7 +48,7 @@ class PsyRules:
 
             RegionName.ASCOLev: self.has_levitation,
 
-            RegionName.ASUP: self.has_upperasylumaccess,
+            RegionName.ASUP: lambda state: self.has_upperasylumaccess(state),
 
             RegionName.ASUPTele: self.has_telekinesis,
 
@@ -221,9 +221,3 @@ class PsyRules:
                 for entrance in region.entrances:
                     entrance.access_rule = self.region_rules[region.name]
             
-
-        
-
-    
-                
-        

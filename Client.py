@@ -3,11 +3,14 @@ import os
 import sys
 import asyncio
 import shutil
+import logging
+
 
 import ModuleUpdate
 ModuleUpdate.update()
-
 import Utils
+
+logger = logging.getLogger("Client")
 
 if __name__ == "__main__":
     Utils.init_logging("PsychonautsClient", exception_logger="Client")
@@ -82,7 +85,7 @@ class PsychonautsContext(CommonContext):
             # empty ItemsReceived.txt to avoid appending duplicate items lists
             with open(os.path.join(self.game_communication_path, "ItemsReceived.txt"), 'w') as f:
                 f.write(f"")
-            # probably removing this?
+                f.close()
             for ss in self.checked_locations:
                 filename = f"send{ss}"
                 with open(os.path.join(self.game_communication_path, filename), 'w') as f:
@@ -95,11 +98,11 @@ class PsychonautsContext(CommonContext):
                     converted_id = NetworkItem(*item).item - 42690000
                     with open(os.path.join(self.game_communication_path, "ItemsReceived.txt"), 'a') as f:
                         f.write(f"{converted_id}\n")
+                        f.close()
 
 
         if cmd in {"RoomUpdate"}:
 
-            # probably removing this?
             if "checked_locations" in args:
                 for ss in self.checked_locations:
                     filename = f"send{ss}"
@@ -133,6 +136,7 @@ async def game_watcher(ctx: PsychonautsContext):
         # Initialize an empty table
         collected_table = []
         victory = False
+        
         # Open the file in read mode
         with open(os.path.join(ctx.game_communication_path, "ItemsCollected.txt"), 'r') as f:
             collected_items = f.readlines()            
@@ -141,15 +145,18 @@ async def game_watcher(ctx: PsychonautsContext):
                 # Convert the line to a float and add it to the table
                 value = float(line.strip())
                 # Keep track of already collected values
+                if value == 365:
+                    victory = True
                 if value not in collected_table:
                     # add the base_id 42690000
                     sending = sending+[(int(value + 42690000))]
                     collected_table.append(value)
+            f.close()
                     
         ctx.locations_checked = sending
         message = [{"cmd": 'LocationChecks', "locations": sending}]
         await ctx.send_msgs(message)
-        if not ctx.finished_game and victory:
+        if not ctx.finished_game and victory == True:
             await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
             ctx.finished_game = True
         await asyncio.sleep(0.1)

@@ -99,9 +99,13 @@ def gen_psy_seed(self, output_directory):
     # items from other games need to be converted to a new value
     # Starting at 368, +1 each time
     non_local_id = 368
-    index = 1
+
+    # Initialize a list to store tuples of location ID and item code
+    location_tuples = []
 
     for location in self.multiworld.get_filled_locations(self.player):
+        
+        location_id = all_locations[location.name]
         
         if location.item:
             if location.item.player == self.player:
@@ -113,21 +117,28 @@ def gen_psy_seed(self, output_directory):
             else:
                 # item from another game
                 itemcode = non_local_id
-                non_local_id = non_local_id + 1 
+                non_local_id += 1 
         else:
             # item from another game
             itemcode = non_local_id
-            non_local_id = non_local_id + 1 
+            non_local_id += 1 
+        
+        # Append the location ID and item code tuple to the list
+        
+        location_tuples.append((location_id, itemcode))
 
-        # append the item code   
+    # Sort the list of tuples based on location ID
+    location_tuples.sort(key=lambda x: x[0])
+
+    # Iterate through the sorted list of tuples and append item codes to randoseed_parts
+    for index, (location_id, itemcode) in enumerate(location_tuples):
         randoseed_parts.append(str(itemcode))
-        # format so that each line has 10 values, for readability
-        if index % 10 == 0:
+        # Format so that each line has 10 values, for readability
+        if index > 0 and (index + 1) % 10 == 0:
             randoseed_parts.append(",\n")
         else:
             randoseed_parts.append(", ")
 
-        index = index + 1
 
     formattedtext3 = ''' }
         self.seed = SEED_GOES_HERE
