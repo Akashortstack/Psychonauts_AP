@@ -1,13 +1,10 @@
 
-Local Brain Jars not showing in AP Client as collected
+AP related files need to be cleaned up on connect and disconnect
+from ModData
 
-Prop Items if Local are being sent twice
+Disguise piece logic failing
 
-Max Confusion Ammo displaying wrong name
-Max Lives up wrong, possibly swapped
+Victory event doesn't show in tracker, not sure how to fix
 
 
-for location in self.multiworld.get_filled_locations(self.player):
-is placing locations in table based on order from Archipelago, not order in Location IDs
 
-Locations Names when checked are correct, items placed in local game are wrong
