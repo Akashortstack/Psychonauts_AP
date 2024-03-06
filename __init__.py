@@ -73,7 +73,9 @@ class PSYWorld(World):
         """ 
         for item in local_set:
             self.multiworld.local_items[self.player].value.add(item)
-       
+
+        # if self.multiworld.StartingLevitation[self.player]:
+        #     self.multiworld.push_precollected(self.create_item(ItemName.Levitation1))       
        
     def create_item(self, name: str) -> Item:
         """

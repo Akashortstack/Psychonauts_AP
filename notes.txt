@@ -1,10 +1,7 @@
 
-AP related files need to be cleaned up on connect and disconnect
-from ModData
-
-Disguise piece logic failing
-
 Victory event doesn't show in tracker, not sure how to fix
+
+Add more Options from base randomizer
 
 
 

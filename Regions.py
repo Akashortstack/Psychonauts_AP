@@ -913,7 +913,9 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.ASGR: {RegionName.ASGRLev, RegionName.ASCO, RegionName.ASCOLev, },
 
-        RegionName.ASCO: {RegionName.ASUP, RegionName.ASUPTele, },
+        RegionName.ASCO: {RegionName.ASUP, },
+
+        RegionName.ASUP: {RegionName.ASUPTele, },
 
         RegionName.ASUPTele: {RegionName.ASLB, },
 
