@@ -2,7 +2,7 @@
 
 This project is a work in progress Archipelago World for the Psychonauts Randomizer.
 
-Please read setup_en.md for AP world setup and installation instructions.
+Please read docs/setup_en.md for AP world setup and installation instructions.
 
 Randomizer Mod Here:
 https://github.com/Akashortstack/PsychoRando/releases/tag/v1.1.0-APTestBranch
