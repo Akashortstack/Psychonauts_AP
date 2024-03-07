@@ -234,28 +234,40 @@ def create_psyregions(world: MultiWorld, player: int):
     regRANK5to15.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK5to15) for loc_name in locRANK5to15_names]
     world.regions.append(regRANK5to15)
 
-    regRANK20to101 = Region(RegionName.RANK20to101, player, world)
-    locRANK20to101_names = [
+    regRANK20to50 = Region(RegionName.RANK20to50, player, world)
+    locRANK20to50_names = [
         LocationName.PSIRank20, 
         LocationName.PSIRank25, 
         LocationName.PSIRank30, 
         LocationName.PSIRank35, 
         LocationName.PSIRank40, 
         LocationName.PSIRank45, 
-        LocationName.PSIRank50, 
+        LocationName.PSIRank50,         
+    ]
+    regRANK20to50.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK20to50) for loc_name in locRANK20to50_names]
+    world.regions.append(regRANK20to50)
+
+    regRANK55to75 = Region(RegionName.RANK55to75, player, world)
+    locRANK55to75_names = [
         LocationName.PSIRank55, 
         LocationName.PSIRank60, 
         LocationName.PSIRank65, 
         LocationName.PSIRank70, 
-        LocationName.PSIRank75, 
+        LocationName.PSIRank75,        
+    ]
+    regRANK55to75.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK55to75) for loc_name in locRANK55to75_names]
+    world.regions.append(regRANK55to75)
+
+    regRANK80to101 = Region(RegionName.RANK80to101, player, world)
+    locRANK80to101_names = [ 
         LocationName.PSIRank80, 
         LocationName.PSIRank85, 
         LocationName.PSIRank90, 
         LocationName.PSIRank95, 
         LocationName.PSIRank101,
     ]
-    regRANK20to101.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK20to101) for loc_name in locRANK20to101_names]
-    world.regions.append(regRANK20to101)
+    regRANK80to101.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK80to101) for loc_name in locRANK80to101_names]
+    world.regions.append(regRANK80to101)
 
     regASGR = Region(RegionName.ASGR, player, world)
     locASGR_names = [
@@ -312,6 +324,12 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.CrumblingOuterWallPlanks, 
         LocationName.CrumblingOuterWallPillar, 
         LocationName.CrumblingOuterWallBelowPlatform, 
+    ]
+    regASUP.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASUP) for loc_name in locASUP_names]
+    world.regions.append(regASUP)
+
+    regASUPLev = Region(RegionName.ASUPLev, player, world)
+    locASUPLev_names = [
         LocationName.CrumblingOuterWallPlatform, 
         LocationName.RoomAboveTiltedStairs, 
         LocationName.AcidRoomFloor, 
@@ -324,11 +342,10 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.GrateClimbMid, 
         LocationName.SinkPlatformLeft, 
         LocationName.SinkPlatformRight, 
-        LocationName.PipesBelowChairDoor, 
-        
+        LocationName.PipesBelowChairDoor,
     ]
-    regASUP.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASUP) for loc_name in locASUP_names]
-    world.regions.append(regASUP)
+    regASUPLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASUPLev) for loc_name in locASUPLev_names]
+    world.regions.append(regASUPLev)
 
     regASUPTele = Region(RegionName.ASUPTele, player, world)
     locASUPTele_names = [
@@ -898,7 +915,11 @@ def connect_regions(multiworld: MultiWorld, player: int):
             RegionName.NIMP, RegionName.LOMA, RegionName.MMI1Fridge, RegionName.THMS, RegionName.WWMA,
             RegionName.BVRB, RegionName.MCTC, },
 
-        RegionName.RANK5to15: {RegionName.RANK20to101, },
+        RegionName.RANK5to15: {RegionName.RANK20to50, },
+
+        RegionName.RANK20to50: {RegionName.RANK55to75, },
+
+        RegionName.RANK55to75: {RegionName.RANK80to101, },
 
         RegionName.CAGP: {RegionName.CAGPSquirrel, RegionName.CAGPGeyser, RegionName.CAMA, RegionName.CAKC, RegionName.CARE, 
             RegionName.CABH, RegionName.CALI, },
@@ -913,7 +934,11 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.ASGR: {RegionName.ASGRLev, RegionName.ASCO, RegionName.ASCOLev, },
 
-        RegionName.ASCO: {RegionName.ASUP, RegionName.ASUPTele, },
+        RegionName.ASCO: {RegionName.ASUP, },
+
+        RegionName.ASUP: {RegionName.ASUPLev, },
+
+        RegionName.ASUPLev: {RegionName.ASUPTele, },
 
         RegionName.ASUPTele: {RegionName.ASLB, },
 
@@ -935,7 +960,9 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.MMI2: {RegionName.MMI1Powerlines, RegionName.MMDM, },
 
-        RegionName.THMS: {RegionName.THMSLev, RegionName.THMSDuster, RegionName.THMSStorage, },
+        RegionName.THMS: {RegionName.THMSLev, RegionName.THMSDuster, },
+
+        RegionName.THMSDuster: {RegionName.THMSStorage, },
 
         RegionName.THMSStorage: {RegionName.THCW, },
 

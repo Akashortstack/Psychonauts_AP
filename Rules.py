@@ -24,7 +24,27 @@ class PsyRules:
         self.region_rules = {
             RegionName.CAGP: self.has_button,
 
-            RegionName.RANK20to101: self.has_button,
+            RegionName.RANK20to50: self.has_button,
+
+            RegionName.RANK55to75: lambda state: sum([
+                self.has_levitation(state),
+                self.has_shield(state),
+                self.has_marksmanship(state),
+                self.has_cobwebduster(state),
+                self.has_clairvoyance(state) and self.has_propsign(state),
+                self.has_telekinesis(state) and self.has_levitation(state) and self.has_lungfishcall(state) and self.has_upperasylumaccess(state),
+                self.has_cobwebduster(state) and self.has_candle(state) and self.has_pyrokinesis(state) and self.has_invisibility(state) and self.has_megaphone(state),
+            ]) >= 3, # Meeting three of these conditions adds ranks to logic
+
+            RegionName.RANK80to101: lambda state: sum([
+                self.has_levitation(state),
+                self.has_shield(state),
+                self.has_marksmanship(state),
+                self.has_cobwebduster(state),
+                self.has_clairvoyance(state) and self.has_propsign(state),
+                self.has_telekinesis(state) and self.has_levitation(state) and self.has_lungfishcall(state) and self.has_upperasylumaccess(state),
+                self.has_cobwebduster(state) and self.has_candle(state) and self.has_pyrokinesis(state) and self.has_invisibility(state) and self.has_megaphone(state),
+            ]) >= 5, # Meeting five of these conditions adds ranks to logic
 
             RegionName.CAGPSquirrel: self.has_invisibility,
 
@@ -48,11 +68,13 @@ class PsyRules:
 
             RegionName.ASCOLev: self.has_levitation,
 
-            RegionName.ASUP: self.has_upperasylumaccess,
+            RegionName.ASUP: lambda state: self.has_upperasylumaccess(state),
+
+            RegionName.ASUPLev: self.has_levitation,
 
             RegionName.ASUPTele: self.has_telekinesis,
 
-            RegionName.BBA2: self.has_cobwebduster,
+            RegionName.BBA2Duster: self.has_cobwebduster,
 
             RegionName.SACU: self.has_marksmanship,
 
@@ -88,9 +110,9 @@ class PsyRules:
 
             RegionName.THMSStorage: self.has_invisibility,
 
-            RegionName.THCW: lambda state: self.has_pyrokinesis(state) and self.has_candle1(state) and self.has_levitation(state),
+            RegionName.THCW: lambda state: self.has_pyrokinesis(state) and self.has_candle(state) and self.has_levitation(state) and self.has_megaphone(state),
 
-            RegionName.THFB: lambda state: self.has_candle1(state) and self.has_candle2(state),
+            RegionName.THFB: lambda state: self.has_bothcandles(state),
 
             RegionName.WWMALev: self.has_levitation,
 
@@ -162,11 +184,11 @@ class PsyRules:
     def has_proprollingpin(self, state: CollectionState) -> bool:
         return state.has(ItemName.PropRollingPin, self.player)
 
-    def has_candle1(self, state: CollectionState) -> bool:
-        return state.has(ItemName.Candle1, self.player)
-
-    def has_candle2(self, state: CollectionState) -> bool:
-        return state.has(ItemName.Candle2, self.player)
+    def has_candle(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Candle1, ItemName.Candle2], self.player)
+    
+    def has_bothcandles(self, state: CollectionState) -> bool:
+        return state.has_all([ItemName.Candle1, ItemName.Candle2], self.player)
     
     def has_megaphone(self, state: CollectionState) -> bool:
         return state.has(ItemName.Megaphone, self.player)
@@ -181,10 +203,13 @@ class PsyRules:
         return state.has(ItemName.Musket, self.player)
     
     def has_cobwebduster(self, state: CollectionState) -> bool:
-        return state.has(ItemName.CobwebDuster, self.player)
+        return state.has(ItemName.CobwebDuster, self.player)  
     
     def has_levitation(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Levitation1, ItemName.Levitation2, ItemName.Levitation3], self.player)
+        if self.world.multiworld.StartingLevitation[self.player] == True:
+            return True
+        else:
+            return state.has_any([ItemName.Levitation1, ItemName.Levitation2, ItemName.Levitation3], self.player)
 
     def has_telekinesis(self, state: CollectionState) -> bool:
         return state.has_any([ItemName.Telekinesis1, ItemName.Telekinesis2], self.player)
