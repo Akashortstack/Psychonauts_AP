@@ -56,7 +56,8 @@ class PsychonautsContext(CommonContext):
         root_directory = options["psychonauts_options"]["root_directory"]
         
         # self.game_communication_path: files go in this path to pass data between us and the actual game
-        self.game_communication_path = find_moddata_folder(root_directory)
+        moddata_folder = find_moddata_folder(root_directory)
+        self.game_communication_path = moddata_folder
 
 
     async def server_auth(self, password_requested: bool = False):
@@ -90,6 +91,14 @@ class PsychonautsContext(CommonContext):
         if cmd in {"Connected"}:
             if not os.path.exists(self.game_communication_path):
                 os.makedirs(self.game_communication_path)
+            # create ItemsCollected.txt if it doesn't exist yet
+                
+            # Path to the ItemsCollected.txt file inside the ModData folder
+            items_collected_path = os.path.join(self.game_communication_path, "ItemsCollected.txt")
+            if not os.path.exists(items_collected_path):
+                with open(items_collected_path, 'w') as f:
+                    f.write(f"")
+                    f.close()
             # empty ItemsReceived.txt to avoid appending duplicate items lists
             with open(os.path.join(self.game_communication_path, "ItemsReceived.txt"), 'w') as f:
                 f.write(f"")

@@ -30,7 +30,7 @@ class PsychonautsSettings(settings.Group):
         """
         description = "Psychonauts root directory"
 
-    root_directory: RootDirectory = RootDirectory("C:\Program Files (x86)\Steam\steamapps\common\Psychonauts")
+    root_directory: RootDirectory = RootDirectory("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\Psychonauts")
 
 class PsychonautsWeb(WebWorld):
     tutorials = [Tutorial(
@@ -75,7 +75,7 @@ class PSYWorld(World):
             self.multiworld.local_items[self.player].value.add(item)
 
         # if self.multiworld.StartingLevitation[self.player]:
-        #     self.multiworld.push_precollected(self.create_item(ItemName.Levitation1))       
+        #     self.multiworld.push_precollected(self.create_item(ItemName.Levitation1))
        
     def create_item(self, name: str) -> Item:
         """

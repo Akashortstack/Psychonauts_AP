@@ -312,6 +312,12 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.CrumblingOuterWallPlanks, 
         LocationName.CrumblingOuterWallPillar, 
         LocationName.CrumblingOuterWallBelowPlatform, 
+    ]
+    regASUP.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASUP) for loc_name in locASUP_names]
+    world.regions.append(regASUP)
+
+    regASUPLev = Region(RegionName.ASUPLev, player, world)
+    locASUPLev_names = [
         LocationName.CrumblingOuterWallPlatform, 
         LocationName.RoomAboveTiltedStairs, 
         LocationName.AcidRoomFloor, 
@@ -324,11 +330,10 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.GrateClimbMid, 
         LocationName.SinkPlatformLeft, 
         LocationName.SinkPlatformRight, 
-        LocationName.PipesBelowChairDoor, 
-        
+        LocationName.PipesBelowChairDoor,
     ]
-    regASUP.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASUP) for loc_name in locASUP_names]
-    world.regions.append(regASUP)
+    regASUPLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASUPLev) for loc_name in locASUPLev_names]
+    world.regions.append(regASUPLev)
 
     regASUPTele = Region(RegionName.ASUPTele, player, world)
     locASUPTele_names = [
@@ -915,7 +920,9 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.ASCO: {RegionName.ASUP, },
 
-        RegionName.ASUP: {RegionName.ASUPTele, },
+        RegionName.ASUP: {RegionName.ASUPLev, },
+
+        RegionName.ASUPLev: {RegionName.ASUPTele, },
 
         RegionName.ASUPTele: {RegionName.ASLB, },
 

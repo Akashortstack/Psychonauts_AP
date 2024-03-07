@@ -3,5 +3,6 @@ Victory event doesn't show in tracker, not sure how to fix
 
 Add more Options from base randomizer
 
+Getting Cake in ASLB and using on pokeylope is consistent crash
 
-
+Need to move existing items to player instead of spawning new ones, if they exist. prevents loading save errors

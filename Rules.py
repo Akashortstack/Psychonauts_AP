@@ -50,6 +50,8 @@ class PsyRules:
 
             RegionName.ASUP: lambda state: self.has_upperasylumaccess(state),
 
+            RegionName.ASUPLev: self.has_levitation,
+
             RegionName.ASUPTele: self.has_telekinesis,
 
             RegionName.BBA2Duster: self.has_cobwebduster,
@@ -223,3 +225,4 @@ class PsyRules:
             if region.name in self.region_rules:
                 for entrance in region.entrances:
                     entrance.access_rule = self.region_rules[region.name]
+            
