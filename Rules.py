@@ -246,9 +246,3 @@ class PsyRules:
                 for entrance in region.entrances:
                     entrance.access_rule = self.region_rules[region.name]
             
-
-        
-
-    
-                
-        
