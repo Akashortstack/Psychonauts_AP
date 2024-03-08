@@ -946,7 +946,9 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.SACU: {RegionName.SACULev, },
 
-        RegionName.NIMP: {RegionName.NIMPMark, RegionName.NIBA, },
+        RegionName.NIMP: {RegionName.NIMPMark, },
+
+        RegionName.NIMPMark: {RegionName.NIBA, },
 
         RegionName.LOMA: {RegionName.LOMAShield, },
 
@@ -958,7 +960,9 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.MMI1Hedgetrimmers: {RegionName.MMI1RollingPin, },
 
-        RegionName.MMI2: {RegionName.MMI1Powerlines, RegionName.MMDM, },
+        RegionName.MMI2: {RegionName.MMI1Powerlines, },
+
+        RegionName.MMI1Powerlines: {RegionName.MMDM, },
 
         RegionName.THMS: {RegionName.THMSLev, RegionName.THMSDuster, },
 
@@ -1000,7 +1004,3 @@ def connect_regions(multiworld: MultiWorld, player: int):
     for source, target in PSYRegionConnections.items():
         source_region = multiworld.get_region(source, player)
         source_region.add_exits(target)
-
-
-
-

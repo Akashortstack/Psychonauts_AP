@@ -98,7 +98,7 @@ class PsyRules:
 
             RegionName.MMI1Duster: self.has_cobwebduster,
 
-            RegionName.MMI2: lambda state: self.has_propflowers(state) and self.has_propplunger(state), 
+            RegionName.MMI2: lambda state: self.has_propflowers(state) and self.has_propplunger(state) and self.has_pyrokinesis, 
 
             RegionName.MMI1Powerlines: self.has_cobwebduster,
 
