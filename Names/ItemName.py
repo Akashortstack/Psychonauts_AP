@@ -8,12 +8,12 @@ Cake = "Cake"
 LilisBracelet = "Lili's Bracelet"
 
 #Props from MM 6 total
-PropSign = "Prop Sign" 
-PropFlowers = "Prop Flowers" 
-PropPlunger = "Prop Plunger"
-PropHedgeTrimmers = "Prop Hedge Trimmers"
-PropRollingPin = "Prop Rolling Pin"
-PropWaterCan = "Prop Watering Can"
+PropSign = "Stop Sign" 
+PropFlowers = "Flowers" 
+PropPlunger = "Plunger"
+PropHedgeTrimmers = "Hedge Trimmers"
+PropRollingPin = "Rolling Pin"
+PropWaterCan = "Watering Can"
 
 #Current Props from TH 3 total
 Candle1 = "Candle 1"
@@ -95,11 +95,11 @@ BrainJarVernon = "Vernon's Brain"
 BrainJarMilka = "Milka's Brain"
 BrainJarCrystal = "Crystal's Brain"
 BrainJarClem = "Clem's Brain"
-BrainJarNils = "Nils's Brain"
+BrainJarNils = "Nils' Brain"
 BrainJarMaloof = "Maloof's Brain"
 BrainJarMikhail = "Mikhail's Brain"
 BrainJarPhoebe = "Phoebe's Brain"
-BrainJarChops = "Chops's Brain"
+BrainJarChops = "Chops' Brain"
 
 #16 Scavenger Hunt Items, Unique Names, in Order
 GoldDoubloon = "Gold Doubloon"
@@ -113,7 +113,7 @@ MinerSkull = "Miner's Skull"
 PirateScope = "Pirate Scope"
 GoldenAcorn = "Golden Acorn"
 GlassEye = "Glass Eye"
-Egg = "Egg"
+Egg = "Condor Egg"
 FertilityIdol = "Fertility Idol"
 DinosaurBone = "Dinosaur Bone"
 Fossil = "Fossil"
@@ -412,3 +412,5 @@ CobwebDuster = "Cobweb Duster"
 
 #Needed for Victory!
 Victory = "Victory"
+
+Filler = "Event Filler"

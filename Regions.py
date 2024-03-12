@@ -143,9 +143,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.TightropeStartCard, 
         LocationName.TightropeEndCard, 
         LocationName.RocksNearTrailerCard, 
-        LocationName.FireplaceTreeLowerCard, 
         LocationName.FireplaceTreeRockCard, 
-        LocationName.SwampSkinnyPolesCard, 
         LocationName.BigLogPlatformCard, 
         LocationName.AboveWaterfallLeftCard, 
         LocationName.AboveWaterfallRightCard, 
@@ -167,7 +165,10 @@ def create_psyregions(world: MultiWorld, player: int):
 
     regCARELev = Region(RegionName.CARELev, player, world)
     locCARELev_names = [
-        LocationName.FireplaceTreeTopDinosaurBone, 
+        LocationName.FireplaceTreeLowerCard,
+        LocationName.FireplaceTreeTopDinosaurBone,
+        LocationName.SwampSkinnyPolesCard, 
+ 
     ]
     regCARELev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regCARELev) for loc_name in locCARELev_names]
     world.regions.append(regCARELev)
@@ -225,43 +226,66 @@ def create_psyregions(world: MultiWorld, player: int):
     regCAJA.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regCAJA) for loc_name in locCAJA_names]
     world.regions.append(regCAJA)
 
-    regRANK5to15 = Region(RegionName.RANK5to15, player, world)
-    locRANK5to15_names = [
+    regCAJABrains = Region(RegionName.CAJABrains, player, world)
+    regCAJABrains.locations += [PSYLocation(player, LocationName.RedeemedBrainsEvent, None, regCAJABrains)]
+    world.regions.append(regCAJABrains)
+
+    regRANK5to20 = Region(RegionName.RANK5to20, player, world)
+    locRANK5to20_names = [
         LocationName.PSIRank05, 
         LocationName.PSIRank10, 
-        LocationName.PSIRank15,        
-    ]
-    regRANK5to15.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK5to15) for loc_name in locRANK5to15_names]
-    world.regions.append(regRANK5to15)
-
-    regRANK20to101 = Region(RegionName.RANK20to101, player, world)
-    locRANK20to101_names = [
+        LocationName.PSIRank15,
         LocationName.PSIRank20, 
+        
+    ]
+    regRANK5to20.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK5to20) for loc_name in locRANK5to20_names]
+    world.regions.append(regRANK5to20)
+
+    regRANK25to40 = Region(RegionName.RANK25to40, player, world)
+    locRANK25to40_names = [
         LocationName.PSIRank25, 
         LocationName.PSIRank30, 
         LocationName.PSIRank35, 
         LocationName.PSIRank40, 
+        
+    ]
+    regRANK25to40.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK25to40) for loc_name in locRANK25to40_names]
+    world.regions.append(regRANK25to40)
+
+    regRANK45to60 = Region(RegionName.RANK45to60, player, world)
+    locRANK45to60_names = [
         LocationName.PSIRank45, 
         LocationName.PSIRank50, 
         LocationName.PSIRank55, 
-        LocationName.PSIRank60, 
+        LocationName.PSIRank60,        
+    ]
+    regRANK45to60.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK45to60) for loc_name in locRANK45to60_names]
+    world.regions.append(regRANK45to60)
+
+    regRANK65to80 = Region(RegionName.RANK65to80, player, world)
+    locRANK65to80_names = [
         LocationName.PSIRank65, 
         LocationName.PSIRank70, 
-        LocationName.PSIRank75, 
-        LocationName.PSIRank80, 
+        LocationName.PSIRank75,
+        LocationName.PSIRank80,   
+    ]
+    regRANK65to80.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK65to80) for loc_name in locRANK65to80_names]
+    world.regions.append(regRANK65to80)
+
+    regRANK85to101 = Region(RegionName.RANK85to101, player, world)
+    locRANK85to101_names = [ 
         LocationName.PSIRank85, 
         LocationName.PSIRank90, 
         LocationName.PSIRank95, 
         LocationName.PSIRank101,
     ]
-    regRANK20to101.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK20to101) for loc_name in locRANK20to101_names]
-    world.regions.append(regRANK20to101)
+    regRANK85to101.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regRANK85to101) for loc_name in locRANK85to101_names]
+    world.regions.append(regRANK85to101)
 
     regASGR = Region(RegionName.ASGR, player, world)
     locASGR_names = [
         LocationName.RockWallBottom, 
         LocationName.RockWallLadder, 
-        LocationName.OutsideFrontGate, 
         LocationName.FountainTop, 
         LocationName.HedgeAlcove, 
         LocationName.AsylumDoorsRight, 
@@ -274,6 +298,7 @@ def create_psyregions(world: MultiWorld, player: int):
 
     regASGRLev = Region(RegionName.ASGRLev, player, world)
     locASGRLev_names = [
+        LocationName.OutsideFrontGate, 
         LocationName.PillarAboveGate, 
     ]
     regASGRLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASGRLev) for loc_name in locASGRLev_names]
@@ -312,6 +337,12 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.CrumblingOuterWallPlanks, 
         LocationName.CrumblingOuterWallPillar, 
         LocationName.CrumblingOuterWallBelowPlatform, 
+    ]
+    regASUP.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASUP) for loc_name in locASUP_names]
+    world.regions.append(regASUP)
+
+    regASUPLev = Region(RegionName.ASUPLev, player, world)
+    locASUPLev_names = [
         LocationName.CrumblingOuterWallPlatform, 
         LocationName.RoomAboveTiltedStairs, 
         LocationName.AcidRoomFloor, 
@@ -324,11 +355,10 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.GrateClimbMid, 
         LocationName.SinkPlatformLeft, 
         LocationName.SinkPlatformRight, 
-        LocationName.PipesBelowChairDoor, 
-        
+        LocationName.PipesBelowChairDoor,
     ]
-    regASUP.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASUP) for loc_name in locASUP_names]
-    world.regions.append(regASUP)
+    regASUPLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASUPLev) for loc_name in locASUPLev_names]
+    world.regions.append(regASUPLev)
 
     regASUPTele = Region(RegionName.ASUPTele, player, world)
     locASUPTele_names = [
@@ -352,6 +382,10 @@ def create_psyregions(world: MultiWorld, player: int):
     ]
     regASLB.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASLB) for loc_name in locASLB_names]
     world.regions.append(regASLB)
+
+    regASLBBoss = Region(RegionName.ASLBBoss, player, world)
+    regASLBBoss.locations += [PSYLocation(player, LocationName.OleanderBossEvent, None, regASLBBoss)]
+    world.regions.append(regASLBBoss)
 
     regBBA1 = Region(RegionName.BBA1, player, world)
     locBBA1_names = [
@@ -894,11 +928,17 @@ def connect_regions(multiworld: MultiWorld, player: int):
     PSYRegionConnections: typing.Dict[str, typing.Set[str]] = {
         "Menu":                        {RegionName.CASA},
         #Collective Unconscious connections to everything else
-        RegionName.CASA: {RegionName.CAGP, RegionName.CAJA, RegionName.RANK5to15, RegionName.BBA1, RegionName.SACU, RegionName.MIFL, 
+        RegionName.CASA: {RegionName.CAGP, RegionName.CAJA, RegionName.CAJABrains, RegionName.RANK5to20, RegionName.BBA1, RegionName.SACU, RegionName.MIFL, 
             RegionName.NIMP, RegionName.LOMA, RegionName.MMI1Fridge, RegionName.THMS, RegionName.WWMA,
             RegionName.BVRB, RegionName.MCTC, },
 
-        RegionName.RANK5to15: {RegionName.RANK20to101, },
+        RegionName.RANK5to20: {RegionName.RANK25to40, },
+
+        RegionName.RANK25to40: {RegionName.RANK45to60, },
+
+        RegionName.RANK45to60: {RegionName.RANK65to80, },
+
+        RegionName.RANK65to80: {RegionName.RANK85to101, },
 
         RegionName.CAGP: {RegionName.CAGPSquirrel, RegionName.CAGPGeyser, RegionName.CAMA, RegionName.CAKC, RegionName.CARE, 
             RegionName.CABH, RegionName.CALI, },
@@ -913,15 +953,23 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.ASGR: {RegionName.ASGRLev, RegionName.ASCO, RegionName.ASCOLev, },
 
-        RegionName.ASCO: {RegionName.ASUP, RegionName.ASUPTele, },
+        RegionName.ASCO: {RegionName.ASUP, },
+
+        RegionName.ASUP: {RegionName.ASUPLev, },
+
+        RegionName.ASUPLev: {RegionName.ASUPTele, },
 
         RegionName.ASUPTele: {RegionName.ASLB, },
+
+        RegionName.ASLB: {RegionName.ASLBBoss, },
 
         RegionName.BBA1: {RegionName.BBA2, RegionName.BBA2Duster, },
 
         RegionName.SACU: {RegionName.SACULev, },
 
-        RegionName.NIMP: {RegionName.NIMPMark, RegionName.NIBA, },
+        RegionName.NIMP: {RegionName.NIMPMark, },
+
+        RegionName.NIMPMark: {RegionName.NIBA, },
 
         RegionName.LOMA: {RegionName.LOMAShield, },
 
@@ -933,9 +981,13 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.MMI1Hedgetrimmers: {RegionName.MMI1RollingPin, },
 
-        RegionName.MMI2: {RegionName.MMI1Powerlines, RegionName.MMDM, },
+        RegionName.MMI2: {RegionName.MMI1Powerlines, },
 
-        RegionName.THMS: {RegionName.THMSLev, RegionName.THMSDuster, RegionName.THMSStorage, },
+        RegionName.MMI1Powerlines: {RegionName.MMDM, },
+
+        RegionName.THMS: {RegionName.THMSLev, RegionName.THMSDuster, },
+
+        RegionName.THMSDuster: {RegionName.THMSStorage, },
 
         RegionName.THMSStorage: {RegionName.THCW, },
 
