@@ -448,6 +448,7 @@ OtherItems_Table = {
     ItemName.Feather: 255,
     ItemName.LilisBracelet: 6,
     ItemName.PropWaterCan: 12,    
+    ItemName.PropWaterCan: 12,    
 }
 
 item_dictionary_table = {
@@ -485,6 +486,9 @@ progression_set = {
     **THProps_Table,
     **WWProps_Table,
     **PsiPowers_Table,
+    # moved here to help with Rank Checks
+    **Vault_Table,
+    **ChallengeMarker_Table,
     # moved here to help with Rank Checks
     **Vault_Table,
     **ChallengeMarker_Table,

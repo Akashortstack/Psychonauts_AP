@@ -96,6 +96,9 @@ class PsyRules:
             RegionName.ASUP: lambda state: self.has_upperasylumaccess(state),
 
             RegionName.ASUPLev: self.has_levitation,
+            RegionName.ASUP: lambda state: self.has_upperasylumaccess(state),
+
+            RegionName.ASUPLev: self.has_levitation,
 
             RegionName.ASUPTele: self.has_telekinesis,
 
@@ -126,6 +129,7 @@ class PsyRules:
             RegionName.MMI1Duster: self.has_cobwebduster,
 
             RegionName.MMI2: lambda state: self.has_propflowers(state) and self.has_propplunger(state) and self.has_pyrokinesis, 
+            RegionName.MMI2: lambda state: self.has_propflowers(state) and self.has_propplunger(state) and self.has_pyrokinesis, 
 
             RegionName.MMI1Powerlines: self.has_cobwebduster,
 
@@ -138,7 +142,9 @@ class PsyRules:
             RegionName.THMSStorage: self.has_invisibility,
 
             RegionName.THCW: lambda state: self.has_pyrokinesis(state) and self.has_candle(state) and self.has_levitation(state) and self.has_megaphone(state),
+            RegionName.THCW: lambda state: self.has_pyrokinesis(state) and self.has_candle(state) and self.has_levitation(state) and self.has_megaphone(state),
 
+            RegionName.THFB: lambda state: self.has_bothcandles(state),
             RegionName.THFB: lambda state: self.has_bothcandles(state),
 
             RegionName.WWMALev: self.has_levitation,
@@ -212,6 +218,11 @@ class PsyRules:
     
     def has_bothcandles(self, state: CollectionState) -> bool:
         return state.has_all([ItemName.Candle1, ItemName.Candle2], self.player)
+    def has_candle(self, state: CollectionState) -> bool:
+        return state.has_any([ItemName.Candle1, ItemName.Candle2], self.player)
+    
+    def has_bothcandles(self, state: CollectionState) -> bool:
+        return state.has_all([ItemName.Candle1, ItemName.Candle2], self.player)
     
     def has_megaphone(self, state: CollectionState) -> bool:
         return state.has(ItemName.Megaphone, self.player)
@@ -227,8 +238,13 @@ class PsyRules:
     
     def has_cobwebduster(self, state: CollectionState) -> bool:
         return state.has(ItemName.CobwebDuster, self.player)  
+        return state.has(ItemName.CobwebDuster, self.player)  
     
     def has_levitation(self, state: CollectionState) -> bool:
+        if self.world.multiworld.StartingLevitation[self.player] == True:
+            return True
+        else:
+            return state.has_any([ItemName.Levitation1, ItemName.Levitation2, ItemName.Levitation3], self.player)
         if self.world.multiworld.StartingLevitation[self.player] == True:
             return True
         else:
