@@ -7,4 +7,4 @@ Fix AP items list to remove numbers from items
     How do we keep track of which items have and haven't been sent to player if item ids all match when sent?
 
 Add additional locking locations for the Lake and the Campfire Area.
-Requires adding teleporter planes to levels.
+    Requires adding teleporter planes to levels.
