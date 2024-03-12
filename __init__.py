@@ -1,5 +1,6 @@
 import logging
 from typing import List
+import settings
 
 from BaseClasses import Tutorial, ItemClassification
 from Fill import fill_restrictive
@@ -8,20 +9,28 @@ from worlds.AutoWorld import World, WebWorld
 from .Items import *
 from .Locations import *
 from .Names import ItemName, LocationName, RegionName
-from .Options import PsychonautsOptions
+from .Options import Goal, PsychonautsOptions
 from .Regions import create_psyregions, connect_regions
 from .Rules import *
 from .Subclasses import PSYItem
-# import this when its finished
 from .PsychoSeed import gen_psy_seed
 
-# If we need a custom client, call for it here
-# def launch_client():
-    # from .Client import launch
-    # launch_subprocess(launch, name="PSYClient")
+def launch_client():
+    from .Client import launch
+    launch_subprocess(launch, name="PSYClient")
 
-# components.append(Component("PSY Client", "PSYClient", func=launch_client, component_type=Type.CLIENT))
+components.append(Component("Psychonauts Client", "PSYClient", func=launch_client, component_type=Type.CLIENT))
 
+# borrowed from Wargroove
+class PsychonautsSettings(settings.Group):
+    class RootDirectory(settings.UserFolderPath):
+        """
+        Locate the Psychonauts root directory on your system.
+        This is used by the Psychonauts client, so it knows where to send communication files to
+        """
+        description = "Psychonauts root directory"
+
+    root_directory: RootDirectory = RootDirectory("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\Psychonauts")
 
 class PsychonautsWeb(WebWorld):
     tutorials = [Tutorial(
@@ -45,6 +54,7 @@ class PSYWorld(World):
     game = "Psychonauts"
     web = PsychonautsWeb()
 
+    settings: typing.ClassVar[PsychonautsSettings]
     required_client_version = (0, 4, 4)
     options_dataclass = PsychonautsOptions
     options: PsychonautsOptions
@@ -63,18 +73,31 @@ class PSYWorld(World):
         """ 
         for item in local_set:
             self.multiworld.local_items[self.player].value.add(item)
-       
+
+        # if self.multiworld.StartingLevitation[self.player]:
+        #     self.multiworld.push_precollected(self.create_item(ItemName.Levitation1))
        
     def create_item(self, name: str) -> Item:
         """
         Returns created PSYItem
         """
-        if name in progression_set:
+        # TODO: current code fails test/general/test_items: test_create_item
+        # Raises AttributeError for all brain jars, fully functional when generating
+        if name in BrainJar_Table:
+            # make brains filler if BrainHunt not a selected option
+            if self.options.Goal == 0:
+                item_classification = ItemClassification.filler
+            else:
+                item_classification = ItemClassification.progression
+        elif name in progression_set:
             item_classification = ItemClassification.progression
         elif name in useful_set:
             item_classification = ItemClassification.useful
         else:
             item_classification = ItemClassification.filler
+
+        
+
         created_item = PSYItem(name, item_classification, self.item_name_to_id[name], self.player)
 
         return created_item
@@ -92,7 +115,6 @@ class PSYWorld(World):
         """
         Fills ItemPool 
         """
-        # trinkets = [self.create_item("Trinket " + str(i+1).zfill(2)) for i in range(0,20)]
         itempool = [self.create_item(item) for item in self.item_name_to_id.keys()]
 
         self.multiworld.itempool += itempool
@@ -112,13 +134,14 @@ class PSYWorld(World):
         universal_logic = Rules.PsyRules(self)
         universal_logic.set_psy_rules()
         # place "Victory" at "Final Boss" and set collection as win condition
-        self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_event_item("Victory"))
-        self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)   
+        # self.multiworld.get_location(LocationName.FinalBossEvent, self.player).place_locked_item(self.create_event_item("Victory"))
+        # self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)   
 
-    # PsychoSeed.py needs to be functional to output a seed/patch file
-    # Example found in /docs
+    
     def generate_output(self, output_directory: str):
         """
         Generates the seed file for Randomizer Scripts folder 
         """
+        # Creates RandoSeed.lua file for Randomizer Mod
+        # Example found in /docs
         gen_psy_seed(self, output_directory)

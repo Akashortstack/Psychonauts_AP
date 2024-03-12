@@ -19,7 +19,6 @@ MMProps_Table = {
     ItemName.PropPlunger: 9,
     ItemName.PropHedgeTrimmers: 10,
     ItemName.PropRollingPin: 11,
-    ItemName.PropWaterCan: 12,
 }
 
 THProps_Table = {
@@ -448,7 +447,7 @@ OtherItems_Table = {
     ItemName.OarsmansBadge: 253,
     ItemName.Feather: 255,
     ItemName.LilisBracelet: 6,
-    
+    ItemName.PropWaterCan: 12,    
 }
 
 item_dictionary_table = {
@@ -486,16 +485,13 @@ progression_set = {
     **THProps_Table,
     **WWProps_Table,
     **PsiPowers_Table,
-    # **Events_Table,
-    
+    # moved here to help with Rank Checks
+    **Vault_Table,
+    **ChallengeMarker_Table,
 }
 
 useful_set = {
-    **MaxAmmo_Table,
     **MaxLives_Table,
-    **ConfusionAmmo_Table,
-    **ChallengeMarker_Table,
-    **BrainJar_Table,
     **ScavHunt_Table,
     **SuitcaseTags_Table,
     **PurseTags_Table,
@@ -507,7 +503,6 @@ useful_set = {
     **Hatbox_Table,
     **Steamertrunk_Table,
     **Dufflebag_Table,
-    **Vault_Table,
     **AHLarge_Table,    
 }
 
@@ -518,8 +513,7 @@ local_set = {
     **Hatbox_Table,
     **Steamertrunk_Table,
     **Dufflebag_Table,
-
 }
-        
+
 
 

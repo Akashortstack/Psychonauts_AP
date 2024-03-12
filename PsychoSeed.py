@@ -51,12 +51,58 @@ def gen_psy_seed(self, output_directory):
         startlevitationsetting = "TRUE"
     randoseed_parts.append(f"           Ob.startlevitation = {startlevitationsetting}\n")
 
-    # append instantdeath setting, make boolean uppercase for Game
+    # append mentalmagnet setting
+    if self.multiworld.StartingMentalMagnet[self.player] == False:
+        mentalmagnetsetting = "FALSE"
+    else:
+        mentalmagnetsetting = "TRUE"
+    randoseed_parts.append(f"           Ob.mentalmagnet = {mentalmagnetsetting}\n")
+
+    # append instantdeath setting
     if self.multiworld.InstantDeathMode[self.player] == False:
         instantdeathsetting = "FALSE"
     else:
         instantdeathsetting = "TRUE"
     randoseed_parts.append(f"           Ob.instantdeath = {instantdeathsetting}\n")
+
+    # append easymillarace setting
+    if self.multiworld.EasyMillaRace[self.player] == False:
+        easymillarace = "FALSE"
+    else:
+        easymillarace = "TRUE"
+    randoseed_parts.append(f"           Ob.easymillarace = {easymillarace}\n")
+
+    # append easyflight setting
+    if self.multiworld.EasyFlightMode[self.player] == False:
+        easyflight = "FALSE"
+    else:
+        easyflight = "TRUE"
+    randoseed_parts.append(f"           Ob.easyflight = {easyflight}\n")
+
+    # append requireMC setting
+    if self.multiworld.RequireMeatCircus[self.player] == False:
+        requireMC = "FALSE"
+    else:
+        requireMC = "TRUE"
+    randoseed_parts.append(f"           Ob.requireMC = {requireMC}\n")
+
+    # append Goal settings
+    if self.multiworld.Goal[self.player] == "braintank" or self.multiworld.Goal[self.player] == "braintank_and_brainhunt":
+        beatoleander = "TRUE"
+    else:
+        beatoleander = "FALSE"
+    
+    if self.multiworld.Goal[self.player] == "brainhunt" or self.multiworld.Goal[self.player] == "braintank_and_brainhunt":
+        requirebrainhunt = "TRUE"
+    else:
+        requirebrainhunt = "FALSE"
+    
+    randoseed_parts.append(f"           Ob.beatoleander = {beatoleander}\n")
+    randoseed_parts.append(f"           Ob.brainhunt = {requirebrainhunt}\n")
+
+    # append Brain Jar Requirement
+    brainsrequired = self.multiworld.BrainsRequired[self.player].value
+    randoseed_parts.append(f"           Ob.brainsrequired = {brainsrequired}\n")
     
     # Section where default settings booleans are written to RandoSeed.lua
     # adding new settings will remove from this list
@@ -66,17 +112,12 @@ def gen_psy_seed(self, output_directory):
         Ob.randomizecobwebduster = TRUE
         Ob.everylocationpossible = FALSE
         Ob.harderbutton = FALSE
-        Ob.beatoleander = TRUE
         Ob.beatalllevels = FALSE
         Ob.rank101 = FALSE
-        Ob.brainhunt = FALSE
         Ob.scavengerhunt = FALSE
         Ob.fasterLO = TRUE
-        Ob.easymillarace = FALSE
         Ob.earlyelevator = FALSE
-        Ob.mentalmagnet = TRUE
         Ob.removetutorials = TRUE
-        Ob.easyflight = FALSE
         Ob.createhints = FALSE
         Ob.spoilerlog = FALSE
     end
@@ -99,35 +140,46 @@ def gen_psy_seed(self, output_directory):
     # items from other games need to be converted to a new value
     # Starting at 368, +1 each time
     non_local_id = 368
-    index = 1
+
+    # Initialize a list to store tuples of location ID and item code
+    location_tuples = []
 
     for location in self.multiworld.get_filled_locations(self.player):
+        
+        location_id = all_locations[location.name]
         
         if location.item:
             if location.item.player == self.player:
                 # victory location can have arbitrary number
-                if location.item.name == "Victory":
+                if location.item.name == "Victory" or location.item.name == "Filler":
                     itemcode = 999
                 else:
                     itemcode = item_dictionary_table[location.item.name]
             else:
                 # item from another game
                 itemcode = non_local_id
-                non_local_id = non_local_id + 1 
+                non_local_id += 1 
         else:
             # item from another game
             itemcode = non_local_id
-            non_local_id = non_local_id + 1 
+            non_local_id += 1 
+        
+        # Append the location ID and item code tuple to the list
+        
+        location_tuples.append((location_id, itemcode))
 
-        # append the item code   
+    # Sort the list of tuples based on location ID
+    location_tuples.sort(key=lambda x: x[0])
+
+    # Iterate through the sorted list of tuples and append item codes to randoseed_parts
+    for index, (location_id, itemcode) in enumerate(location_tuples):
         randoseed_parts.append(str(itemcode))
-        # format so that each line has 10 values, for readability
-        if index % 10 == 0:
+        # Format so that each line has 10 values, for readability
+        if index > 0 and (index + 1) % 10 == 0:
             randoseed_parts.append(",\n")
         else:
             randoseed_parts.append(", ")
 
-        index = index + 1
 
     formattedtext3 = ''' }
         self.seed = SEED_GOES_HERE

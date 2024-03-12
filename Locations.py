@@ -109,12 +109,13 @@ CA_Checks = {
     LocationName.PinkTreesPlatformRightCard: 102, 
     LocationName.RockWallUpperCard: 103, 
     LocationName.LakeShoreCard: 104, 
-    LocationName.TinyIslandCard: 105, 
-    LocationName.RockWallGapPsychonautsComic1: 106, 
-    LocationName.TopofBigRockChallengeMarker: 107, 
+    LocationName.TinyIslandCard: 105,
+    LocationName.TopofBigRockChallengeMarker: 106, 
+    LocationName.RockWallGapPsychonautsComic1: 107, 
     LocationName.MainLodgeRaftersVoodooDoll: 108, 
     LocationName.TopofSanctuaryCard: 109, 
     LocationName.BottomofSanctuaryCard: 110,
+    
     # only if cobwebduster is vanilla
     #LocationName.ShopCobwebDuster: 366, 
 }
@@ -417,12 +418,16 @@ MC_Checks = {
     LocationName.TunnelOfLoveStartPurse: 361, 
     LocationName.TunnelOfLoveCornerSuitcase: 362, 
     LocationName.TunnelOfLoveRailDufflebagTag: 363, 
-    LocationName.NextToTheFatLadyDufflebag: 364,
+    LocationName.NextToTheFatLadyDufflebag: 364,        
+}
 
-    # not a real location, always contains Victory
-    # needs to be an event
+event_locations = {
+    # for beating Meat Circus
     LocationName.FinalBossEvent: 365,
-        
+    # for Brain Jar Goal
+    LocationName.RedeemedBrainsEvent: 366,
+    # for Coach Oleander Brain Tank Boss
+    LocationName.OleanderBossEvent: 367,
 }
 
 all_locations = {
@@ -439,4 +444,5 @@ all_locations = {
     **WW_Checks,
     **BV_Checks,
     **MC_Checks,
+    **event_locations,
 }
