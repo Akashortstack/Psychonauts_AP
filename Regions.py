@@ -883,7 +883,6 @@ def create_psyregions(world: MultiWorld, player: int):
 
     regMCTC = Region(RegionName.MCTC, player, world)
     locMCTC_names = [
-        LocationName.EntranceAwningSteamertrunkTag, 
         LocationName.CrumblingPathSteamertrunk, 
         LocationName.CrumblingPathEndRightHatboxTag, 
         LocationName.CrumblingPathEndLeftConfusionAmmoUp, 
@@ -894,6 +893,7 @@ def create_psyregions(world: MultiWorld, player: int):
 
     regMCTCEscort = Region(RegionName.MCTCEscort, player, world)
     locMCTCEscort_names = [
+        LocationName.EntranceAwningSteamertrunkTag, 
         LocationName.OllieEscortFloorSuitcaseTag, 
         LocationName.OllieEscortMiddleHatbox, 
         LocationName.OllieEscortTopLeftVault, 
@@ -1018,7 +1018,6 @@ def connect_regions(multiworld: MultiWorld, player: int):
         RegionName.MCTC: {RegionName.MCTCEscort, },
 
         RegionName.MCTCEscort: {RegionName.MCTCBoss, },
-
 
     }                         
 

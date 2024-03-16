@@ -5,6 +5,7 @@ import os
 import Utils
 import zipfile
 
+from.Names import ItemName
 from .Items import item_dictionary_table
 from .Locations import all_locations
 from worlds.Files import APContainer
@@ -120,26 +121,14 @@ def gen_psy_seed(self, output_directory):
         Ob.removetutorials = TRUE
         Ob.createhints = FALSE
         Ob.spoilerlog = FALSE
-    end
     '''
     randoseed_parts.append(default_seed_settings)
-
-    # more lua code structure
-    formattedtext2 = '''
-
-    function Ob:fillTable()
-    local SEED_GOES_HERE = {
-    
-    
-    '''
-
-    randoseed_parts.append(formattedtext2)
     
     # append the item values, need to be in exact order
     # locations are handled by index in table
     # items from other games need to be converted to a new value
-    # Starting at 368, +1 each time
-    non_local_id = 368
+    # Starting at 377, +1 each time
+    non_local_id = 377
 
     # Initialize a list to store tuples of location ID and item code
     location_tuples = []
@@ -150,7 +139,7 @@ def gen_psy_seed(self, output_directory):
         
         if location.item:
             if location.item.player == self.player:
-                # victory location can have arbitrary number
+                # victory and filler location can have arbitrary number
                 if location.item.name == "Victory" or location.item.name == "Filler":
                     itemcode = 999
                 else:
@@ -170,6 +159,17 @@ def gen_psy_seed(self, output_directory):
 
     # Sort the list of tuples based on location ID
     location_tuples.sort(key=lambda x: x[0])
+
+    # attach more lua code structure first
+    formattedtext2 = '''
+    end
+    
+    function Ob:fillTable()
+    local SEED_GOES_HERE = {
+    
+    
+    '''
+    randoseed_parts.append(formattedtext2)
 
     # Iterate through the sorted list of tuples and append item codes to randoseed_parts
     for index, (location_id, itemcode) in enumerate(location_tuples):

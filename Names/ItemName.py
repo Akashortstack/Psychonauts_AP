@@ -291,7 +291,18 @@ AHLarge3 = "Large Arrowhead Bundle 3"
 AHLarge4 = "Large Arrowhead Bundle 4"
 AHLarge5 = "Large Arrowhead Bundle 5"
 
-#111 PsiCards, "Filler" item but rando uses unique names and IDs
+# 9 Mind Unlocks
+CoachMind = "Adult Coach's Mind"
+SashaMind = "Sasha's Mind"
+MillaMind = "Milla's Mind"
+LindaMind = "Linda's Mind"
+BoydMind = "Boyd's Mind"
+GloriaMind = "Gloria's Mind"
+FredMind = "Fred's Mind"
+EdgarMind = "Edgar's Mind"
+OlyMind = "Kid Coach's Mind"
+
+#101 PsiCards, "Filler" item but rando uses unique names and IDs
 PsiCard1 = "PsiCard 1"
 PsiCard2 = "PsiCard 2"
 PsiCard3 = "PsiCard 3"
@@ -402,15 +413,14 @@ PsiCard107 = "PsiCard 107"
 PsiCard108 = "PsiCard 108"
 PsiCard109 = "PsiCard 109"
 PsiCard110 = "PsiCard 110"
-PsiCard111 = "PsiCard 111"
 
 #Other Items
 OarsmansBadge = "Oarsman's Badge"
 SashaButton = "Sasha's Button"
 Feather = "Crow Feather"
 CobwebDuster = "Cobweb Duster"
+SquirrelDinner = "Squirrel Roast Dinner"
 
 #Needed for Victory!
 Victory = "Victory"
-
 Filler = "Event Filler"

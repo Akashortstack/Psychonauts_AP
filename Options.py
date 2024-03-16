@@ -12,6 +12,13 @@ class StartingMentalMagnet(Toggle):
     display_name = "Start with Mental Magnet"
     default = True
 
+class RandomStartingMinds(Range):
+    """Start with a random number of mind unlocking items."""
+    display_name = "Random Starting Minds"
+    range_start = 0
+    range_end = 9
+    default = 0
+
 class InstantDeathMode(Toggle):
     """Take damage, die instantly"""
     display_name = "Instant Death Mode"
@@ -59,6 +66,7 @@ class Goal(Choice):
 class PsychonautsOptions(PerGameCommonOptions):
     StartingLevitation: StartingLevitation
     StartingMentalMagnet: StartingMentalMagnet
+    RandomStartingMinds: RandomStartingMinds
     InstantDeathMode: InstantDeathMode
     EasyMillaRace: EasyMillaRace
     EasyFlightMode: EasyFlightMode

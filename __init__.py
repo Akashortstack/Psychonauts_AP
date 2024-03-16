@@ -115,7 +115,18 @@ class PSYWorld(World):
         """
         Fills ItemPool 
         """
-        itempool = [self.create_item(item) for item in self.item_name_to_id.keys()]
+        self.mindlock_dict = MindUnlocks_Table.copy()
+        self.adjusted_item_pool = self.item_name_to_id.copy()
+
+
+        for _ in range(self.options.RandomStartingMinds.value):
+            visitlocking_set = list(self.mindlock_dict.keys())
+            item = self.random.choice(visitlocking_set)
+            self.mindlock_dict.pop(item)
+            self.adjusted_item_pool.pop(item)
+            self.multiworld.push_precollected(self.create_item(item))
+
+        itempool = [self.create_item(item) for item in list(self.adjusted_item_pool.keys())[:364]]
 
         self.multiworld.itempool += itempool
 
