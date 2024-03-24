@@ -4,7 +4,7 @@ import sys
 import asyncio
 import shutil
 import logging
-
+import typing
 
 import ModuleUpdate
 ModuleUpdate.update()
@@ -40,7 +40,15 @@ class PsychonautsClientCommandProcessor(ClientCommandProcessor):
         """Manually trigger a resync."""
         self.output(f"Syncing items.")
         self.ctx.syncing = True
-
+    
+    def _cmd_deathlink(self):
+        """Toggles Deathlink"""
+        if isinstance(self.ctx, PsychonautsContext):
+            self.ctx.deathlink_status = not self.ctx.deathlink_status
+            if self.ctx.deathlink_status:
+                self.output(f"Deathlink enabled.")
+            else:
+                self.output(f"Deathlink disabled.")
 
 class PsychonautsContext(CommonContext):
     command_processor: int = PsychonautsClientCommandProcessor
@@ -52,6 +60,9 @@ class PsychonautsContext(CommonContext):
         self.send_index: int = 0
         self.syncing = False
         self.awaiting_bridge = False
+        self.got_deathlink = False
+        self.deathlink_status = False
+
         options = Utils.get_settings()
         root_directory = options["psychonauts_options"]["root_directory"]
         
@@ -70,7 +81,7 @@ class PsychonautsContext(CommonContext):
         await super(PsychonautsContext, self).connection_closed()
         for root, dirs, files in os.walk(self.game_communication_path):
             for file in files:
-                if file.find("Items") <= -1:
+                if "Items" not in file and "Deathlink" not in file:
                     os.remove(root+"/"+file)
 
     @property
@@ -84,7 +95,7 @@ class PsychonautsContext(CommonContext):
         await super(PsychonautsContext, self).shutdown()
         for root, dirs, files in os.walk(self.game_communication_path):
             for file in files:
-                if file.find("Items") <= -1:
+                if "Items" not in file and "Deathlink" not in file:
                     os.remove(root+"/"+file)
 
     def on_package(self, cmd: str, args: dict):
@@ -139,16 +150,42 @@ class PsychonautsContext(CommonContext):
         self.ui = PsychonautsManager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
+    def on_deathlink(self, data: typing.Dict[str, typing.Any]):
+        self.got_deathlink = True
+        super().on_deathlink(data)
 
 async def game_watcher(ctx: PsychonautsContext):
     from worlds.psychonauts.Locations import all_locations
     while not ctx.exit_event.is_set():
+        # Check for DeathLink toggle
+        await ctx.update_death_link(ctx.deathlink_status)
+
         if ctx.syncing == True:
             sync_msg = [{'cmd': 'Sync'}]
             if ctx.locations_checked:
                 sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})
             await ctx.send_msgs(sync_msg)
             ctx.syncing = False
+        
+        # Check for Deathlink to send to player
+        if ctx.got_deathlink:
+            ctx.got_deathlink = False
+            with open(os.path.join(ctx.game_communication_path, "DeathlinkIn.txt"), 'a') as f:
+                f.write("DEATH\n")
+                f.close()
+        
+        # Check for Deathlinks from player
+        with open(os.path.join(ctx.game_communication_path, "DeathlinkOut.txt"), 'r+') as f:
+            RazDied = f.read()
+            if RazDied:
+                # Move the file pointer to the beginning
+                f.seek(0)
+                # Empty the file by writing an empty string
+                f.truncate(0)
+                if "DeathLink" in ctx.tags:
+                    await ctx.send_death(death_text = "Raz Died!")
+            f.close
+        
         sending = []
         # Initialize an empty table
         collected_table = []
@@ -167,6 +204,7 @@ async def game_watcher(ctx: PsychonautsContext):
                     sending = sending+[(int(value + 42690000))]
                     collected_table.append(value)
             f.close()
+
         for root, dirs, files in os.walk(ctx.game_communication_path):
             for file in files:
                 if file.find("victory.txt") > -1:

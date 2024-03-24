@@ -1019,6 +1019,7 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.MCTCEscort: {RegionName.MCTCBoss, },
 
+
     }                         
 
     for source, target in PSYRegionConnections.items():

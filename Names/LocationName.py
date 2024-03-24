@@ -122,10 +122,10 @@ RockWallGapPsychonautsComic1 = "(CABH) Rock Wall Gap"
 MainLodgeRaftersVoodooDoll = "(CALI) Main Lodge Rafters"
 
 # Ford's Sanctuary (CAJA) 
-TopofSanctuaryCard = "(CAJA) Top of Sanctuary"
-BottomofSanctuaryCard = "(CAJA) Bottom of Sanctuary"
+TopofSanctuaryCard = "(FORD) Top of Sanctuary"
+BottomofSanctuaryCard = "(FORD) Bottom of Sanctuary"
 # for redeemeing the required brain jars
-RedeemedBrainsEvent = "(CAJA) Redeemed Required Brains"
+RedeemedBrainsEvent = "(FORD) Redeemed Required Brains"
 
 # Rando Only Rank Checks (RANK) 
 PSIRank05 = "(RANK) PSI Rank 05"
@@ -271,20 +271,20 @@ MillasPartyRoom = "(MILL) Milla's Party Room"
 MillasDancePartyComplete = "(MILL) Milla's Dance Party Complete"
 
 # The Nightmare Woods [NIMP] 
-OutsideCaravan = "(NIMP) Outside Caravan"
-BehindTheEgg = "(NIMP) Behind the Egg"
-ShadowMonsterPath = "(NIMP) Shadow Monster Path"
-ShadowMonsterBlueMushrooms = "(NIMP) Shadow Monster Blue Mushrooms"
-LedgeBehindShadowMonster = "(NIMP) Ledge Behind Shadow Monster"
-BelowTheSteepLedge = "(NIMP) Below the Steep Ledge"
-ForestPathBlueMushrooms = "(NIMP) Forest Path Blue Mushrooms"
-ForestBlueLedge = "(NIMP) Forest Blue Ledge"
-ForestHighPlatform = "(NIMP) Forest High Platform"
-ForestPathThorns = "(NIMP) Forest Path Thorns"
-BehindThornTowerLeft = "(NIMP) Behind Thorn Tower Left"
-BehindThornTowerMid = "(NIMP) Behind Thorn Tower Mid"
-BehindThornTowerRight = "(NIMP) Behind Thorn Tower Right"
-BrainTumblerExperimentComplete = "(NIMP) Brain Tumbler Experiment Complete"
+OutsideCaravan = "(BTEX) Outside Caravan"
+BehindTheEgg = "(BTEX) Behind the Egg"
+ShadowMonsterPath = "(BTEX) Shadow Monster Path"
+ShadowMonsterBlueMushrooms = "(BTEX) Shadow Monster Blue Mushrooms"
+LedgeBehindShadowMonster = "(BTEX) Ledge Behind Shadow Monster"
+BelowTheSteepLedge = "(BTEX) Below the Steep Ledge"
+ForestPathBlueMushrooms = "(BTEX) Forest Path Blue Mushrooms"
+ForestBlueLedge = "(BTEX) Forest Blue Ledge"
+ForestHighPlatform = "(BTEX) Forest High Platform"
+ForestPathThorns = "(BTEX) Forest Path Thorns"
+BehindThornTowerLeft = "(BTEX) Behind Thorn Tower Left"
+BehindThornTowerMid = "(BTEX) Behind Thorn Tower Mid"
+BehindThornTowerRight = "(BTEX) Behind Thorn Tower Right"
+BrainTumblerExperimentComplete = "(BTEX) Brain Tumbler Experiment Complete"
 
 # Lungfishopolis City [LOMA] 
 SkyscraperStart = "(LOMA) Skyscraper Start"

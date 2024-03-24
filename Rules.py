@@ -305,7 +305,7 @@ class PsyRules:
         return state.has_all([ItemName.LobotoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket], self.player)
 
     def has_oleanderbossaccess(self, state: CollectionState) -> bool:
-        return state.has_all([ItemName.SashaButton, ItemName.LobotoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake], self.player)
+        return state.has_all([ItemName.SashaButton, ItemName.LobotoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket, ItemName.LungfishCall, ItemName.Cake, ItemName.OarsmansBadge], self.player)
     
     def redeemed_brain_goal(self, state: CollectionState, amount) -> bool:
         return amount <= sum([state.count(item_name, self.player) for item_name in BrainJar_Table])

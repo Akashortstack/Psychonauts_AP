@@ -4,7 +4,7 @@ LungfishCall = "Lungfish Call"
 GloriasTrophy = "Gloria's Trophy" 
 StraightJacket = "Straight Jacket" 
 LobotoPainting = "Loboto Painting" 
-Cake = "Cake" 
+Cake = "Birthday Cake" 
 LilisBracelet = "Lili's Bracelet"
 
 #Props from MM 6 total

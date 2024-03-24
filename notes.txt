@@ -5,3 +5,14 @@ Fix AP items list to remove numbers from items
     Increasing counts from base values by one for each item type placed in gen seed table, 
     need to change items table to specify quantities of each item
     How do we keep track of which items have and haven't been sent to player if item ids all match when sent?
+    Pretty sure this requires creating new item IDs for AP created items specifically, on top of the base randomizer IDs
+
+Add trap items?
+    Confusion
+    Ignite
+    TK Grab?
+    Spawn enemies? Bear? Cougar?
+
+write seed name to RandoSeed.lua, change ItemsCollected and ItemsReceived to include seed name
+    How to clear out old seed data?
+    1 week of no activity?
