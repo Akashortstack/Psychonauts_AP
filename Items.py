@@ -551,6 +551,7 @@ item_groups: typing.Dict[str, list] = {
     "Purse": [item_name for item_name in Purse_Table.keys()],
     "Hatbox": [item_name for item_name in Hatbox_Table.keys()],
     "Steamertrunk": [item_name for item_name in Steamertrunk_Table.keys()],
+    "Dufflebag": [item_name for item_name in Dufflebag_Table.keys()],
     "Memory Vault": [item_name for item_name in Vault_Table.keys()],
     "Small Arrowhead": [item_name for item_name in AHSmall_Table.keys()],
     "Large Arrowhead": [item_name for item_name in AHLarge_Table.keys()],
