@@ -1,5 +1,5 @@
 
-Add more Options from base randomizer
+Add more Options from base randomizer?
 
 Fix AP items list to remove numbers from items 
     Increasing counts from base values by one for each item type placed in gen seed table, 
@@ -16,3 +16,4 @@ Add trap items?
 write seed name to RandoSeed.lua, change ItemsCollected and ItemsReceived to include seed name
     How to clear out old seed data?
     1 week of no activity?
+    Just add a command to the client?

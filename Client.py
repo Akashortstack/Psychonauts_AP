@@ -183,7 +183,7 @@ async def game_watcher(ctx: PsychonautsContext):
                 # Empty the file by writing an empty string
                 f.truncate(0)
                 if "DeathLink" in ctx.tags:
-                    await ctx.send_death(death_text = "Raz Died!")
+                    await ctx.send_death(death_text = f"{ctx.player_names[ctx.slot]} became lost in thought!")
             f.close
         
         sending = []

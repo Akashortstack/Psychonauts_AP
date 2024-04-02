@@ -525,5 +525,35 @@ local_set = {
     **Dufflebag_Table,
 }
 
-
+item_groups: typing.Dict[str, list] = {
+    "Marksmanship": [ItemName.Marksmanship1, ItemName.Marksmanship2, ItemName.Marksmanship3],
+    "Pyrokinesis": [ItemName.Pyrokinesis1, ItemName.Pyrokinesis2],
+    "Confusion": [ItemName.Confusion1, ItemName.Confusion2],
+    "Levitation": [ItemName.Levitation1, ItemName.Levitation2, ItemName.Levitation3],
+    "Telekinesis": [ItemName.Telekinesis1, ItemName.Telekinesis2],
+    "Invisibility": [ItemName.Invisibility1, ItemName.Invisibility2],
+    "Clairvoyance": [ItemName.Clairvoyance1, ItemName.Clairvoyance2],
+    "Shield": [ItemName.Shield1, ItemName.Shield2],
+    "Mind": [item_name for item_name in MindUnlocks_Table.keys()],
+    "Candle": [ItemName.Candle1, ItemName.Candle2],
+    "Max Ammo Up": [item_name for item_name in MaxAmmo_Table.keys()],
+    "Max Lives Up": [item_name for item_name in MaxLives_Table.keys()],
+    "Confusion Ammo Up": [item_name for item_name in ConfusionAmmo_Table.keys()],
+    "PsiChallengeMarker": [item_name for item_name in ChallengeMarker_Table.keys()],
+    "Brain": [item_name for item_name in BrainJar_Table.keys()],
+    "Scavenger Hunt": [item_name for item_name in ScavHunt_Table.keys()],
+    "Suitcase Tag": [item_name for item_name in SuitcaseTags_Table.keys()],
+    "Purse Tag": [item_name for item_name in PurseTags_Table.keys()],
+    "Hatbox Tag": [item_name for item_name in HatboxTags_Table.keys()],
+    "Steamertrunk Tag": [item_name for item_name in SteamerTags_Table.keys()],
+    "Dufflebag Tag": [item_name for item_name in DuffleTags_Table.keys()],
+    "Suitcase": [item_name for item_name in Suitcase_Table.keys()],
+    "Purse": [item_name for item_name in Purse_Table.keys()],
+    "Hatbox": [item_name for item_name in Hatbox_Table.keys()],
+    "Steamertrunk": [item_name for item_name in Steamertrunk_Table.keys()],
+    "Memory Vault": [item_name for item_name in Vault_Table.keys()],
+    "Small Arrowhead": [item_name for item_name in AHSmall_Table.keys()],
+    "Large Arrowhead": [item_name for item_name in AHLarge_Table.keys()],
+    "Psicard": [item_name for item_name in PsiCards_Table.keys()],
+}
 

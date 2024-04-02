@@ -63,6 +63,8 @@ class PSYWorld(World):
 
     item_name_to_id = {item: id + 42690000 for item, id in item_dictionary_table.items()}
 
+    item_name_groups = item_groups
+
     location_name_to_id = {item: id + 42690000 for item, id in all_locations.items()}
 
     
