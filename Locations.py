@@ -391,9 +391,9 @@ BV_Checks = {
 
     LocationName.TheGardenVault: 340, 
     LocationName.NearDiegosHouseMaxLives: 341, 
-    LocationName.DiegosBedSuitcaseTag: 342, 
-    LocationName.DiegosRoomHatbox: 343, 
-    LocationName.DiegosHouseGrindrailSuitcase: 344, 
+    LocationName.DiegosBedSuitcaseTag: 342,
+    LocationName.DiegosHouseGrindrailSuitcase: 343, 
+    LocationName.DiegosRoomHatbox: 344,
     LocationName.GrindrailBalconyConfusionAmmoUp: 345,
     LocationName.SanctuaryBalconyPurseTag: 346, 
 

@@ -569,7 +569,8 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.BehindGraveyardDufflebag, 
         LocationName.HedgeMazeFlowers, 
         LocationName.CarTrunk3WateringCan, 
-        LocationName.PostOfficeRoofOneUp, 
+        LocationName.PostOfficeRoofOneUp,
+        LocationName.PostOfficeLobbySuitcase, 
     ]
     regMMI1AfterSign.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMMI1AfterSign) for loc_name in locMMI1AfterSign_names]
     world.regions.append(regMMI1AfterSign)
@@ -605,7 +606,6 @@ def create_psyregions(world: MultiWorld, player: int):
     regMMI1Duster = Region(RegionName.MMI1Duster, player, world)
     locMMI1Duster_names = [
         LocationName.InsideWebbedGarageHatbox,
-        LocationName.PostOfficeLobbySuitcase, 
         LocationName.PostOfficeBasementPlunger, 
     ]
     regMMI1Duster.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMMI1Duster) for loc_name in locMMI1Duster_names]
@@ -778,15 +778,25 @@ def create_psyregions(world: MultiWorld, player: int):
     regWWMAV3 = Region(RegionName.WWMAV3, player, world)
     locWWMAV3_names = [
         LocationName.HelpVillager3,
-        LocationName.WaterlooWorldComplete, 
     ]
     regWWMAV3.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regWWMAV3) for loc_name in locWWMAV3_names]
     world.regions.append(regWWMAV3)
 
 
+    regWWMADone = Region(RegionName.WWMADone, player, world)
+    locWWMADone_names = [
+        LocationName.WaterlooWorldComplete, 
+    ]
+    regWWMADone.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regWWMADone) for loc_name in locWWMADone_names]
+    world.regions.append(regWWMADone)
+
+
     regBVRB = Region(RegionName.BVRB, player, world)
     locBVRB_names = [
-        LocationName.ClubStreetLadySteamertrunk, 
+        LocationName.ClubStreetLadySteamertrunk,
+        LocationName.AlleywaysLedgeHatboxTag, 
+        LocationName.SewersMainVault,
+        LocationName.NearDiegosHouseMaxLives,  
     ]
     regBVRB.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regBVRB) for loc_name in locBVRB_names]
     world.regions.append(regBVRB)
@@ -803,7 +813,8 @@ def create_psyregions(world: MultiWorld, player: int):
 
     regBVRBTele = Region(RegionName.BVRBTele, player, world)
     locBVRBTele_names = [
-        LocationName.ClubStreetGatedSteamerTrunkTag, 
+        LocationName.ClubStreetGatedSteamerTrunkTag,
+        LocationName.TheGardenVault,
     ]
     regBVRBTele.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regBVRBTele) for loc_name in locBVRBTele_names]
     world.regions.append(regBVRBTele)
@@ -811,9 +822,6 @@ def create_psyregions(world: MultiWorld, player: int):
 
     regBVRBDuster = Region(RegionName.BVRBDuster, player, world)
     locBVRBDuster_names = [
-        LocationName.AlleywaysLedgeHatboxTag, 
-        LocationName.SewersMainVault,
-        LocationName.NearDiegosHouseMaxLives, 
         LocationName.DiegosBedSuitcaseTag, 
         LocationName.DiegosRoomHatbox, 
         LocationName.DiegosHouseGrindrailSuitcase, 
@@ -821,15 +829,6 @@ def create_psyregions(world: MultiWorld, player: int):
     ]
     regBVRBDuster.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regBVRBDuster) for loc_name in locBVRBDuster_names]
     world.regions.append(regBVRBDuster)
-
-
-    regBVRBGarden = Region(RegionName.BVRBGarden, player, world)
-    locBVRBGarden_names = [
-        LocationName.TheGardenVault, 
-    ]
-    regBVRBGarden.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regBVRBGarden) for loc_name in locBVRBGarden_names]
-    world.regions.append(regBVRBGarden)
-
 
     regBVRBLogs = Region(RegionName.BVRBLogs, player, world)
     locBVRBLogs_names = [
@@ -844,6 +843,8 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.SanctuaryGroundPurse, 
         LocationName.TigerWrestler, 
         LocationName.DragonWrestler,
+        LocationName.EagleWrestler, 
+
     ]
     regBVES.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regBVES) for loc_name in locBVES_names]
     world.regions.append(regBVES)
@@ -855,14 +856,6 @@ def create_psyregions(world: MultiWorld, player: int):
     ]
     regBVESLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regBVESLev) for loc_name in locBVESLev_names]
     world.regions.append(regBVESLev)
-
-
-    regBVESEagle = Region(RegionName.BVESEagle, player, world)
-    locBVESEagle_names = [
-        LocationName.EagleWrestler, 
-    ]
-    regBVESEagle.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regBVESEagle) for loc_name in locBVESEagle_names]
-    world.regions.append(regBVESEagle)
 
 
     regBVESCobra = Region(RegionName.BVESCobra, player, world)
@@ -885,16 +878,23 @@ def create_psyregions(world: MultiWorld, player: int):
     locMCTC_names = [
         LocationName.CrumblingPathSteamertrunk, 
         LocationName.CrumblingPathEndRightHatboxTag, 
-        LocationName.CrumblingPathEndLeftConfusionAmmoUp, 
+        LocationName.CrumblingPathEndLeftConfusionAmmoUp,
+        LocationName.OllieEscortFloorSuitcaseTag, 
     ]
     regMCTC.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMCTC) for loc_name in locMCTC_names]
     world.regions.append(regMCTC)
 
 
+    regMCTCLev = Region(RegionName.MCTCLev, player, world)
+    locMCTCLev_names = [
+        LocationName.EntranceAwningSteamertrunkTag, 
+    ]
+    regMCTCLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regMCTCLev) for loc_name in locMCTCLev_names]
+    world.regions.append(regMCTCLev)
+
+
     regMCTCEscort = Region(RegionName.MCTCEscort, player, world)
     locMCTCEscort_names = [
-        LocationName.EntranceAwningSteamertrunkTag, 
-        LocationName.OllieEscortFloorSuitcaseTag, 
         LocationName.OllieEscortMiddleHatbox, 
         LocationName.OllieEscortTopLeftVault, 
         LocationName.OllieEscortTopRightPurseTag, 
@@ -993,29 +993,29 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.THCW: {RegionName.THFB, },
 
-        RegionName.WWMA: {RegionName.WWMALev, RegionName.WWMACarpRoof, RegionName.WWMADuster, RegionName.WWMAV1, },
+        RegionName.WWMA: {RegionName.WWMALev, RegionName.WWMACarpRoof, RegionName.WWMADuster, RegionName.WWMAV1, RegionName.WWMAKnight,},
 
         RegionName.WWMADuster: {RegionName.WWMADusterLev, },
 
         RegionName.WWMADusterLev: {RegionName.WWMADusterLevPyro, },
 
-        RegionName.WWMAV1: {RegionName.WWMAKnight, RegionName.WWMAV2,},
+        RegionName.WWMAV1: {RegionName.WWMAV2,},
 
         RegionName.WWMAV2: {RegionName.WWMAV3, },
 
-        RegionName.BVRB: {RegionName.BVRBLev, RegionName.BVRBTele, RegionName.BVRBDuster, RegionName.BVES, },
+        RegionName.WWMAV3: {RegionName.WWMADone, },
 
-        RegionName.BVRBDuster: {RegionName.BVRBGarden, },
+        RegionName.BVRB: {RegionName.BVRBLev, RegionName.BVRBTele, RegionName.BVRBDuster, RegionName.BVES,},
 
-        RegionName.BVRBGarden: {RegionName.BVRBLogs, },
+        RegionName.BVRBTele: {RegionName.BVRBLogs, },
 
-        RegionName.BVES: {RegionName.BVESLev, RegionName.BVESEagle,},
-
-        RegionName.BVESEagle: {RegionName.BVESCobra, },
+        RegionName.BVES: {RegionName.BVESLev, RegionName.BVESCobra,},
 
         RegionName.BVESCobra: {RegionName.BVESBoss, },
 
-        RegionName.MCTC: {RegionName.MCTCEscort, },
+        RegionName.MCTC: {RegionName.MCTCLev, },
+
+        RegionName.MCTCLev: {RegionName.MCTCEscort, },
 
         RegionName.MCTCEscort: {RegionName.MCTCBoss, },
 

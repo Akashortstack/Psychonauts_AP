@@ -150,7 +150,7 @@ class PsyRules:
 
             RegionName.MMI1Duster: self.has_cobwebduster,
 
-            RegionName.MMI2: lambda state: self.has_propflowers(state) and self.has_propplunger(state) and self.has_pyrokinesis(state), 
+            RegionName.MMI2: lambda state: self.has_propflowers(state) and self.has_propplunger(state) and self.has_pyrokinesis(state) and self.has_shield(state), 
 
             RegionName.MMI1Powerlines: self.has_cobwebduster,
 
@@ -188,6 +188,8 @@ class PsyRules:
 
             RegionName.WWMAV3: self.has_musket,
 
+            RegionName.WWMADone: self.has_levitation,
+
             RegionName.BVRB: self.has_edgarmind,
 
             RegionName.BVRBLev: self.has_levitation,
@@ -196,13 +198,9 @@ class PsyRules:
 
             RegionName.BVRBDuster: self.has_cobwebduster,
 
-            RegionName.BVRBGarden: self.has_telekinesis,
-
             RegionName.BVRBLogs: self.has_pyrokinesis,
 
             RegionName.BVESLev: self.has_levitation,
-
-            RegionName.BVESEagle: self.has_cobwebduster,
 
             RegionName.BVESCobra: self.has_confusion,
 
@@ -210,7 +208,9 @@ class PsyRules:
 
             RegionName.MCTC: lambda state: self.has_cobwebduster(state) and self.has_olymind(state),
 
-            RegionName.MCTCEscort: lambda state: self.has_telekinesis(state) and self.has_levitation(state),
+            RegionName.MCTCLev: self.has_levitation,
+
+            RegionName.MCTCEscort: self.has_telekinesis,
 
         }
 
@@ -367,9 +367,3 @@ class PsyRules:
 
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) 
             
-
-        
-
-    
-                
-        

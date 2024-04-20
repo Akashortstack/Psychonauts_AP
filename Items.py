@@ -445,12 +445,12 @@ PsiCards_Table = {
     ItemName.PsiCard99: 365, 
     ItemName.PsiCard100: 366,
     ItemName.PsiCard101: 367,
-    ItemName.PsiCard103: 368,
-    ItemName.PsiCard104: 369,
-    ItemName.PsiCard105: 370,
-    ItemName.PsiCard106: 371,
-    ItemName.PsiCard107: 372,
-    ItemName.PsiCard108: 373,
+    ItemName.PsiCard102: 368,
+    ItemName.PsiCard103: 369,
+    ItemName.PsiCard104: 370,
+    ItemName.PsiCard105: 371,
+    ItemName.PsiCard106: 372,
+    ItemName.PsiCard107: 373,
 }
 
 OtherItems_Table = {
@@ -495,12 +495,11 @@ progression_set = {
     **THProps_Table,
     **WWProps_Table,
     **PsiPowers_Table,
-    # moved here to help with Rank Checks
-    **Vault_Table,
-    **ChallengeMarker_Table,
 }
 
 useful_set = {
+    **Vault_Table,
+    **ChallengeMarker_Table,
     **MaxLives_Table,
     **ScavHunt_Table,
     **SuitcaseTags_Table,

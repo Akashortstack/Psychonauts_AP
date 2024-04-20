@@ -59,6 +59,17 @@ def gen_psy_seed(self, output_directory):
         mentalmagnetsetting = "TRUE"
     randoseed_parts.append(f"           Ob.mentalmagnet = {mentalmagnetsetting}\n")
 
+    # append lootboxvaults setting
+    if self.multiworld.LootboxVaults[self.player] == False:
+        lootboxvaultssetting = "FALSE"
+    else:
+        lootboxvaultssetting = "TRUE"
+    randoseed_parts.append(f"           Ob.lootboxvaults = {lootboxvaultssetting}\n")
+
+    # append enemydamagemultiplier setting
+    enemydamagemultiplier = self.multiworld.EnemyDamageMultiplier[self.player].value
+    randoseed_parts.append(f"           Ob.enemydamagemultiplier = {enemydamagemultiplier}\n")
+
     # append instantdeath setting
     if self.multiworld.InstantDeathMode[self.player] == False:
         instantdeathsetting = "FALSE"
