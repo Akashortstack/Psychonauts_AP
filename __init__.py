@@ -1,5 +1,5 @@
 import logging
-from typing import List
+from typing import List, Mapping, Any
 import settings
 
 from BaseClasses import Tutorial, ItemClassification
@@ -9,7 +9,7 @@ from worlds.AutoWorld import World, WebWorld
 from .Items import *
 from .Locations import *
 from .Names import ItemName, LocationName, RegionName
-from .Options import Goal, PsychonautsOptions
+from .Options import Goal, PsychonautsOptions, slot_data_options
 from .Regions import create_psyregions, connect_regions
 from .Rules import *
 from .Subclasses import PSYItem
@@ -158,3 +158,10 @@ class PSYWorld(World):
         # Creates RandoSeed.lua file for Randomizer Mod
         # Example found in /docs
         gen_psy_seed(self, output_directory)
+
+    def fill_slot_data(self) -> Mapping[str, Any]:
+        slot_data = {}
+        for name, value in self.options.as_dict(*self.options_dataclass.type_hints).items():
+            if name in slot_data_options:
+                slot_data[name] = value
+        return slot_data

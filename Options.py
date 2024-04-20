@@ -1,4 +1,4 @@
-import typing
+from typing import List
 from dataclasses import dataclass
 from Options import Choice, Range, Toggle, ItemDict, PerGameCommonOptions
 
@@ -90,3 +90,17 @@ class PsychonautsOptions(PerGameCommonOptions):
     Goal: Goal
     BrainsRequired: BrainsRequired
     RequireMeatCircus: RequireMeatCircus
+
+
+slot_data_options: List[str] = [
+    "StartingLevitation",
+    "StartingMentalMagnet",
+    "LootboxVaults",
+    "EasyMillaRace",
+    "EasyFlightMode",
+    "EnemyDamageMultiplier",
+    "InstantDeathMode",
+    "Goal",
+    "BrainsRequired",
+    "RequireMeatCircus",
+]
