@@ -258,9 +258,9 @@ class PsyRules:
         return state.has(ItemName.PropRollingPin, self.player)
 
     def has_candle(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Candle1, ItemName.Candle2], self.player)
+        return state.has(ItemName.Candle, self.player)
     def has_bothcandles(self, state: CollectionState) -> bool:
-        return state.has_all([ItemName.Candle1, ItemName.Candle2], self.player)
+        return state.has(ItemName.Candle, self.player, 2)
     def has_megaphone(self, state: CollectionState) -> bool:
         return state.has(ItemName.Megaphone, self.player)
     
@@ -278,28 +278,28 @@ class PsyRules:
         if self.world.multiworld.StartingLevitation[self.player] == True:
             return True
         else:
-            return state.has_any([ItemName.Levitation1, ItemName.Levitation2, ItemName.Levitation3], self.player)
+            return state.has(ItemName.Levitation, self.player)
 
     def has_telekinesis(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Telekinesis1, ItemName.Telekinesis2], self.player)
+        return state.has(ItemName.Telekinesis, self.player)
 
     def has_pyrokinesis(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Pyrokinesis1, ItemName.Pyrokinesis2], self.player)
+        return state.has(ItemName.Pyrokinesis, self.player)
 
     def has_clairvoyance(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Clairvoyance1, ItemName.Clairvoyance2], self.player)
+        return state.has(ItemName.Clairvoyance, self.player)
 
     def has_marksmanship(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Marksmanship1, ItemName.Marksmanship2, ItemName.Marksmanship3], self.player)
+        return state.has(ItemName.Marksmanship, self.player)
 
     def has_invisibility(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Invisibility1, ItemName.Invisibility2], self.player)
+        return state.has(ItemName.Invisibility, self.player)
 
     def has_shield(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Shield1, ItemName.Shield2, ItemName.Shield3], self.player)
+        return state.has(ItemName.Shield, self.player)
 
     def has_confusion(self, state: CollectionState) -> bool:
-        return state.has_any([ItemName.Confusion1, ItemName.Confusion2], self.player)
+        return state.has(ItemName.Confusion, self.player)
 
     def has_upperasylumaccess(self, state: CollectionState) -> bool:
         return state.has_all([ItemName.LobotoPainting, ItemName.GloriasTrophy, ItemName.StraightJacket], self.player)

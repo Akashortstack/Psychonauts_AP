@@ -1,6 +1,5 @@
-import typing
+from typing import Dict, List, Union
 
-from BaseClasses import Item
 from .Names import ItemName
     
 RequiredProps_Table = {
@@ -37,8 +36,7 @@ MMProps_Table = {
 }
 
 THProps_Table = {
-    ItemName.Candle1: 13,
-    ItemName.Candle2: 14,
+    ItemName.Candle: 13,
     ItemName.Megaphone: 15,
 }    
 
@@ -49,63 +47,30 @@ WWProps_Table = {
 }
     
 PsiPowers_Table = {
-    ItemName.Marksmanship1: 19,
-    ItemName.Marksmanship2: 20,
-    ItemName.Marksmanship3: 21,
-    ItemName.Pyrokinesis1: 22,
-    ItemName.Pyrokinesis2: 23,
-    ItemName.Confusion1: 24,
-    ItemName.Confusion2: 25,
-    ItemName.Levitation1: 26,
-    ItemName.Levitation2: 27,
-    ItemName.Levitation3: 28,
-    ItemName.Telekinesis1: 29,
-    ItemName.Telekinesis2: 30,
-    ItemName.Invisibility1: 31,
-    ItemName.Invisibility2: 32,
-    ItemName.Clairvoyance1: 33,
-    ItemName.Clairvoyance2: 34,
-    ItemName.Shield1: 35,
-    ItemName.Shield2: 36,
-    ItemName.Shield3: 37,       
+    ItemName.Marksmanship: 19,
+    ItemName.Pyrokinesis: 22,
+    ItemName.Confusion: 24,
+    ItemName.Levitation: 26,
+    ItemName.Telekinesis: 29,
+    ItemName.Invisibility: 31,
+    ItemName.Clairvoyance: 33,
+    ItemName.Shield: 35,
 }
 
 MaxAmmo_Table = {
-    ItemName.AmmoUp1: 38,       
-    ItemName.AmmoUp2: 39,       
-    ItemName.AmmoUp3: 40,       
-    ItemName.AmmoUp4: 41,       
-    ItemName.AmmoUp5: 42,       
-    ItemName.AmmoUp6: 43,       
+    ItemName.AmmoUp: 38,
 }
 
 MaxLives_Table = {
-    ItemName.MaxLivesUp1: 44,
-    ItemName.MaxLivesUp2: 45,       
-    ItemName.MaxLivesUp3: 46,       
-    ItemName.MaxLivesUp4: 47,       
-    ItemName.MaxLivesUp5: 48,       
-    ItemName.MaxLivesUp6: 49,       
+    ItemName.MaxLivesUp: 44,
 }
 
 ConfusionAmmo_Table = {
-    ItemName.ConfusionUp1: 50,       
-    ItemName.ConfusionUp2: 51,       
-    ItemName.ConfusionUp3: 52,       
-    ItemName.ConfusionUp4: 53,       
+    ItemName.ConfusionUp: 50,
 }
 
 ChallengeMarker_Table = {
-    ItemName.ChallengeMarker1: 54,
-    ItemName.ChallengeMarker2: 55,
-    ItemName.ChallengeMarker3: 56,
-    ItemName.ChallengeMarker4: 57,
-    ItemName.ChallengeMarker5: 58,
-    ItemName.ChallengeMarker6: 59,
-    ItemName.ChallengeMarker7: 60,
-    ItemName.ChallengeMarker8: 61,
-    ItemName.ChallengeMarker9: 62,
-    ItemName.ChallengeMarker10: 63, 
+    ItemName.ChallengeMarker: 54,
 }
 
 BrainJar_Table = {
@@ -150,307 +115,59 @@ ScavHunt_Table = {
 }
 
 SuitcaseTags_Table = {
-    ItemName.SuitcaseTag1: 99, 
-    ItemName.SuitcaseTag2: 100, 
-    ItemName.SuitcaseTag3: 101, 
-    ItemName.SuitcaseTag4: 102, 
-    ItemName.SuitcaseTag5: 103, 
-    ItemName.SuitcaseTag6: 104, 
-    ItemName.SuitcaseTag7: 105, 
-    ItemName.SuitcaseTag8: 106, 
-    ItemName.SuitcaseTag9: 107, 
-    ItemName.SuitcaseTag10: 108,  
+    ItemName.SuitcaseTag: 99,
 }
 
 PurseTags_Table = {
-    ItemName.PurseTag1: 109, 
-    ItemName.PurseTag2: 110, 
-    ItemName.PurseTag3: 111, 
-    ItemName.PurseTag4: 112, 
-    ItemName.PurseTag5: 113, 
-    ItemName.PurseTag6: 114, 
-    ItemName.PurseTag7: 115, 
-    ItemName.PurseTag8: 116, 
-    ItemName.PurseTag9: 117, 
-    ItemName.PurseTag10: 118, 
+    ItemName.PurseTag: 109,
 }
 
 HatboxTags_Table = {
-    ItemName.HatboxTag1: 119, 
-    ItemName.HatboxTag2: 120, 
-    ItemName.HatboxTag3: 121, 
-    ItemName.HatboxTag4: 122, 
-    ItemName.HatboxTag5: 123, 
-    ItemName.HatboxTag6: 124, 
-    ItemName.HatboxTag7: 125, 
-    ItemName.HatboxTag8: 126, 
-    ItemName.HatboxTag9: 127, 
-    ItemName.HatboxTag10: 128, 
+    ItemName.HatboxTag: 119,
 }
 
 SteamerTags_Table = {
-    ItemName.SteamerTag1: 129, 
-    ItemName.SteamerTag2: 130, 
-    ItemName.SteamerTag3: 131, 
-    ItemName.SteamerTag4: 132, 
-    ItemName.SteamerTag5: 133, 
-    ItemName.SteamerTag6: 134, 
-    ItemName.SteamerTag7: 135, 
-    ItemName.SteamerTag8: 136, 
-    ItemName.SteamerTag9: 137, 
-    ItemName.SteamerTag10: 138,     
+    ItemName.SteamerTag: 129, 
 }
 
 DuffleTags_Table = {
-    ItemName.DuffleTag1: 139, 
-    ItemName.DuffleTag2: 140, 
-    ItemName.DuffleTag3: 141, 
-    ItemName.DuffleTag4: 142, 
-    ItemName.DuffleTag5: 143, 
-    ItemName.DuffleTag6: 144, 
-    ItemName.DuffleTag7: 145, 
-    ItemName.DuffleTag8: 146, 
-    ItemName.DuffleTag9: 147, 
-    ItemName.DuffleTag10: 148,    
+    ItemName.DuffleTag: 139,
 }
 
 Suitcase_Table = {
-    ItemName.Suitcase1: 149, 
-    ItemName.Suitcase2: 150, 
-    ItemName.Suitcase3: 151, 
-    ItemName.Suitcase4: 152, 
-    ItemName.Suitcase5: 153, 
-    ItemName.Suitcase6: 154, 
-    ItemName.Suitcase7: 155, 
-    ItemName.Suitcase8: 156, 
-    ItemName.Suitcase9: 157, 
-    ItemName.Suitcase10: 158,  
+    ItemName.Suitcase: 149,
 }
 
 Purse_Table = {
-    ItemName.Purse1: 159, 
-    ItemName.Purse2: 160, 
-    ItemName.Purse3: 161, 
-    ItemName.Purse4: 162, 
-    ItemName.Purse5: 163, 
-    ItemName.Purse6: 164, 
-    ItemName.Purse7: 165, 
-    ItemName.Purse8: 166, 
-    ItemName.Purse9: 167, 
-    ItemName.Purse10: 168,  
+    ItemName.Purse: 159,
 }
 
 Hatbox_Table = {
-    ItemName.Hatbox1: 169, 
-    ItemName.Hatbox2: 170, 
-    ItemName.Hatbox3: 171, 
-    ItemName.Hatbox4: 172, 
-    ItemName.Hatbox5: 173, 
-    ItemName.Hatbox6: 174, 
-    ItemName.Hatbox7: 175, 
-    ItemName.Hatbox8: 176, 
-    ItemName.Hatbox9: 177, 
-    ItemName.Hatbox10: 178,     
+    ItemName.Hatbox: 169, 
 }
 
 Steamertrunk_Table = {
-    ItemName.Steamertrunk1: 179, 
-    ItemName.Steamertrunk2: 180, 
-    ItemName.Steamertrunk3: 181, 
-    ItemName.Steamertrunk4: 182, 
-    ItemName.Steamertrunk5: 183, 
-    ItemName.Steamertrunk6: 184, 
-    ItemName.Steamertrunk7: 185, 
-    ItemName.Steamertrunk8: 186, 
-    ItemName.Steamertrunk9: 187, 
-    ItemName.Steamertrunk10: 188, 
+    ItemName.Steamertrunk: 179,
 }
 
 Dufflebag_Table = {
-    ItemName.Dufflebag1: 189, 
-    ItemName.Dufflebag2: 190, 
-    ItemName.Dufflebag3: 191, 
-    ItemName.Dufflebag4: 192, 
-    ItemName.Dufflebag5: 193, 
-    ItemName.Dufflebag6: 194, 
-    ItemName.Dufflebag7: 195, 
-    ItemName.Dufflebag8: 196, 
-    ItemName.Dufflebag9: 197, 
-    ItemName.Dufflebag10: 198, 
+    ItemName.Dufflebag: 189,
 }
 
 Vault_Table = {
-    ItemName.Vault1: 199, 
-    ItemName.Vault2: 200, 
-    ItemName.Vault3: 201, 
-    ItemName.Vault4: 202, 
-    ItemName.Vault5: 203, 
-    ItemName.Vault6: 204, 
-    ItemName.Vault7: 205, 
-    ItemName.Vault8: 206, 
-    ItemName.Vault9: 207, 
-    ItemName.Vault10: 208, 
-    ItemName.Vault11: 209, 
-    ItemName.Vault12: 210, 
-    ItemName.Vault13: 211, 
-    ItemName.Vault14: 212, 
-    ItemName.Vault15: 213, 
-    ItemName.Vault16: 214, 
-    ItemName.Vault17: 215, 
-    ItemName.Vault18: 216, 
-    ItemName.Vault19: 217,   
+    ItemName.Vault: 199, 
 }
 
 AHSmall_Table = {
-    ItemName.AHSmall1: 218, 
-    ItemName.AHSmall2: 219, 
-    ItemName.AHSmall3: 220, 
-    ItemName.AHSmall4: 221, 
-    ItemName.AHSmall5: 222, 
-    ItemName.AHSmall6: 223, 
-    ItemName.AHSmall7: 224, 
-    ItemName.AHSmall8: 225, 
-    ItemName.AHSmall9: 226, 
-    ItemName.AHSmall10: 227, 
-    ItemName.AHSmall11: 228, 
-    ItemName.AHSmall12: 229, 
-    ItemName.AHSmall13: 230, 
-    ItemName.AHSmall14: 231, 
-    ItemName.AHSmall15: 232, 
-    ItemName.AHSmall16: 233, 
-    ItemName.AHSmall17: 234, 
-    ItemName.AHSmall18: 235, 
-    ItemName.AHSmall19: 236, 
-    ItemName.AHSmall20: 237, 
-    ItemName.AHSmall21: 238, 
-    ItemName.AHSmall22: 239, 
-    ItemName.AHSmall23: 240, 
-    ItemName.AHSmall24: 241, 
-    ItemName.AHSmall25: 242, 
-    ItemName.AHSmall26: 243, 
-    ItemName.AHSmall27: 244, 
-    ItemName.AHSmall28: 245, 
-    ItemName.AHSmall29: 246, 
-    ItemName.AHSmall30: 247,     
+    ItemName.AHSmall: 218,
 }
 
 AHLarge_Table = {
-    ItemName.AHLarge1: 248, 
-    ItemName.AHLarge2: 249, 
-    ItemName.AHLarge3: 250, 
-    ItemName.AHLarge4: 251, 
-    ItemName.AHLarge5: 252, 
+    ItemName.AHLarge: 248,
 }
 
 PsiCards_Table = {
-    ItemName.PsiCard1: 267,
-    ItemName.PsiCard2: 268,
-    ItemName.PsiCard3: 269,
-    ItemName.PsiCard4: 270,
-    ItemName.PsiCard5: 271,
-    ItemName.PsiCard6: 272,
-    ItemName.PsiCard7: 273,
-    ItemName.PsiCard8: 274,
-    ItemName.PsiCard9: 275,
-    ItemName.PsiCard10: 276,
-    ItemName.PsiCard11: 277,
-    ItemName.PsiCard12: 278,
-    ItemName.PsiCard13: 279,
-    ItemName.PsiCard14: 280,
-    ItemName.PsiCard15: 281,
-    ItemName.PsiCard16: 282,
-    ItemName.PsiCard17: 283,
-    ItemName.PsiCard18: 284,
-    ItemName.PsiCard19: 285,
-    ItemName.PsiCard20: 286,
-    ItemName.PsiCard21: 287,
-    ItemName.PsiCard22: 288,
-    ItemName.PsiCard23: 289,
-    ItemName.PsiCard24: 290,
-    ItemName.PsiCard25: 291,
-    ItemName.PsiCard26: 292,
-    ItemName.PsiCard27: 293,
-    ItemName.PsiCard28: 294,
-    ItemName.PsiCard29: 295,
-    ItemName.PsiCard30: 296,
-    ItemName.PsiCard31: 297,
-    ItemName.PsiCard32: 298,
-    ItemName.PsiCard33: 299,
-    ItemName.PsiCard34: 300,
-    ItemName.PsiCard35: 301,
-    ItemName.PsiCard36: 302,
-    ItemName.PsiCard37: 303,
-    ItemName.PsiCard38: 304,
-    ItemName.PsiCard39: 305,
-    ItemName.PsiCard40: 306,
-    ItemName.PsiCard41: 307,
-    ItemName.PsiCard42: 308,
-    ItemName.PsiCard43: 309,
-    ItemName.PsiCard44: 310,
-    ItemName.PsiCard45: 311,
-    ItemName.PsiCard46: 312,
-    ItemName.PsiCard47: 313,
-    ItemName.PsiCard48: 314,
-    ItemName.PsiCard49: 315,
-    ItemName.PsiCard50: 316,
-    ItemName.PsiCard51: 317,
-    ItemName.PsiCard52: 318,
-    ItemName.PsiCard53: 319,
-    ItemName.PsiCard54: 320,
-    ItemName.PsiCard55: 321,
-    ItemName.PsiCard56: 322,
-    ItemName.PsiCard57: 323,
-    ItemName.PsiCard58: 324,
-    ItemName.PsiCard59: 325,
-    ItemName.PsiCard60: 326,
-    ItemName.PsiCard61: 327,
-    ItemName.PsiCard62: 328,
-    ItemName.PsiCard63: 329,
-    ItemName.PsiCard64: 330,
-    ItemName.PsiCard65: 331,
-    ItemName.PsiCard66: 332,
-    ItemName.PsiCard67: 333,
-    ItemName.PsiCard68: 334,
-    ItemName.PsiCard69: 335,
-    ItemName.PsiCard70: 336,
-    ItemName.PsiCard71: 337,
-    ItemName.PsiCard72: 338,
-    ItemName.PsiCard73: 339,
-    ItemName.PsiCard74: 340,
-    ItemName.PsiCard75: 341,
-    ItemName.PsiCard76: 342,
-    ItemName.PsiCard77: 343,
-    ItemName.PsiCard78: 344,
-    ItemName.PsiCard79: 345,
-    ItemName.PsiCard80: 346,
-    ItemName.PsiCard81: 347,
-    ItemName.PsiCard82: 348,
-    ItemName.PsiCard83: 349,
-    ItemName.PsiCard84: 350,
-    ItemName.PsiCard85: 351,
-    ItemName.PsiCard86: 352,
-    ItemName.PsiCard87: 353,
-    ItemName.PsiCard88: 354,
-    ItemName.PsiCard89: 355,
-    ItemName.PsiCard90: 356,
-    ItemName.PsiCard91: 357,
-    ItemName.PsiCard92: 358,
-    ItemName.PsiCard93: 359,
-    ItemName.PsiCard94: 360,
-    ItemName.PsiCard95: 361,
-    ItemName.PsiCard96: 362,
-    ItemName.PsiCard97: 363,
-    ItemName.PsiCard98: 364,
-    # Filler if starting minds, ignored if not
-    ItemName.PsiCard99: 365, 
-    ItemName.PsiCard100: 366,
-    ItemName.PsiCard101: 367,
-    ItemName.PsiCard102: 368,
-    ItemName.PsiCard103: 369,
-    ItemName.PsiCard104: 370,
-    ItemName.PsiCard105: 371,
-    ItemName.PsiCard106: 372,
-    ItemName.PsiCard107: 373,
+    ItemName.PsiCard: 267
 }
 
 OtherItems_Table = {
@@ -488,6 +205,9 @@ item_dictionary_table = {
     **OtherItems_Table,
 }
 
+# Reverse mapping of all items, from item ID to item name.
+reverse_item_dictionary_table = {v: k for k, v in item_dictionary_table.items()}
+
 progression_set = {
     **RequiredProps_Table,
     **MindUnlocks_Table,
@@ -524,36 +244,60 @@ local_set = {
     **Dufflebag_Table,
 }
 
-item_groups: typing.Dict[str, list] = {
-    "Marksmanship": [ItemName.Marksmanship1, ItemName.Marksmanship2, ItemName.Marksmanship3],
-    "Pyrokinesis": [ItemName.Pyrokinesis1, ItemName.Pyrokinesis2],
-    "Confusion": [ItemName.Confusion1, ItemName.Confusion2],
-    "Levitation": [ItemName.Levitation1, ItemName.Levitation2, ItemName.Levitation3],
-    "Telekinesis": [ItemName.Telekinesis1, ItemName.Telekinesis2],
-    "Invisibility": [ItemName.Invisibility1, ItemName.Invisibility2],
-    "Clairvoyance": [ItemName.Clairvoyance1, ItemName.Clairvoyance2],
-    "Shield": [ItemName.Shield1, ItemName.Shield2],
-    "Mind": [item_name for item_name in MindUnlocks_Table.keys()],
-    "Candle": [ItemName.Candle1, ItemName.Candle2],
-    "Max Ammo Up": [item_name for item_name in MaxAmmo_Table.keys()],
-    "Max Lives Up": [item_name for item_name in MaxLives_Table.keys()],
-    "Confusion Ammo Up": [item_name for item_name in ConfusionAmmo_Table.keys()],
-    "PsiChallengeMarker": [item_name for item_name in ChallengeMarker_Table.keys()],
-    "Brain": [item_name for item_name in BrainJar_Table.keys()],
-    "Scavenger Hunt": [item_name for item_name in ScavHunt_Table.keys()],
-    "Suitcase Tag": [item_name for item_name in SuitcaseTags_Table.keys()],
-    "Purse Tag": [item_name for item_name in PurseTags_Table.keys()],
-    "Hatbox Tag": [item_name for item_name in HatboxTags_Table.keys()],
-    "Steamertrunk Tag": [item_name for item_name in SteamerTags_Table.keys()],
-    "Dufflebag Tag": [item_name for item_name in DuffleTags_Table.keys()],
-    "Suitcase": [item_name for item_name in Suitcase_Table.keys()],
-    "Purse": [item_name for item_name in Purse_Table.keys()],
-    "Hatbox": [item_name for item_name in Hatbox_Table.keys()],
-    "Steamertrunk": [item_name for item_name in Steamertrunk_Table.keys()],
-    "Dufflebag": [item_name for item_name in Dufflebag_Table.keys()],
-    "Memory Vault": [item_name for item_name in Vault_Table.keys()],
-    "Small Arrowhead": [item_name for item_name in AHSmall_Table.keys()],
-    "Large Arrowhead": [item_name for item_name in AHLarge_Table.keys()],
-    "Psicard": [item_name for item_name in PsiCards_Table.keys()],
+item_groups: Dict[str, List[str]] = {
+    "Mind": list(MindUnlocks_Table.keys()),
+    "Brain": list(BrainJar_Table.keys()),
+    "Scavenger Hunt": list(ScavHunt_Table.keys()),
 }
 
+# Start with a dict with a count of 1 for each item and then merge in a dict with the items of which there are multiple.
+# Can't use the union operator, `dict1 | dict2`, until Archipelago requires Python 3.9 or newer, so using
+# `{**dict1, **dict2}`.
+item_counts: Dict[str, int] = {**{k: 1 for k in item_dictionary_table}, **{
+    ItemName.Candle: 2,
+    ItemName.Marksmanship: 3,
+    ItemName.Pyrokinesis: 2,
+    ItemName.Confusion: 2,
+    ItemName.Levitation: 3,
+    ItemName.Telekinesis: 2,
+    ItemName.Invisibility: 2,
+    ItemName.Clairvoyance: 2,
+    ItemName.Shield: 3,
+    ItemName.AmmoUp: 6,
+    ItemName.MaxLivesUp: 6,
+    ItemName.ConfusionUp: 4,
+    ItemName.ChallengeMarker: 10,
+    ItemName.SuitcaseTag: 10,
+    ItemName.PurseTag: 10,
+    ItemName.HatboxTag: 10,
+    ItemName.SteamerTag: 10,
+    ItemName.DuffleTag: 10,
+    ItemName.Suitcase: 10,
+    ItemName.Purse: 10,
+    ItemName.Hatbox: 10,
+    ItemName.Steamertrunk: 10,
+    ItemName.Dufflebag: 10,
+    ItemName.Vault: 19,
+    ItemName.AHSmall: 30,
+    ItemName.AHLarge: 5,
+    ItemName.PsiCard: 107,
+}}
+
+# Offset added to Psychonauts IDs to produce AP IDs.
+AP_ITEM_OFFSET = 42690000
+
+_max_base_id = max(item_dictionary_table.values())
+# The maximum Psychonauts item ID, taking into account that there are multiple of some items.
+MAX_PSY_ITEM_ID = _max_base_id + item_counts[reverse_item_dictionary_table[_max_base_id]] - 1
+del _max_base_id
+
+
+def find_item_name_from_psy_id(psy_item_id: int) -> Union[str, None]:
+    if 0 < psy_item_id <= MAX_PSY_ITEM_ID:
+        # The Psychonauts item ID may have been incremented from its base ID to produce a unique ID, so iterate
+        # backwards until the first matching item is found.
+        for i in range(psy_item_id, 0, -1):
+            if i in reverse_item_dictionary_table:
+                return reverse_item_dictionary_table[i]
+    # No item with the ID exists.
+    return None
