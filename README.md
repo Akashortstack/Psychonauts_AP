@@ -14,3 +14,6 @@ https://gitlab.com/scrunguscrungus/astralathe/-/releases
 
 Setup Guide and list of changes from vanilla game here:
 https://docs.google.com/document/d/1cI3M07nWfDuBkv2M2c4NtCHPyq9koH4f2p53fgCQS4E/edit?usp=sharing
+
+PopTracker Pack created by Mysteryem here:
+https://github.com/Mysteryem/Psychonauts_AP_PopTracker/releases
