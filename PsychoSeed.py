@@ -49,17 +49,17 @@ def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]
                 # It is an event item, such as those used for Victory and Filler event locations.
                 itemcode = 999
             else:
-                # When there are multiple copies of an item, locally placed items start from the maximum id for that
-                # item and count backwards for each item placed.
-                # Conversely, as items with multiple copies are received from the multiworld, the received ids start
-                # from the minimum id for that item and count upwards for each item received.
+                # When there are multiple copies of an item, locally placed items start from the first id for that item
+                # and count upwards for each item placed.
                 base_item_code = item_dictionary_table[local_item_name]
+                count_placed = placed_item_counts.setdefault(base_item_code, 0)
+                itemcode = base_item_code + count_placed
+
                 item_count = item_counts[local_item_name]
                 max_item_code = base_item_code + item_count - 1
-                count_placed = placed_item_counts.setdefault(base_item_code, 0)
-
-                itemcode = max_item_code - count_placed
-                assert itemcode >= base_item_code, "More '%s' items were placed locally than exist" % local_item_name
+                assert count_placed < item_count, ("Too many '%s' (ids %i to %i) items were placed locally than can"
+                                                   " exist locally. Max: %i"
+                                                   % (local_item_name, base_item_code, max_item_code, item_count))
 
                 placed_item_counts[base_item_code] = count_placed + 1
         else:
