@@ -105,6 +105,9 @@ class PSYWorld(World):
 
         return created_item
 
+    def get_filler_item_name(self) -> str:
+        return ItemName.PsiCard
+
     def create_event_item(self, name: str) -> Item:
         item_classification = ItemClassification.progression
         created_item = PSYItem(name, item_classification, None, self.player)

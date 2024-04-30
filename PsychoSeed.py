@@ -1,7 +1,7 @@
 import os
 import Utils
 import zipfile
-from typing import List, Tuple, Iterable, Union
+from typing import List, Tuple, Iterable, Union, Dict
 
 from .Items import item_dictionary_table, item_counts
 from .Locations import all_locations
@@ -25,7 +25,8 @@ class PSYContainer(APContainer):
         super().write_contents(opened_zipfile)
 
 
-def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]) -> List[Tuple[int, int]]:
+def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]
+                ) -> Tuple[List[Tuple[int, int]], Dict[int, int]]:
     """
     Generic Psychonauts ID generator. The input location tuples may come from scouted locations or from generated
     locations.
@@ -38,6 +39,14 @@ def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]
 
     # Initialize a list to store tuples of location ID and item code
     location_tuples = []
+
+    # If we run out of Psychonauts IDs to place an item locally because a yaml plando-ed more than can exist by default,
+    # or in the very unlikely case that more filler PsiCards were placed locally than can exist locally, place the item
+    # as an AP item placeholder instead and send the item as if it were non-local. This dict stores the mapping from AP
+    # items placed like this to the item ID to send to Psychonauts when the placeholder item is collected.
+    # Since receiving the correct item relies on a connection to the AP server, these items won't be received when
+    # disconnected.
+    local_items_placed_as_ap_items = {}
 
     placed_item_counts = {}
 
@@ -53,15 +62,17 @@ def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]
                 # and count upwards for each item placed.
                 base_item_code = item_dictionary_table[local_item_name]
                 count_placed = placed_item_counts.setdefault(base_item_code, 0)
-                itemcode = base_item_code + count_placed
 
-                item_count = item_counts[local_item_name]
-                max_item_code = base_item_code + item_count - 1
-                assert count_placed < item_count, ("Too many '%s' (ids %i to %i) items were placed locally than can"
-                                                   " exist locally. Max: %i"
-                                                   % (local_item_name, base_item_code, max_item_code, item_count))
-
-                placed_item_counts[base_item_code] = count_placed + 1
+                max_count = item_counts[local_item_name]
+                if count_placed < max_count:
+                    itemcode = base_item_code + count_placed
+                    placed_item_counts[base_item_code] = count_placed + 1
+                else:
+                    # There aren't any Psychonauts IDs left to place this item directly, so place it as an AP item and
+                    # receive the item as if it were placed non-locally.
+                    itemcode = non_local_id
+                    local_items_placed_as_ap_items[itemcode] = base_item_code
+                    non_local_id += 1
         else:
             # item from another game
             itemcode = non_local_id
@@ -71,7 +82,7 @@ def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]
 
         location_tuples.append((location_id, itemcode))
 
-    return location_tuples
+    return location_tuples, local_items_placed_as_ap_items
 
 
 def gen_psy_ids_from_filled_locations(self) -> List[Tuple[int, int]]:
@@ -86,7 +97,11 @@ def gen_psy_ids_from_filled_locations(self) -> List[Tuple[int, int]]:
 
         location_tuples.append((is_local, local_item_name, location_id))
 
-    return gen_psy_ids(location_tuples)
+    psy_ids, local_items_placed_as_ap_items = gen_psy_ids(location_tuples)
+    if local_items_placed_as_ap_items:
+        print("Warning: There were not enough Psychonauts IDs to place all local items. Some local items have been"
+              " placed as AP placeholder items instead.")
+    return psy_ids
 
 
 def gen_psy_seed(self, output_directory):

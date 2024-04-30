@@ -71,6 +71,7 @@ class PsychonautsContext(CommonContext):
 
     max_item_counts: Dict[int, int]
     local_psy_location_to_local_psy_item_id: Dict[int, int]  # server state
+    local_items_placed_as_ap_items: Dict[int, int]  # server state
     has_local_location_data: bool  # server state
     pending_received_items: List[Tuple[int, NetworkItem]]  # server state
 
@@ -98,6 +99,11 @@ class PsychonautsContext(CommonContext):
         # locations:
         # Mapping from Psychonauts location ID to Psychonauts item ID for all locally placed items.
         self.local_psy_location_to_local_psy_item_id = {}
+        # If Psychonauts runs out of IDs to locally place specific items, e.g. because extra copies of those items were
+        # placed with item plando without taking the items from the pool, the extra items can be placed as AP
+        # placeholder items as if the items were for a different world. This dict stores the mapping to the item that
+        # Psychonauts should receive when it collects the AP placeholder.
+        self.local_items_placed_as_ap_items = {}
 
         # Used to specify whether local location data has been read from scouted locations.
         self.has_local_location_data = False
@@ -119,6 +125,7 @@ class PsychonautsContext(CommonContext):
         # so all the old data specific to the previous connection must be reset to its initial state as if this is the
         # first time the client is connecting to a server.
         self.local_psy_location_to_local_psy_item_id = {}
+        self.local_items_placed_as_ap_items = {}
         self.has_local_location_data = False
         self.pending_received_items = []
 
@@ -173,11 +180,16 @@ class PsychonautsContext(CommonContext):
         # Note that event item locations are not provided here and are not real locations that can be scouted. The
         # event locations have no effect on the generated Psychonauts IDs of local items, so the event item
         # locations can be omitted from the calculation.
-        psy_id_tuples = gen_psy_ids(location_tuples)
+        #
+        # In the unlikely case that Psychonauts runs out of IDs to place all local items, some local items will be
+        # placed as AP placeholders like non-local items.
+        psy_id_tuples, local_items_placed_as_ap_items = gen_psy_ids(location_tuples)
 
         # Convert the list of tuples into a dict and filter out items from other worlds.
-        self.local_psy_location_to_local_psy_item_id = {location_id: item_id for location_id, item_id
-                                                        in psy_id_tuples if item_id < PSY_NON_LOCAL_ID_START}
+        self.local_psy_location_to_local_psy_item_id = {location_id: item_id for location_id, item_id in psy_id_tuples
+                                                        if item_id < PSY_NON_LOCAL_ID_START
+                                                        or item_id in local_items_placed_as_ap_items}
+        self.local_items_placed_as_ap_items = local_items_placed_as_ap_items
 
         return True
 
@@ -202,6 +214,13 @@ class PsychonautsContext(CommonContext):
 
         # Get the Psychonauts item id for the item at this local location.
         local_item_psy_id = self.local_psy_location_to_local_psy_item_id[psy_location_id]
+
+        # If Psychonauts ran out of IDs to place the item locally and had to place the item as an AP placeholder, get
+        # the item that should have been placed and send that as if it was a non-locally received item.
+        if local_item_psy_id in self.local_items_placed_as_ap_items:
+            self.receive_non_local_item(index, self.local_items_placed_as_ap_items[local_item_psy_id])
+            return
+
         # Check that the Psychonauts ID matches the item AP thinks is at this location.
         if base_psy_item_id <= local_item_psy_id <= max_psy_item_id:
             # Tell Psychonauts it has received the item.
