@@ -6,6 +6,7 @@ from BaseClasses import Tutorial, ItemClassification
 from Fill import fill_restrictive
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 from worlds.AutoWorld import World, WebWorld
+from BaseClasses import Item
 from .Items import *
 from .Locations import *
 from .Names import ItemName, LocationName, RegionName
@@ -13,7 +14,7 @@ from .Options import Goal, PsychonautsOptions, slot_data_options
 from .Regions import create_psyregions, connect_regions
 from .Rules import *
 from .Subclasses import PSYItem
-from .PsychoSeed import gen_psy_seed
+from .PsychoSeed import gen_psy_seed, gen_psy_ids, PSY_NON_LOCAL_ID_START
 
 def launch_client():
     from .Client import launch
@@ -104,6 +105,9 @@ class PSYWorld(World):
 
         return created_item
 
+    def get_filler_item_name(self) -> str:
+        return ItemName.PsiCard
+
     def create_event_item(self, name: str) -> Item:
         item_classification = ItemClassification.progression
         created_item = PSYItem(name, item_classification, None, self.player)
@@ -128,7 +132,25 @@ class PSYWorld(World):
             self.adjusted_item_pool.pop(item)
             self.multiworld.push_precollected(self.create_item(item))
 
-        itempool = [self.create_item(item) for item in list(self.adjusted_item_pool.keys())[:364]]
+        itempool = []
+
+        # Fill the pool with as many items as there are local locations that can have items placed into.
+        total_item_count = FILLABLE_LOCATION_COUNT
+        created_item_count = 0
+        for item_name in self.adjusted_item_pool.keys():
+            item_count = item_counts[item_name]
+            remaining_items = total_item_count - created_item_count
+            number_to_create = min(item_count, remaining_items)
+
+            for _ in range(number_to_create):
+                itempool.append(self.create_item(item_name))
+            created_item_count += number_to_create
+
+            if number_to_create != item_count:
+                # No more items can be created.
+                break
+
+        assert len(itempool) == total_item_count
 
         self.multiworld.itempool += itempool
 
