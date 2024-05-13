@@ -207,8 +207,9 @@ class PsychonautsContext(CommonContext):
         # to manually collect the local items again.
         psy_location_id = ap_location_id - AP_LOCATION_OFFSET
         if psy_location_id not in self.local_psy_location_to_local_psy_item_id:
-            # This should not happen unless AP can send dummy local location IDs for locations that do not exist.
-            logger.error("Error: Local item received from non-existent local location '%s'", ap_location_id)
+            print(f"Local item {ap_item_id} ({base_psy_item_id}) received from non-existent local location"
+                  f" {ap_location_id}. Sending as a non-local item instead.")
+            self.receive_non_local_item(index, base_psy_item_id)
             return
 
         # Get the Psychonauts item id for the item at this local location.
