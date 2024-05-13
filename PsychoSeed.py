@@ -107,7 +107,8 @@ def gen_psy_ids_from_filled_locations(self) -> List[Tuple[int, int]]:
 def gen_psy_seed(self, output_directory):
     # Mod name for Zip Folder
     mod_name = f"AP-{self.multiworld.seed_name}-P{self.player}-{self.multiworld.get_file_safe_player_name(self.player)}"
-
+    # Folder name for Client and Game to Read/Write to
+    seed_folder_name = f"AP-{self.multiworld.seed_name}-P{self.player}"
     # Need to clip off the seed name for Display Version to fit in Randomizer
     rando_display_name = f"AP-P{self.player}-{self.multiworld.get_file_safe_player_name(self.player)}"
 
@@ -121,7 +122,10 @@ def gen_psy_seed(self, output_directory):
         '''
     randoseed_parts.append(formattedtext1)
 
-    # append mod_name 
+    # append seed_folder_name for APfoldername
+    randoseed_parts.append(f"       Ob.APfoldername = '{seed_folder_name}'\n")
+
+    # append rando_display_name 
     randoseed_parts.append(f"       Ob.seedname = '{rando_display_name}'\n")
 
     # append startlevitation setting
