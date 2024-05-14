@@ -1,5 +1,6 @@
 from __future__ import annotations
 import os
+import shutil
 import sys
 import asyncio
 import logging
@@ -63,6 +64,20 @@ class PsychonautsClientCommandProcessor(ClientCommandProcessor):
                 self.output(f"Deathlink enabled.")
             else:
                 self.output(f"Deathlink disabled.")
+    
+    def _cmd_clearmoddata(self):
+        """Empty your Psychonauts ModData Folder"""
+        if isinstance(self.ctx, PsychonautsContext):
+            if self.ctx.clear_mod_data_warning == False:
+                self.output(f"WARNING: This will empty all Archipelago files from your Psychonauts ModData folder.\n"
+                            "If you are currently playing a multiworld, have other unfinished multiworlds,\n"
+                            "or don't know why you're using this command, DO NOT DO THIS!!!\n"
+                            "Run this command again to confirm and clear all contents.")
+            elif self.ctx.clear_mod_data_warning == True:
+                self.output(f"Emptying ModData folder.")
+                self.ctx.clear_mod_data()
+                           
+            self.ctx.clear_mod_data_warning = not self.ctx.clear_mod_data_warning
 
 class PsychonautsContext(CommonContext):
     command_processor: int = PsychonautsClientCommandProcessor
@@ -82,6 +97,7 @@ class PsychonautsContext(CommonContext):
         self.awaiting_bridge = False
         self.got_deathlink = False
         self.deathlink_status = False
+        self.clear_mod_data_warning = False
 
         # The maximum number of each item that Psychonauts can receive before it runs out of unique IDs for that item.
         self.max_item_counts = {item_dictionary_table[item_name] + AP_ITEM_OFFSET: count
@@ -257,6 +273,12 @@ class PsychonautsContext(CommonContext):
             self.receive_local_item(index, network_item.location, ap_item_id, base_psy_item_id)
         else:
             self.receive_non_local_item(index, base_psy_item_id)
+
+    def clear_mod_data(self):
+        for root, dirs, files in os.walk(self.moddata_folder):
+            for dir in dirs:
+                if "AP-" in dir:
+                    shutil.rmtree(os.path.join(root, dir)) 
 
     def on_package(self, cmd: str, args: dict):
         if cmd in {"Connected"}:
