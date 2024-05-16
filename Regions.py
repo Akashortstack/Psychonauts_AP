@@ -307,7 +307,6 @@ def create_psyregions(world: MultiWorld, player: int):
     regASCO = Region(RegionName.ASCO, player, world)
     locASCO_names = [
         LocationName.AboveElevator, 
-        LocationName.CrowsBasket, 
         LocationName.LedgeAboveFredLeft, 
         LocationName.LedgeAboveFredRight, 
         LocationName.LedgeOppositeElevator, 
@@ -324,6 +323,13 @@ def create_psyregions(world: MultiWorld, player: int):
     ]
     regASCOLev.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASCOLev) for loc_name in locASCOLev_names]
     world.regions.append(regASCOLev)
+
+    regASCOInvis = Region(RegionName.ASCOInvis, player, world)
+    locASCOInvis_names = [
+        LocationName.CrowsBasket, 
+    ]
+    regASCOInvis.locations += [PSYLocation(player, loc_name, all_locations[loc_name] + 42690000, regASCOInvis) for loc_name in locASCOInvis_names]
+    world.regions.append(regASCOInvis)
 
     regASUP = Region(RegionName.ASUP, player, world)
     locASUP_names = [
@@ -951,7 +957,7 @@ def connect_regions(multiworld: MultiWorld, player: int):
 
         RegionName.CABH: {RegionName.CABHLev, RegionName.ASGR, },
 
-        RegionName.ASGR: {RegionName.ASGRLev, RegionName.ASCO, RegionName.ASCOLev, },
+        RegionName.ASGR: {RegionName.ASGRLev, RegionName.ASCO, RegionName.ASCOLev, RegionName.ASCOInvis},
 
         RegionName.ASCO: {RegionName.ASUP, },
 

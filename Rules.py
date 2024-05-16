@@ -112,6 +112,8 @@ class PsyRules:
 
             RegionName.ASCOLev: self.has_levitation,
 
+            RegionName.ASCOInvis: self.has_invisibility,
+
             RegionName.ASUP: lambda state: self.has_upperasylumaccess(state),
 
             RegionName.ASUPLev: self.has_levitation,
