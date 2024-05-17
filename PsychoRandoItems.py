@@ -112,11 +112,15 @@ PSYCHORANDO_ITEM_TABLE = {
     # 19 Vaults
     ItemName.Vault: 19,
 
-    # 30 Rando Arrowhead Bundles Small
-    ItemName.AHSmall: 30,
+    # 59 Rando Arrowhead Bundles Small
+    # 30 are used by default
+    # 29 are added for Deep Arrowhead Shuffle
+    ItemName.AHSmall: 30 + 29,
 
-    # 5 Rando Arrowhead Bundles Large
-    ItemName.AHLarge: 5,
+    # 25 Rando Arrowhead Bundles Large
+    # 5 are used by default
+    # 20 are added for Deep Arrowhead Shuffle
+    ItemName.AHLarge: 5 + 20,
 
     # Oarsman's Badge
     ItemName.OarsmansBadge: 1,
@@ -143,6 +147,9 @@ PSYCHORANDO_ITEM_TABLE = {
     ItemName.FredMind: 1,
     ItemName.EdgarMind: 1,
     ItemName.OlyMind: 1,
+
+    # Dowsing Rod
+    ItemName.DowsingRod: 1,
 
     # 110 Psicards, filler item, increase if adding more positions
     ItemName.PsiCard: 110,

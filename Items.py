@@ -33,6 +33,9 @@ Props_Table = {
     ItemName.FredsLetter: 18,
     ItemName.PricelessCoin: 19,
     ItemName.Musket: 20,
+
+    # Enabled with DeepArrowheadShuffle, otherwise available from the Main Lodge store as normal
+    ItemName.DowsingRod: 93
 }
 
 MindUnlocks_Table = {
@@ -190,4 +193,9 @@ item_counts = {
     ItemName.PsiCard: 0,
     # These items are unused.
     **{item: 0 for item in OtherItems_Table},
+    # Only added when DeepArrowheadShuffle is enabled.
+    ItemName.DowsingRod: 0,
+    # The extra available Arrowhead Bundles are only used when DeepArrowheadShuffle is enabled.
+    ItemName.AHSmall: 30,
+    ItemName.AHLarge: 5,
 }

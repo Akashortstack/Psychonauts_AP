@@ -166,6 +166,10 @@ def gen_psy_seed(self: "PSYWorld", output_directory):
     # append requireMC setting
     randoseed_parts.append(f"           Ob.requireMC = {_lua_bool(self.options.RequireMeatCircus)}\n")
 
+    # append deepArrowheadShuffle and randomizeDowsingRod depending on DeepArrowheadShuffle setting
+    randoseed_parts.append(f"           Ob.deepArrowheadShuffle = {_lua_bool(self.options.DeepArrowheadShuffle)}\n")
+    randoseed_parts.append(f"           Ob.randomizeDowsingRod = {_lua_bool(self.options.DeepArrowheadShuffle)}\n")
+
     # append Goal settings
     beatoleander = _lua_bool(self.options.Goal == Goal.option_braintank
                              or self.options.Goal == Goal.option_braintank_and_brainhunt)

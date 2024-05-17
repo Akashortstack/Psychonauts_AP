@@ -7,7 +7,14 @@ from BaseClasses import MultiWorld, Region
 
 from .Names import RegionName, ItemName
 from .Subclasses import PSYLocation
-from .Locations import all_locations, AP_LOCATION_OFFSET
+from .Locations import (
+    all_locations,
+    AP_LOCATION_OFFSET,
+    CAGP_Deep_Arrowhead_Checks,
+    CAMA_Deep_Arrowhead_Checks,
+    CARE_Deep_Arrowhead_Checks,
+    CABH_Deep_Arrowhead_Checks,
+)
 from .Names import LocationName
 from . import Options
 
@@ -33,6 +40,21 @@ def place_events(self: "PSYWorld"):
         else:
             event_name = ItemName.Filler
         location.place_locked_item(self.create_event_item(event_name))
+
+
+def _add_locations_to_existing_region(multiworld: MultiWorld, player: int, region_name: str,
+                                      locations: Dict[str, int]):
+    region = multiworld.get_region(region_name, player)
+    region.locations.extend(
+        PSYLocation(player, name, location_id + AP_LOCATION_OFFSET, region) for name, location_id in locations.items()
+    )
+
+
+def create_deep_arrowhead_locations(multiworld: MultiWorld, player: int):
+    _add_locations_to_existing_region(multiworld, player, RegionName.CAGP, CAGP_Deep_Arrowhead_Checks)
+    _add_locations_to_existing_region(multiworld, player, RegionName.CAMA, CAMA_Deep_Arrowhead_Checks)
+    _add_locations_to_existing_region(multiworld, player, RegionName.CARE, CARE_Deep_Arrowhead_Checks)
+    _add_locations_to_existing_region(multiworld, player, RegionName.CABH, CABH_Deep_Arrowhead_Checks)
 
 
 def create_psyregions(world: MultiWorld, player: int):
@@ -491,7 +513,7 @@ def create_psyregions(world: MultiWorld, player: int):
     ]
     create_region(RegionName.LOMAShield, locLOMAShield_names)
 
-        
+
     locMMI1Fridge_names = [
         LocationName.BoydsFridgeClv,
     ]

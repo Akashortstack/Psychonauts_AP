@@ -429,6 +429,83 @@ event_locations = {
     LocationName.OleanderBossEvent: 502,
 }
 
+# Deep Arrowhead locations.
+# These are not included in PsychoRando seed generation so the IDs must be greater than all locations which are included
+# in PsychoRando seed generation.
+# Main Campgrounds
+CAMA_Deep_Arrowhead_Checks = {
+    LocationName.DeepAHTrashCanNorthOfLodge: 503,
+    LocationName.DeepAHMainLodgeWalkway: 504,
+    LocationName.DeepAHUnderStartOfLakeBridge: 505,
+    LocationName.DeepAHGPCPathBeforeCougar: 506,
+    LocationName.DeepAHWestOfStump: 507,
+    LocationName.DeepAHReceptionEntrance: 508,
+    LocationName.DeepAHParkingLotLogFence: 509,
+    LocationName.DeepAHUnderMainLodge: 510,
+    LocationName.DeepAHRockWallTop: 511,
+}
+
+# GPC and Wilderness
+CAGP_Deep_Arrowhead_Checks = {
+    # GPC (CAGP)
+    LocationName.DeepAHInRiverBeforeGrate: 512,
+    LocationName.DeepAHInsideGPCFenceNorth: 513,
+    LocationName.DeepAHNearStumpDeep: 514,
+    LocationName.DeepAHTreeNearSquirrel: 515,
+    LocationName.DeepAHRiverNearRuinedCabin: 516,
+    LocationName.DeepAHInsideGPCFenceSouthWest: 517,
+    LocationName.DeepAHLargerBoulderByLake: 518,
+    LocationName.DeepAHGeyser: 519,
+    LocationName.DeepAHNearBear: 520,
+    LocationName.DeepAHBigRockNearFord: 521,
+    LocationName.DeepAHOppositeRiverFromStump: 522,
+    LocationName.DeepAHBeforeCampEntrance: 523,
+    LocationName.DeepAHBeforeLakeEntrance: 524,
+    LocationName.DeepAHSmallerBoulderByLake: 525,
+    LocationName.DeepAHInsideGPCFenceSouthEast: 526,
+}
+
+# Reception Area
+CARE_Deep_Arrowhead_Checks = {
+    LocationName.DeepAHMineshaftBear: 527,
+    LocationName.DeepAHShallowWaterEast: 528,
+    LocationName.DeepAHShallowWaterWest: 529,
+    LocationName.DeepAHCollapsedCave: 530,
+    LocationName.DeepAHFireplaceTree: 531,
+    LocationName.DeepAHSouthOfTrailer: 532,
+    LocationName.DeepAHEastOfTrailer: 533,
+    LocationName.DeepAHGraveyardTree: 534,
+    LocationName.DeepAHInFrontOfGraveyard: 535,
+    LocationName.DeepAHGraveyardCorner: 536,
+    LocationName.DeepAHWestOfCampfire: 537,
+    LocationName.DeepAHNorthEastOfCampfire: 538,
+    LocationName.DeepAHMineshaftLowerEntrance: 539,
+    LocationName.DeepAHByStumpCARE: 540,
+    LocationName.DeepAHWaterfallRiverSplit: 541,
+    LocationName.DeepAHLogHillInFront: 542,
+    LocationName.DeepAHLogHillTop: 543,
+    LocationName.DeepAHBelowTightropePlatform: 544,
+}
+
+# Lake and Boathouse
+CABH_Deep_Arrowhead_Checks = {
+    LocationName.DeepAHByStumpCABH: 545,
+    LocationName.DeepAHLakeShore: 546,
+    LocationName.DeepAHBathysphereRock: 547,
+    LocationName.DeepAHGPCTunnelEntrance: 548,
+    LocationName.DeepAHRockWallUpper: 549,
+    LocationName.DeepAHBoathouseEntrance: 550,
+    LocationName.DeepAHRightOfEntrance: 551,
+}
+
+deep_arrowhead_locations = {
+    **CAGP_Deep_Arrowhead_Checks,
+    **CAMA_Deep_Arrowhead_Checks,
+    **CARE_Deep_Arrowhead_Checks,
+    **CABH_Deep_Arrowhead_Checks,
+}
+
+# Includes locations that may not be enabled.
 all_fillable_locations = {
     **CA_Checks,
     **Rank_Checks,
@@ -443,6 +520,7 @@ all_fillable_locations = {
     **WW_Checks,
     **BV_Checks,
     **MC_Checks,
+    **deep_arrowhead_locations,
 }
 
 all_locations = {
@@ -450,8 +528,15 @@ all_locations = {
     **event_locations,
 }
 
+# Locations which do not place items into the game world. When such a location contains a local item, the AP server will
+# tell the client to receive the item and the client will send the item to Psychonauts as if the item was non-locally
+# placed.
+_FULLY_REMOTE_LOCATION_IDS = {
+    *deep_arrowhead_locations.values(),
+}
 # IDs of locations that place items into the game world, and are therefore used in PsychoSeed generation.
 PSYCHOSEED_LOCATION_IDS = set(all_fillable_locations.values())
+PSYCHOSEED_LOCATION_IDS.difference_update(_FULLY_REMOTE_LOCATION_IDS)
 
 # Offset added to Psychonauts IDs to produce AP IDs.
 AP_LOCATION_OFFSET = 42690000

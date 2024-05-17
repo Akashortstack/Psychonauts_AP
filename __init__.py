@@ -1,4 +1,4 @@
-from typing import Mapping, Any, ClassVar
+from typing import Mapping, Any, ClassVar, Dict
 
 import settings
 from BaseClasses import Tutorial, ItemClassification
@@ -18,7 +18,7 @@ from .Items import (
     AP_ITEM_OFFSET
 )
 from .ItemUtils import repeated_item_names_gen
-from .Locations import all_locations, AP_LOCATION_OFFSET
+from .Locations import all_locations, AP_LOCATION_OFFSET, deep_arrowhead_locations
 from .Names import ItemName, LocationName
 from .Options import Goal, PsychonautsOptions, slot_data_options
 from . import Regions
@@ -121,6 +121,38 @@ class PSYWorld(World):
         created_item = PSYItem(name, item_classification, None, self.player)
         return created_item
 
+    @staticmethod
+    def _add_deep_arrowhead_shuffle_items(item_counts: Dict[str, int]):
+        # The Dowsing Rod is added to the item pool.
+        item_counts[ItemName.DowsingRod] += 1
+
+        # Additional small and large arrowhead bundles are added to the pool.
+        # Each deep arrowhead has a specific worth of arrowheads given to the player when dug up, the total is 2696.
+        # There are currently 49 Deep Arrowhead locations, so the average worth of a deep arrowhead is currently 55.02,
+        # more than a small arrowhead bundle (25), but less than a large arrowhead bundle (100).
+        # 29 * 25 + 20 * 100 = 2725
+        small_count = 29
+        large_count = 20
+        # To find the optimal combination of small and large arrowhead bundles:
+        # # Start with all large bundles and find how many need to be replaced with small bundles to reach the total.
+        # total_deep_arrowhead_worth = 2696
+        # small_ah_bundle_worth = 25
+        # large_ah_bundle_worth = 100
+        # # Each time a large bundle is replaced with a small bundle, the total decreases by this much.
+        # bundle_difference = large_ah_bundle_worth - small_ah_bundle_worth
+        #
+        # num_deep_arrowhead_locations = len(deep_arrowhead_locations)
+        # excess_arrowheads = large_ah_bundle_worth * num_deep_arrowhead_locations - total_deep_arrowhead_worth
+        #
+        # # Truncating any remainder using integer division means that when there is not a whole number, the total
+        # # worth of arrowheads from added bundles will be slightly more than `total_deep_arrowhead_worth`.
+        # small_count = excess_arrowheads // bundle_difference
+        # large_count = num_deep_arrowhead_locations - small_count
+
+        # Adjust how many of each item to add to the item pool.
+        item_counts[ItemName.AHSmall] += small_count
+        item_counts[ItemName.AHLarge] += large_count
+
     def create_items(self):
         """
         Fills ItemPool 
@@ -139,6 +171,10 @@ class PSYWorld(World):
                 # Reduce the number to add to the pool.
                 adjusted_item_counts[item] -= 1
                 self.multiworld.push_precollected(self.create_item(item))
+
+        # Add items for DeepArrowheadShuffle
+        if self.options.DeepArrowheadShuffle:
+            self._add_deep_arrowhead_shuffle_items(adjusted_item_counts)
 
         # Create the initial item pool.
         item_pool = list(map(self.create_item, repeated_item_names_gen(item_dictionary_table, adjusted_item_counts)))
@@ -172,6 +208,9 @@ class PSYWorld(World):
         Regions.create_psyregions(self.multiworld, self.player)
         Regions.connect_regions(self.multiworld, self.player)
         Regions.place_events(self)
+
+        if self.options.DeepArrowheadShuffle:
+            Regions.create_deep_arrowhead_locations(self.multiworld, self.player)
 
     def set_rules(self):
         """

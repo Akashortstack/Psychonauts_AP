@@ -78,6 +78,15 @@ class RequireMeatCircus(Toggle):
     display_name = "Require Meat Circus"
     default = True
 
+
+class DeepArrowheadShuffle(Toggle):
+    """Add Deep Arrowhead checks and shuffle the Dowsing Rod and extra Arrowhead Bundles into the item pool.
+    Deep Arrowhead locations must be dug up from the ground using the Dowsing Rod. Digging up a Deep Arrowhead again,
+    after waiting 10 minutes unpaused in-game time for it to respawn, will award arrowheads like normal."""
+    display_name = "Deep Arrowhead Shuffle"
+    default = False
+
+
 @dataclass
 class PsychonautsOptions(PerGameCommonOptions):
     StartingLevitation: StartingLevitation
@@ -91,6 +100,7 @@ class PsychonautsOptions(PerGameCommonOptions):
     Goal: Goal
     BrainsRequired: BrainsRequired
     RequireMeatCircus: RequireMeatCircus
+    DeepArrowheadShuffle: DeepArrowheadShuffle
 
 
 slot_data_options: List[str] = [
@@ -104,4 +114,5 @@ slot_data_options: List[str] = [
     "Goal",
     "BrainsRequired",
     "RequireMeatCircus",
+    "DeepArrowheadShuffle",
 ]

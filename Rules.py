@@ -1,9 +1,11 @@
-from typing import Dict, Callable, TYPE_CHECKING
+from typing import Dict, Callable, TYPE_CHECKING, Set
 
-from BaseClasses import CollectionState
+from BaseClasses import CollectionState, Item
+from worlds.generic.Rules import add_item_rule, add_rule
 
 from .Names import LocationName, ItemName, RegionName
-from .Items import BrainJar_Table
+from .Items import BrainJar_Table, local_set
+from .Locations import deep_arrowhead_locations
 
 # I don't know what is going on here, but it works???
 # Thanks Jared :)
@@ -314,13 +316,38 @@ class PsyRules:
             
     def set_psy_rules(self) -> None:
         multiworld = self.world.multiworld
+        player = self.player
 
-        for region in multiworld.get_regions(self.player):
+        for region in multiworld.get_regions(player):
             if region.name in self.region_rules:
                 for entrance in region.entrances:
                     entrance.access_rule = self.region_rules[region.name]
 
         self.set_psy_goal()
+
+        # Locations which are not included in PsychoSeed generation do not place items into the Psychonauts game world,
+        # instead relying on the Archipelago client to tell Psychonauts to spawn in the item as if it were receiving a
+        # non-local item, so these locations cannot contain Psychonauts items that can only be placed locally.
+        local_only_forbidden: Set[str] = set()
+
+        if self.world.options.DeepArrowheadShuffle:
+            # Deep Arrowhead Shuffle locations do not place items into the world.
+            local_only_forbidden.update(deep_arrowhead_locations.keys())
+
+            def has_dowsing_rod(state: CollectionState):
+                return state.has(ItemName.DowsingRod, player)
+
+            for deep_ah_location_name in deep_arrowhead_locations:
+                location = multiworld.get_location(deep_ah_location_name, player)
+                add_rule(location, has_dowsing_rod)
+
+        if local_only_forbidden:
+            def forbid_local_only(item: Item):
+                return item.player != player or item.name not in local_set
+
+            for location_name in local_only_forbidden:
+                location = multiworld.get_location(location_name, player)
+                add_item_rule(location, forbid_local_only)
 
     def set_psy_goal(self):
         final_boss_location = self.multiworld.get_location(LocationName.FinalBossEvent, self.player)
