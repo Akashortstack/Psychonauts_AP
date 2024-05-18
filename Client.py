@@ -98,6 +98,7 @@ class PsychonautsContext(CommonContext):
         self.got_deathlink = False
         self.deathlink_status = False
         self.clear_mod_data_warning = False
+        self.game_communication_path = None
 
         # The maximum number of each item that Psychonauts can receive before it runs out of unique IDs for that item.
         self.max_item_counts = {item_dictionary_table[item_name] + AP_ITEM_OFFSET: count
@@ -152,10 +153,11 @@ class PsychonautsContext(CommonContext):
 
     async def connection_closed(self):
         await super(PsychonautsContext, self).connection_closed()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if "Items" not in file and "Deathlink" not in file:
-                    os.remove(root+"/"+file)
+        if self.game_communication_path != None:
+            for root, dirs, files in os.walk(self.game_communication_path):
+                for file in files:
+                    if "Items" not in file and "Deathlink" not in file:
+                        os.remove(root+"/"+file)
 
     @property
     def endpoints(self):
@@ -166,10 +168,11 @@ class PsychonautsContext(CommonContext):
 
     async def shutdown(self):
         await super(PsychonautsContext, self).shutdown()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if "Items" not in file and "Deathlink" not in file:
-                    os.remove(root+"/"+file)
+        if self.game_communication_path != None:
+            for root, dirs, files in os.walk(self.game_communication_path):
+                for file in files:
+                    if "Items" not in file and "Deathlink" not in file:
+                        os.remove(root+"/"+file)
 
     def calc_psy_ids_from_scouted_local_locations(self):
         # Attempt to figure out the Psychonauts IDs for all locally placed items.
@@ -288,7 +291,6 @@ class PsychonautsContext(CommonContext):
 
             if not os.path.exists(self.game_communication_path):
                 os.makedirs(self.game_communication_path)
-            # create ItemsCollected.txt if it doesn't exist yet
                 
             # Path to the ItemsCollected.txt file inside the ModData folder
             items_collected_path = os.path.join(self.game_communication_path, "ItemsCollected.txt")
@@ -375,6 +377,8 @@ class PsychonautsContext(CommonContext):
 async def game_watcher(ctx: PsychonautsContext):
     from worlds.psychonauts.Locations import all_locations
     while not ctx.exit_event.is_set():
+        # seed_name and slot are retrieved on connection, game_communication_path won't be set until then
+        # don't check game for items to send and receive until this is done
         if ctx.seed_name == None or ctx.slot == None:
             await asyncio.sleep(0.1)
         else:
