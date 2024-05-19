@@ -1,9 +1,9 @@
 from typing import Dict, Callable, TYPE_CHECKING
 
 from BaseClasses import CollectionState
+
 from .Names import LocationName, ItemName, RegionName
-from .Items import *
-from worlds.generic.Rules import add_rule, forbid_items, add_item_rule
+from .Items import BrainJar_Table
 
 # I don't know what is going on here, but it works???
 # Thanks Jared :)
@@ -329,28 +329,11 @@ class PsyRules:
         # Brain Tank Boss
         if self.world.options.Goal == "braintank":    
             final_boss_location.access_rule = lambda state: self.has_oleanderbossaccess(state) and self.has_pyrokinesis(state)
-            if self.world.options.RequireMeatCircus:
-                final_boss_location.place_locked_item(self.world.create_event_item("Victory"))
-                oleander_boss_location.place_locked_item(self.world.create_event_item("Filler"))
-                redeemed_required_brains.place_locked_item(self.world.create_event_item("Filler"))
-            else:
-                final_boss_location.place_locked_item(self.world.create_event_item("Filler"))
-                oleander_boss_location.place_locked_item(self.world.create_event_item("Victory"))
-                redeemed_required_brains.place_locked_item(self.world.create_event_item("Filler"))
 
         # Brain Hunt
         elif self.world.options.Goal == "brainhunt":
             final_boss_location.access_rule = lambda state: self.redeemed_brain_goal(state, self.world.options.BrainsRequired.value )
             redeemed_required_brains.access_rule = lambda state: self.redeemed_brain_goal(state, self.world.options.BrainsRequired.value )
-
-            if self.world.options.RequireMeatCircus:
-                final_boss_location.place_locked_item(self.world.create_event_item("Victory"))
-                oleander_boss_location.place_locked_item(self.world.create_event_item("Filler"))
-                redeemed_required_brains.place_locked_item(self.world.create_event_item("Filler"))
-            else:
-                final_boss_location.place_locked_item(self.world.create_event_item("Filler"))
-                oleander_boss_location.place_locked_item(self.world.create_event_item("Filler"))
-                redeemed_required_brains.place_locked_item(self.world.create_event_item("Victory"))
 
         # Brain Tank Boss AND Brain Hunt
         else: 
@@ -358,14 +341,5 @@ class PsyRules:
             oleander_boss_location.access_rule = lambda state: self.redeemed_brain_goal(state, self.world.options.BrainsRequired.value )
             redeemed_required_brains.access_rule = lambda state: self.redeemed_brain_goal(state, self.world.options.BrainsRequired.value )
 
-            if self.world.options.RequireMeatCircus:
-                final_boss_location.place_locked_item(self.world.create_event_item("Victory"))
-                oleander_boss_location.place_locked_item(self.world.create_event_item("Filler"))
-                redeemed_required_brains.place_locked_item(self.world.create_event_item("Filler"))
-            else:
-                final_boss_location.place_locked_item(self.world.create_event_item("Filler"))
-                oleander_boss_location.place_locked_item(self.world.create_event_item("Victory"))
-                redeemed_required_brains.place_locked_item(self.world.create_event_item("Filler"))      
-
-        self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player) 
+        self.multiworld.completion_condition[self.player] = lambda state: state.has(ItemName.Victory, self.player)
             

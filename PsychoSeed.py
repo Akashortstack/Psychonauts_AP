@@ -1,13 +1,18 @@
 import os
-import Utils
+from typing import List, Tuple, Iterable, Union, Dict, TYPE_CHECKING
 import zipfile
-from typing import List, Tuple, Iterable, Union, Dict
 
-from .Items import item_dictionary_table, item_counts
-from .Locations import all_locations
+import Utils
 from worlds.Files import APContainer
 
-PSY_NON_LOCAL_ID_START = 377
+from .PsychoRandoItems import PSYCHORANDO_BASE_ITEM_IDS, PSYCHORANDO_ITEM_TABLE, MAX_PSY_ITEM_ID
+from .Items import item_dictionary_table, AP_ITEM_OFFSET
+from .Locations import all_locations, PSYCHOSEED_LOCATION_IDS
+from .Options import Goal
+if TYPE_CHECKING:
+    from . import PSYWorld
+
+PSY_NON_LOCAL_ID_START = MAX_PSY_ITEM_ID + 1
 
 
 class PSYContainer(APContainer):
@@ -34,7 +39,7 @@ def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]
     # append the item values, need to be in exact order
     # locations are handled by index in table
     # items from other games need to be converted to a new value
-    # Starting at 377, +1 each time
+    # Starting at PSY_NON_LOCAL_ID_START, +1 each time
     non_local_id = PSY_NON_LOCAL_ID_START
 
     # Initialize a list to store tuples of location ID and item code
@@ -53,26 +58,27 @@ def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]
     # Pre-sort the tuples based on location ID to ensure the generated IDs are consistent even if the input is in a
     # different order.
     for is_local_item, local_item_name, location_id in sorted(location_tuples_in, key=lambda t: t[2]):
-        if is_local_item:
-            if local_item_name == "Victory" or local_item_name == "Filler":
-                # It is an event item, such as those used for Victory and Filler event locations.
-                itemcode = 999
-            else:
-                # When there are multiple copies of an item, locally placed items start from the first id for that item
-                # and count upwards for each item placed.
-                base_item_code = item_dictionary_table[local_item_name]
-                count_placed = placed_item_counts.setdefault(base_item_code, 0)
+        # Skip any locations not part of PsychoSeed generation.
+        if location_id not in PSYCHOSEED_LOCATION_IDS:
+            continue
 
-                max_count = item_counts[local_item_name]
-                if count_placed < max_count:
-                    itemcode = base_item_code + count_placed
-                    placed_item_counts[base_item_code] = count_placed + 1
-                else:
-                    # There aren't any Psychonauts IDs left to place this item directly, so place it as an AP item and
-                    # receive the item as if it were placed non-locally.
-                    itemcode = non_local_id
-                    local_items_placed_as_ap_items[itemcode] = base_item_code
-                    non_local_id += 1
+        if is_local_item:
+            # When there are multiple copies of an item, locally placed items start from the first id for that item
+            # and count upwards for each item placed.
+            count_placed = placed_item_counts.setdefault(local_item_name, 0)
+            # Maximum number of times this item can be placed into the Psychonauts game world.
+            max_count = PSYCHORANDO_ITEM_TABLE[local_item_name]
+            if count_placed < max_count:
+                base_item_code = PSYCHORANDO_BASE_ITEM_IDS[local_item_name]
+                itemcode = base_item_code + count_placed
+                placed_item_counts[local_item_name] = count_placed + 1
+            else:
+                # There aren't any Psychonauts IDs left to place this item into the Psychonauts game world, so place
+                # it as an AP placeholder item and receive the item as if it were placed non-locally.
+                itemcode = non_local_id
+                ap_item_id = item_dictionary_table[local_item_name] + AP_ITEM_OFFSET
+                local_items_placed_as_ap_items[itemcode] = ap_item_id
+                non_local_id += 1
         else:
             # item from another game
             itemcode = non_local_id
@@ -104,7 +110,14 @@ def gen_psy_ids_from_filled_locations(self) -> List[Tuple[int, int]]:
     return psy_ids
 
 
-def gen_psy_seed(self, output_directory):
+def _lua_bool(option):
+    """
+    Psychonauts' sandboxed lua environment uses `TRUE` (`1`) for boolean true and `FALSE` (`nil`) for boolean false.
+    """
+    return "TRUE" if option else "FALSE"
+
+
+def gen_psy_seed(self: "PSYWorld", output_directory):
     # Mod name for Zip Folder
     mod_name = f"AP-{self.multiworld.seed_name}-P{self.player}-{self.multiworld.get_file_safe_player_name(self.player)}"
     # Folder name for Client and Game to Read/Write to
@@ -129,74 +142,40 @@ def gen_psy_seed(self, output_directory):
     randoseed_parts.append(f"       Ob.seedname = '{rando_display_name}'\n")
 
     # append startlevitation setting
-    if self.multiworld.StartingLevitation[self.player] == False:
-        startlevitationsetting = "FALSE"
-    else:
-        startlevitationsetting = "TRUE"
-    randoseed_parts.append(f"           Ob.startlevitation = {startlevitationsetting}\n")
+    randoseed_parts.append(f"           Ob.startlevitation = {_lua_bool(self.options.StartingLevitation)}\n")
 
     # append mentalmagnet setting
-    if self.multiworld.StartingMentalMagnet[self.player] == False:
-        mentalmagnetsetting = "FALSE"
-    else:
-        mentalmagnetsetting = "TRUE"
-    randoseed_parts.append(f"           Ob.mentalmagnet = {mentalmagnetsetting}\n")
+    randoseed_parts.append(f"           Ob.mentalmagnet = {_lua_bool(self.options.StartingMentalMagnet)}\n")
 
     # append lootboxvaults setting
-    if self.multiworld.LootboxVaults[self.player] == False:
-        lootboxvaultssetting = "FALSE"
-    else:
-        lootboxvaultssetting = "TRUE"
-    randoseed_parts.append(f"           Ob.lootboxvaults = {lootboxvaultssetting}\n")
+    randoseed_parts.append(f"           Ob.lootboxvaults = {_lua_bool(self.options.LootboxVaults)}\n")
 
     # append enemydamagemultiplier setting
-    enemydamagemultiplier = self.multiworld.EnemyDamageMultiplier[self.player].value
+    enemydamagemultiplier = self.options.EnemyDamageMultiplier.value
     randoseed_parts.append(f"           Ob.enemydamagemultiplier = {enemydamagemultiplier}\n")
 
     # append instantdeath setting
-    if self.multiworld.InstantDeathMode[self.player] == False:
-        instantdeathsetting = "FALSE"
-    else:
-        instantdeathsetting = "TRUE"
-    randoseed_parts.append(f"           Ob.instantdeath = {instantdeathsetting}\n")
+    randoseed_parts.append(f"           Ob.instantdeath = {_lua_bool(self.options.InstantDeathMode)}\n")
 
     # append easymillarace setting
-    if self.multiworld.EasyMillaRace[self.player] == False:
-        easymillarace = "FALSE"
-    else:
-        easymillarace = "TRUE"
-    randoseed_parts.append(f"           Ob.easymillarace = {easymillarace}\n")
+    randoseed_parts.append(f"           Ob.easymillarace = {_lua_bool(self.options.EasyMillaRace)}\n")
 
     # append easyflight setting
-    if self.multiworld.EasyFlightMode[self.player] == False:
-        easyflight = "FALSE"
-    else:
-        easyflight = "TRUE"
-    randoseed_parts.append(f"           Ob.easyflight = {easyflight}\n")
+    randoseed_parts.append(f"           Ob.easyflight = {_lua_bool(self.options.EasyFlightMode)}\n")
 
     # append requireMC setting
-    if self.multiworld.RequireMeatCircus[self.player] == False:
-        requireMC = "FALSE"
-    else:
-        requireMC = "TRUE"
-    randoseed_parts.append(f"           Ob.requireMC = {requireMC}\n")
+    randoseed_parts.append(f"           Ob.requireMC = {_lua_bool(self.options.RequireMeatCircus)}\n")
 
     # append Goal settings
-    if self.multiworld.Goal[self.player] == "braintank" or self.multiworld.Goal[self.player] == "braintank_and_brainhunt":
-        beatoleander = "TRUE"
-    else:
-        beatoleander = "FALSE"
-    
-    if self.multiworld.Goal[self.player] == "brainhunt" or self.multiworld.Goal[self.player] == "braintank_and_brainhunt":
-        requirebrainhunt = "TRUE"
-    else:
-        requirebrainhunt = "FALSE"
-    
+    beatoleander = _lua_bool(self.options.Goal == Goal.option_braintank
+                             or self.options.Goal == Goal.option_braintank_and_brainhunt)
+    requirebrainhunt = _lua_bool(self.options.Goal == Goal.option_brainhunt
+                                 or self.options.Goal == Goal.option_braintank_and_brainhunt)
     randoseed_parts.append(f"           Ob.beatoleander = {beatoleander}\n")
     randoseed_parts.append(f"           Ob.brainhunt = {requirebrainhunt}\n")
 
     # append Brain Jar Requirement
-    brainsrequired = self.multiworld.BrainsRequired[self.player].value
+    brainsrequired = self.options.BrainsRequired.value
     randoseed_parts.append(f"           Ob.brainsrequired = {brainsrequired}\n")
     
     # Section where default settings booleans are written to RandoSeed.lua

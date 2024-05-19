@@ -1,20 +1,30 @@
-import logging
-from typing import List, Mapping, Any
-import settings
+from typing import Mapping, Any, ClassVar
 
+import settings
 from BaseClasses import Tutorial, ItemClassification
-from Fill import fill_restrictive
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 from worlds.AutoWorld import World, WebWorld
 from BaseClasses import Item
-from .Items import *
-from .Locations import *
-from .Names import ItemName, LocationName, RegionName
+
+from .Items import (
+    item_dictionary_table,
+    MindUnlocks_Table,
+    BrainJar_Table,
+    local_set,
+    progression_set,
+    useful_set,
+    item_groups,
+    item_counts,
+    AP_ITEM_OFFSET
+)
+from .ItemUtils import repeated_item_names_gen
+from .Locations import all_locations, AP_LOCATION_OFFSET
+from .Names import ItemName, LocationName
 from .Options import Goal, PsychonautsOptions, slot_data_options
-from .Regions import create_psyregions, connect_regions
-from .Rules import *
+from . import Regions
+from . import Rules
 from .Subclasses import PSYItem
-from .PsychoSeed import gen_psy_seed, gen_psy_ids, PSY_NON_LOCAL_ID_START
+from .PsychoSeed import gen_psy_seed
 
 def launch_client():
     from .Client import launch
@@ -55,18 +65,16 @@ class PSYWorld(World):
     game = "Psychonauts"
     web = PsychonautsWeb()
 
-    settings: typing.ClassVar[PsychonautsSettings]
+    settings: ClassVar[PsychonautsSettings]
     required_client_version = (0, 4, 4)
     options_dataclass = PsychonautsOptions
     options: PsychonautsOptions
 
-    base_id = 42690001
-
-    item_name_to_id = {item: id + 42690000 for item, id in item_dictionary_table.items()}
+    item_name_to_id = {item: id + AP_ITEM_OFFSET for item, id in item_dictionary_table.items()}
 
     item_name_groups = item_groups
 
-    location_name_to_id = {item: id + 42690000 for item, id in all_locations.items()}
+    location_name_to_id = {item: id + AP_LOCATION_OFFSET for item, id in all_locations.items()}
 
     
 
@@ -75,7 +83,7 @@ class PSYWorld(World):
         Using this to make Baggage local only.
         """ 
         for item in local_set:
-            self.multiworld.local_items[self.player].value.add(item)
+            self.options.local_items.value.add(item)
 
         # if self.multiworld.StartingLevitation[self.player]:
         #     self.multiworld.push_precollected(self.create_item(ItemName.Levitation1))
@@ -112,55 +120,58 @@ class PSYWorld(World):
         item_classification = ItemClassification.progression
         created_item = PSYItem(name, item_classification, None, self.player)
         return created_item
-    
-    def create_event(self, event: str) -> Item:
-        # while we are at it, we can also add a helper to create events
-        return Item(event, True, None, self.player)
 
     def create_items(self):
         """
         Fills ItemPool 
         """
-        self.mindlock_dict = MindUnlocks_Table.copy()
-        self.adjusted_item_pool = self.item_name_to_id.copy()
+        num_locations_to_fill = len(self.multiworld.get_unfilled_locations(self.player))
 
+        adjusted_item_counts = item_counts.copy()
 
-        for _ in range(self.options.RandomStartingMinds.value):
-            visitlocking_set = list(self.mindlock_dict.keys())
-            item = self.random.choice(visitlocking_set)
-            self.mindlock_dict.pop(item)
-            self.adjusted_item_pool.pop(item)
-            self.multiworld.push_precollected(self.create_item(item))
+        # Pre-collect starting minds and remove them from the item pool.
+        num_starting_minds = self.options.RandomStartingMinds.value
+        if num_starting_minds > 0:
+            mind_unlocks = list(MindUnlocks_Table)
+            for _ in range(num_starting_minds):
+                # Pop a random mind from the list.
+                item = mind_unlocks.pop(self.random.randrange(len(mind_unlocks)))
+                # Reduce the number to add to the pool.
+                adjusted_item_counts[item] -= 1
+                self.multiworld.push_precollected(self.create_item(item))
 
-        itempool = []
+        # Create the initial item pool.
+        item_pool = list(map(self.create_item, repeated_item_names_gen(item_dictionary_table, adjusted_item_counts)))
 
-        # Fill the pool with as many items as there are local locations that can have items placed into.
-        total_item_count = FILLABLE_LOCATION_COUNT
-        created_item_count = 0
-        for item_name in self.adjusted_item_pool.keys():
-            item_count = item_counts[item_name]
-            remaining_items = total_item_count - created_item_count
-            number_to_create = min(item_count, remaining_items)
+        assert len(item_pool) <= num_locations_to_fill, ("The initial item pool cannot be larger than the number of"
+                                                         " unfilled locations.")
+        num_locations_to_fill -= len(item_pool)
 
-            for _ in range(number_to_create):
-                itempool.append(self.create_item(item_name))
-            created_item_count += number_to_create
+        # Add filler/junk items to fill out the remaining locations.
+        # If there are more locations remaining than the desired maximum number of filler items to add, also add the
+        # Feather and Watering Can junk items to the pool.
+        desired_max_filler = 107  # This is arbitrary based on the maximum of 110 Psi Cards placeable in the game world.
+        excess = num_locations_to_fill - desired_max_filler
+        if excess >= 1:
+            item_pool.append(self.create_item(ItemName.Feather))
+            num_locations_to_fill -= 1
+            if excess >= 2:
+                item_pool.append(self.create_item(ItemName.PropWaterCan))
+                num_locations_to_fill -= 1
 
-            if number_to_create != item_count:
-                # No more items can be created.
-                break
+        # Create filler for the remaining locations.
+        item_pool.extend(self.create_filler() for _ in range(num_locations_to_fill))
 
-        assert len(itempool) == total_item_count
-
-        self.multiworld.itempool += itempool
+        self.multiworld.itempool += item_pool
 
     def create_regions(self):
         """
         Creates the Regions and Connects them.
         """
         
-        create_psyregions(self.multiworld, self.player)
-        connect_regions(self.multiworld, self.player)
+        Regions.create_psyregions(self.multiworld, self.player)
+        Regions.connect_regions(self.multiworld, self.player)
+        Regions.place_events(self)
 
     def set_rules(self):
         """

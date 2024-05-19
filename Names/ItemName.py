@@ -149,4 +149,4 @@ SquirrelDinner = "Squirrel Roast Dinner"
 
 #Needed for Victory!
 Victory = "Victory"
-Filler = "Event Filler"
+Filler = "Filler"

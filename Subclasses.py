@@ -1,5 +1,3 @@
-import typing
-
 from BaseClasses import Location, Item
 
 class PSYLocation(Location):

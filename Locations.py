@@ -1,7 +1,4 @@
-import typing
-
-from BaseClasses import Location
-from .Names import LocationName, ItemName, RegionName
+from .Names import LocationName
 
 # eventid matches Randomizer Seed index in table
 CA_Checks = {
@@ -421,13 +418,15 @@ MC_Checks = {
     LocationName.NextToTheFatLadyDufflebag: 364,        
 }
 
+# Leave a gap in the IDs so that more locations can be added that place items into the game world without having to
+# adjust the IDs of all locations that don't place items into the game world.
 event_locations = {
     # for beating Meat Circus
-    LocationName.FinalBossEvent: 365,
+    LocationName.FinalBossEvent: 500,
     # for Brain Jar Goal
-    LocationName.RedeemedBrainsEvent: 366,
+    LocationName.RedeemedBrainsEvent: 501,
     # for Coach Oleander Brain Tank Boss
-    LocationName.OleanderBossEvent: 367,
+    LocationName.OleanderBossEvent: 502,
 }
 
 all_fillable_locations = {
@@ -451,8 +450,8 @@ all_locations = {
     **event_locations,
 }
 
+# IDs of locations that place items into the game world, and are therefore used in PsychoSeed generation.
+PSYCHOSEED_LOCATION_IDS = set(all_fillable_locations.values())
+
 # Offset added to Psychonauts IDs to produce AP IDs.
 AP_LOCATION_OFFSET = 42690000
-
-# The event locations cannot have regular items placed in them, so are not included.
-FILLABLE_LOCATION_COUNT = len(all_fillable_locations)
