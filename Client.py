@@ -1,5 +1,6 @@
 from __future__ import annotations
 import os
+import shutil
 import sys
 import asyncio
 import logging
@@ -63,6 +64,20 @@ class PsychonautsClientCommandProcessor(ClientCommandProcessor):
                 self.output(f"Deathlink enabled.")
             else:
                 self.output(f"Deathlink disabled.")
+    
+    def _cmd_clearmoddata(self):
+        """Empty your Psychonauts ModData Folder"""
+        if isinstance(self.ctx, PsychonautsContext):
+            if self.ctx.clear_mod_data_warning == False:
+                self.output(f"WARNING: This will empty all Archipelago files from your Psychonauts ModData folder.\n"
+                            "If you are currently playing a multiworld, have other unfinished multiworlds,\n"
+                            "or don't know why you're using this command, DO NOT DO THIS!!!\n"
+                            "Run this command again to confirm and clear all contents.")
+            elif self.ctx.clear_mod_data_warning == True:
+                self.output(f"Emptying ModData folder.")
+                self.ctx.clear_mod_data()
+                           
+            self.ctx.clear_mod_data_warning = not self.ctx.clear_mod_data_warning
 
 class PsychonautsContext(CommonContext):
     command_processor: int = PsychonautsClientCommandProcessor
@@ -82,6 +97,8 @@ class PsychonautsContext(CommonContext):
         self.awaiting_bridge = False
         self.got_deathlink = False
         self.deathlink_status = False
+        self.clear_mod_data_warning = False
+        self.game_communication_path = None
 
         # The maximum number of each item that Psychonauts can receive before it runs out of unique IDs for that item.
         self.max_item_counts = {item_dictionary_table[item_name] + AP_ITEM_OFFSET: count
@@ -115,10 +132,9 @@ class PsychonautsContext(CommonContext):
         options = Utils.get_settings()
         root_directory = options["psychonauts_options"]["root_directory"]
         
-        # self.game_communication_path: files go in this path to pass data between us and the actual game
-        moddata_folder = find_moddata_folder(root_directory)
-        self.game_communication_path = moddata_folder
-
+        # save our root_directory for later use
+        self.moddata_folder = find_moddata_folder(root_directory)
+        
     def reset_server_state(self):
         super().reset_server_state()
         # Disconnecting and reconnecting aside, the client could instead get connected to a different server to before,
@@ -137,10 +153,11 @@ class PsychonautsContext(CommonContext):
 
     async def connection_closed(self):
         await super(PsychonautsContext, self).connection_closed()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if "Items" not in file and "Deathlink" not in file:
-                    os.remove(root+"/"+file)
+        if self.game_communication_path != None:
+            for root, dirs, files in os.walk(self.game_communication_path):
+                for file in files:
+                    if "Items" not in file and "Deathlink" not in file:
+                        os.remove(root+"/"+file)
 
     @property
     def endpoints(self):
@@ -151,10 +168,11 @@ class PsychonautsContext(CommonContext):
 
     async def shutdown(self):
         await super(PsychonautsContext, self).shutdown()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if "Items" not in file and "Deathlink" not in file:
-                    os.remove(root+"/"+file)
+        if self.game_communication_path != None:
+            for root, dirs, files in os.walk(self.game_communication_path):
+                for file in files:
+                    if "Items" not in file and "Deathlink" not in file:
+                        os.remove(root+"/"+file)
 
     def calc_psy_ids_from_scouted_local_locations(self):
         # Attempt to figure out the Psychonauts IDs for all locally placed items.
@@ -208,8 +226,9 @@ class PsychonautsContext(CommonContext):
         # to manually collect the local items again.
         psy_location_id = ap_location_id - AP_LOCATION_OFFSET
         if psy_location_id not in self.local_psy_location_to_local_psy_item_id:
-            # This should not happen unless AP can send dummy local location IDs for locations that do not exist.
-            logger.error("Error: Local item received from non-existent local location '%s'", ap_location_id)
+            print(f"Local item {ap_item_id} ({base_psy_item_id}) received from non-existent local location"
+                  f" {ap_location_id}. Sending as a non-local item instead.")
+            self.receive_non_local_item(index, base_psy_item_id)
             return
 
         # Get the Psychonauts item id for the item at this local location.
@@ -258,16 +277,37 @@ class PsychonautsContext(CommonContext):
         else:
             self.receive_non_local_item(index, base_psy_item_id)
 
+    def clear_mod_data(self):
+        for root, dirs, files in os.walk(self.moddata_folder):
+            for dir in dirs:
+                if "AP-" in dir:
+                    shutil.rmtree(os.path.join(root, dir)) 
+
     def on_package(self, cmd: str, args: dict):
         if cmd in {"Connected"}:
+            # self.game_communication_path: files go in this path to pass data between us and the actual game
+            seed_folder = f"AP-{self.seed_name}-P{self.slot}"
+            self.game_communication_path = os.path.join(self.moddata_folder, seed_folder)
+
             if not os.path.exists(self.game_communication_path):
                 os.makedirs(self.game_communication_path)
-            # create ItemsCollected.txt if it doesn't exist yet
                 
             # Path to the ItemsCollected.txt file inside the ModData folder
             items_collected_path = os.path.join(self.game_communication_path, "ItemsCollected.txt")
             if not os.path.exists(items_collected_path):
                 with open(items_collected_path, 'w') as f:
+                    f.write(f"")
+                    f.close()
+            # Path to the DeathlinkIn.txt file inside the ModData folder
+            deathlink_in_path = os.path.join(self.game_communication_path, "DeathlinkIn.txt")
+            if not os.path.exists(deathlink_in_path):
+                with open(deathlink_in_path, 'w') as f:
+                    f.write(f"")
+                    f.close()
+            # Path to the DeathlinkOut.txt file inside the ModData folder
+            deathlink_out_path = os.path.join(self.game_communication_path, "DeathlinkOut.txt")
+            if not os.path.exists(deathlink_out_path):
+                with open(deathlink_out_path, 'w') as f:
                     f.write(f"")
                     f.close()
             # empty ItemsReceived.txt to avoid appending duplicate items lists
@@ -278,6 +318,10 @@ class PsychonautsContext(CommonContext):
                 filename = f"send{ss}"
                 with open(os.path.join(self.game_communication_path, filename), 'w') as f:
                     f.close()
+        # used to get seed name for writing to the proper folder
+        if cmd in {"RoomInfo"}:
+            self.seed_name = args["seed_name"]
+
         if cmd in {"ReceivedItems"}:
             start_index = args["index"]
             if start_index != len(self.items_received):
@@ -333,67 +377,76 @@ class PsychonautsContext(CommonContext):
 async def game_watcher(ctx: PsychonautsContext):
     from worlds.psychonauts.Locations import all_locations
     while not ctx.exit_event.is_set():
-        # Check for DeathLink toggle
-        await ctx.update_death_link(ctx.deathlink_status)
+        # seed_name and slot are retrieved on connection, game_communication_path won't be set until then
+        # don't check game for items to send and receive until this is done
+        if ctx.seed_name == None or ctx.slot == None:
+            await asyncio.sleep(0.1)
+        else:
 
-        if ctx.syncing == True:
-            sync_msg = [{'cmd': 'Sync'}]
-            if ctx.locations_checked:
-                sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})
-            await ctx.send_msgs(sync_msg)
-            ctx.syncing = False
-        
-        # Check for Deathlink to send to player
-        if ctx.got_deathlink:
-            ctx.got_deathlink = False
-            with open(os.path.join(ctx.game_communication_path, "DeathlinkIn.txt"), 'a') as f:
-                f.write("DEATH\n")
+            # ctx.game_communication_path: files go in this path to pass data between us and the actual game
+            seed_folder = f"AP-{ctx.seed_name}-P{ctx.slot}"
+            ctx.game_communication_path = os.path.join(ctx.moddata_folder, seed_folder)
+
+            # Check for DeathLink toggle
+            await ctx.update_death_link(ctx.deathlink_status)
+
+            if ctx.syncing == True:
+                sync_msg = [{'cmd': 'Sync'}]
+                if ctx.locations_checked:
+                    sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})
+                await ctx.send_msgs(sync_msg)
+                ctx.syncing = False
+            
+            # Check for Deathlink to send to player
+            if ctx.got_deathlink:
+                ctx.got_deathlink = False
+                with open(os.path.join(ctx.game_communication_path, "DeathlinkIn.txt"), 'a') as f:
+                    f.write("DEATH\n")
+                    f.close()
+            
+            # Check for Deathlinks from player
+            with open(os.path.join(ctx.game_communication_path, "DeathlinkOut.txt"), 'r+') as f:
+                RazDied = f.read()
+                if RazDied:
+                    # Move the file pointer to the beginning
+                    f.seek(0)
+                    # Empty the file by writing an empty string
+                    f.truncate(0)
+                    if "DeathLink" in ctx.tags:
+                        await ctx.send_death(death_text = f"{ctx.player_names[ctx.slot]} became lost in thought!")
+                f.close
+            
+            sending = []
+            # Initialize an empty table
+            collected_table = []
+            victory = False
+            
+            # Open the file in read mode
+            with open(os.path.join(ctx.game_communication_path, "ItemsCollected.txt"), 'r') as f:
+                collected_items = f.readlines()            
+                # Iterate over each line in the file
+                for line in collected_items:
+                    # Convert the line to a float and add it to the table
+                    value = float(line.strip())
+                    # Keep track of already collected values
+                    if value not in collected_table:
+                        # add the base_id 42690000
+                        sending = sending+[(int(value + AP_LOCATION_OFFSET))]
+                        collected_table.append(value)
                 f.close()
-        
-        # Check for Deathlinks from player
-        with open(os.path.join(ctx.game_communication_path, "DeathlinkOut.txt"), 'r+') as f:
-            RazDied = f.read()
-            if RazDied:
-                # Move the file pointer to the beginning
-                f.seek(0)
-                # Empty the file by writing an empty string
-                f.truncate(0)
-                if "DeathLink" in ctx.tags:
-                    await ctx.send_death(death_text = f"{ctx.player_names[ctx.slot]} became lost in thought!")
-            f.close
-        
-        sending = []
-        # Initialize an empty table
-        collected_table = []
-        victory = False
-        
-        # Open the file in read mode
-        with open(os.path.join(ctx.game_communication_path, "ItemsCollected.txt"), 'r') as f:
-            collected_items = f.readlines()            
-            # Iterate over each line in the file
-            for line in collected_items:
-                # Convert the line to a float and add it to the table
-                value = float(line.strip())
-                # Keep track of already collected values
-                if value not in collected_table:
-                    # add the base_id 42690000
-                    sending = sending+[(int(value + AP_LOCATION_OFFSET))]
-                    collected_table.append(value)
-            f.close()
 
-        for root, dirs, files in os.walk(ctx.game_communication_path):
-            for file in files:
-                if file.find("victory.txt") > -1:
-                    victory = True
-                    
-        ctx.locations_checked = sending
-        message = [{"cmd": 'LocationChecks', "locations": sending}]
-        await ctx.send_msgs(message)
-        if not ctx.finished_game and victory == True:
-            await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
-            ctx.finished_game = True
-        await asyncio.sleep(0.1)
-
+            for root, dirs, files in os.walk(ctx.game_communication_path):
+                for file in files:
+                    if file.find("victory.txt") > -1:
+                        victory = True
+                        
+            ctx.locations_checked = sending
+            message = [{"cmd": 'LocationChecks', "locations": sending}]
+            await ctx.send_msgs(message)
+            if not ctx.finished_game and victory == True:
+                await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
+                ctx.finished_game = True
+            await asyncio.sleep(0.1)
 
 def launch():
     async def main(args):

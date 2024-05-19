@@ -3,35 +3,12 @@ Add Paintings/BV Shop rando
 
 Add more Options from base randomizer?
 
-Fix AP items list to remove numbers from items 
-    Increasing counts from base values by one for each item type placed in gen seed table, 
-    need to change items table to specify quantities of each item
-    How do we keep track of which items have and haven't been sent to player if item ids all match when sent?
-    Pretty sure this requires creating new item IDs for AP created items specifically, on top of the base randomizer IDs
-
-Add trap items?
+Add trap items from Chaos Mod
     Confusion
     Ignite
     TK Grab?
     Spawn enemies? Bear? Cougar?
-    Teleport trap, moves you upwards by some amount?
-    Voiceline traps? Looping? Multiple at once?
 
-write seed name to RandoSeed.lua, change ItemsCollected and ItemsReceived to include seed name
-    How to clear out old seed data?
-    1 week of no activity?
-    Just add a command to the client?
-
-List of logic fixes:
-    --MM Post Office Lobby now in correct region
-    --MM2 Sniper requires Shield, not Invisibility
-    --Snail/Knight only requires TK and not Fred's Letter
-    --Diego's House Grindrail and Diego's Room had their names around the wrong way, swapped
-    --Change BV logic to not require Cobweb for going past Heart Street
-    --Finishing Waterloo World requires Levitation
-    --Meat Circus awning has it's own region for only Levitation
-    --Floor of Oly Escort now part of opening mind chests
+    How to show in-game? Needs to be an already existing item(s) to make the trap truly random
 
 Move/Remove Kochamara Checks? Theoretically missable, but very unlikely
-
-    

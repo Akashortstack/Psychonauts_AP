@@ -11,7 +11,7 @@
 
 4. Run ArchipelagoLauncher.exe and open host.yaml from the Archipelago Launcher, find the psychonauts_options and paste your psychonauts game directory into the root_directory setting between the quotes.
 
-5. Click "Generate Template Settings". This will open file explorer
+5. Click "Generate Template Settings". This will open file explorer.
 Find "Psychonauts.yaml" and copy it to /Players/ (create this folder if it does not exist)
 
 6. Open the YAML file and change the line that says "name: Player{number}" to your desired player name.
@@ -19,7 +19,7 @@ Adjust the settings in the YAML to your liking
 
 7. Run ArchipelagoGenerate.exe
 
-8. Take the newly created AP_XXX.zip file in /output/ in upload it here: https://archipelago.gg/uploads
+8. Take the newly created AP_XXX.zip file in /output/ and upload it here: https://archipelago.gg/uploads
 
 9. Unzip the AP_XXX.zip file. Find the zipped file containing your player number and name, and unzip it. This contains a file called RandoSeed.lua 
 
@@ -27,15 +27,13 @@ Adjust the settings in the YAML to your liking
 
 11. Paste RandoSeed.lua from your generated Archipelago file into this folder. Replace the file in the destination if needed.
 
-12. Run AstralatheLauncher.exe to open the game. You should see your player number and name on the menu screen.
+12. Run AstralatheLauncher.exe to open the game. You should see your player number and name on the menu screen, along with your current randomizer version.
 
 13. From the menu, enter the yellow door to start a new game.
 
-14. From the Archipelago Launcher, open the Psychonauts Client and connect to your server hosted on archipelago.gg
-**DO NOT CONNECT AND ENTER YOUR SLOT NAME UNLESS YOU ARE CHOOSING A NEW SAVE FILE OR HAVE STARTED A NEW GAME**
-Connecting from the main menu may result in sending locations from previous playthroughs.
+14. Using the Archipelago Launcher, open the Psychonauts Client and connect to your server hosted on archipelago.gg
 
-15. If you've started a new save file and connected to the server, you can start playing!
+15. Once you've started a new save file and connected to the server, you can start playing!
 
 ## Configuring your YAML file
 
@@ -44,5 +42,3 @@ Connecting from the main menu may result in sending locations from previous play
 Your YAML file contains a set of configuration options which provide the generator with information about how it should
 generate your game. Each player of a multiworld will provide their own YAML file. This setup allows each player to enjoy
 an experience customized for their taste, and different players in the same multiworld can all have different options.
-
-### Where do I get a YAML file?
