@@ -3,16 +3,12 @@ Add Paintings/BV Shop rando
 
 Add more Options from base randomizer?
 
-Adjust Vault arrowhead rewards? Currently feels too high
-
-Add trap items?
+Add trap items from Chaos Mod
     Confusion
     Ignite
     TK Grab?
     Spawn enemies? Bear? Cougar?
-    Teleport trap, moves you upwards by some amount?
-    Voiceline traps? Looping? Multiple at once?
+
+    How to show in-game? Needs to be an already existing item(s) to make the trap truly random
 
 Move/Remove Kochamara Checks? Theoretically missable, but very unlikely
-
-    
