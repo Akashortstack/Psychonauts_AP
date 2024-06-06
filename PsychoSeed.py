@@ -185,6 +185,7 @@ def gen_psy_seed(self: "PSYWorld", output_directory):
     # Section where default settings booleans are written to RandoSeed.lua
     # adding new settings will remove from this list
     default_seed_settings = '''
+        Ob.isAP = TRUE
         Ob.startcobweb = FALSE
         Ob.startbutton = FALSE
         Ob.randomizecobwebduster = TRUE
