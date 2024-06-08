@@ -87,6 +87,13 @@ class DeepArrowheadShuffle(Toggle):
     default = False
 
 
+class MentalCobwebShuffle(Toggle):
+    """Add Mental Cobweb checks and shuffle an extra PSI Card into the pool for each Mental Cobweb.
+    Mental Cobweb locations must be collecting using the Cobweb Duster."""
+    display_name = "Mental Cobweb Shuffle"
+    default = False
+
+
 @dataclass
 class PsychonautsOptions(PerGameCommonOptions):
     StartingLevitation: StartingLevitation
@@ -101,6 +108,7 @@ class PsychonautsOptions(PerGameCommonOptions):
     BrainsRequired: BrainsRequired
     RequireMeatCircus: RequireMeatCircus
     DeepArrowheadShuffle: DeepArrowheadShuffle
+    MentalCobwebShuffle: MentalCobwebShuffle
 
 
 slot_data_options: List[str] = [
@@ -115,4 +123,5 @@ slot_data_options: List[str] = [
     "BrainsRequired",
     "RequireMeatCircus",
     "DeepArrowheadShuffle",
+    "MentalCobwebShuffle",
 ]

@@ -14,6 +14,16 @@ from .Locations import (
     CAMA_Deep_Arrowhead_Checks,
     CARE_Deep_Arrowhead_Checks,
     CABH_Deep_Arrowhead_Checks,
+    BB_Cobweb_Checks,
+    SA_Cobweb_Checks,
+    MI_Cobweb_Checks,
+    BT_Cobweb_Checks,
+    LO_Cobweb_Checks,
+    MM_Cobweb_Checks,
+    TH_Cobweb_Checks,
+    WW_Cobweb_Checks,
+    BV_Cobweb_Checks,
+    MC_Cobweb_Checks,
 )
 from .Names import LocationName
 from . import Options
@@ -43,10 +53,10 @@ def place_events(self: "PSYWorld"):
 
 
 def _add_locations_to_existing_region(multiworld: MultiWorld, player: int, region_name: str,
-                                      locations: Dict[str, int]):
+                                      locations: Iterable[str]):
     region = multiworld.get_region(region_name, player)
     region.locations.extend(
-        PSYLocation(player, name, location_id + AP_LOCATION_OFFSET, region) for name, location_id in locations.items()
+        PSYLocation(player, name, all_locations[name] + AP_LOCATION_OFFSET, region) for name in locations
     )
 
 
@@ -55,6 +65,61 @@ def create_deep_arrowhead_locations(multiworld: MultiWorld, player: int):
     _add_locations_to_existing_region(multiworld, player, RegionName.CAMA, CAMA_Deep_Arrowhead_Checks)
     _add_locations_to_existing_region(multiworld, player, RegionName.CARE, CARE_Deep_Arrowhead_Checks)
     _add_locations_to_existing_region(multiworld, player, RegionName.CABH, CABH_Deep_Arrowhead_Checks)
+
+
+def create_mental_cobweb_locations(multiworld: MultiWorld, player: int):
+    _add_locations_to_existing_region(multiworld, player, RegionName.BBA2, BB_Cobweb_Checks)
+    _add_locations_to_existing_region(multiworld, player, RegionName.SACU, SA_Cobweb_Checks)
+    _add_locations_to_existing_region(multiworld, player, RegionName.MIFL, MI_Cobweb_Checks)
+    _add_locations_to_existing_region(multiworld, player, RegionName.NIMPMark, BT_Cobweb_Checks)
+
+    # Lungfishopolis cobwebs are split across two regions.
+    loma_cobwebs = {LocationName.CobwebSkyscraperBeforeDam}
+    # All remaining cobwebs are in LOMAShield.
+    lomashield_cobwebs = set(LO_Cobweb_Checks).difference(loma_cobwebs)
+    _add_locations_to_existing_region(multiworld, player, RegionName.LOMA, loma_cobwebs)
+    _add_locations_to_existing_region(multiworld, player, RegionName.LOMAShield, lomashield_cobwebs)
+
+    # The Milkman Conspiracy cobwebs are split across three regions.
+    mmi2_cobwebs = {LocationName.CobwebBookDepository}
+    mmi1_before_sign_cobwebs = {LocationName.CobwebThirdHouse}
+    # All remaining cobwebs are in MMI1AfterSign.
+    mmi1_after_sign_cobwebs = set(MM_Cobweb_Checks) - mmi2_cobwebs - mmi1_before_sign_cobwebs
+    _add_locations_to_existing_region(multiworld, player, RegionName.MMI1BeforeSign, mmi1_before_sign_cobwebs)
+    _add_locations_to_existing_region(multiworld, player, RegionName.MMI1AfterSign, mmi1_after_sign_cobwebs)
+    _add_locations_to_existing_region(multiworld, player, RegionName.MMI2, mmi2_cobwebs)
+
+    # Gloria's Theater cobwebs are split across three regions.
+    thmslev_cobwebs = {LocationName.CobwebInTheAudience}
+    thmsstorage_cobwebs = {LocationName.CobwebStorageRoomLeft, LocationName.CobwebStorageRoomRight}
+    # All remaining cobwebs are in THMS.
+    thms_cobwebs = set(TH_Cobweb_Checks) - thmslev_cobwebs - thmsstorage_cobwebs
+    _add_locations_to_existing_region(multiworld, player, RegionName.THMS, thms_cobwebs)
+    _add_locations_to_existing_region(multiworld, player, RegionName.THMSLev, thmslev_cobwebs)
+    _add_locations_to_existing_region(multiworld, player, RegionName.THMSStorage, thmsstorage_cobwebs)
+
+    # Waterloo World cobwebs are split across two regions.
+    wwmadusterlev_cobwebs = {LocationName.CobwebBlacksmithsRightBuildingRoof}
+    # All the remaining cobwebs are in WWMA.
+    wwma_cobwebs = set(WW_Cobweb_Checks) - wwmadusterlev_cobwebs
+    _add_locations_to_existing_region(multiworld, player, RegionName.WWMA, wwma_cobwebs)
+    _add_locations_to_existing_region(multiworld, player, RegionName.WWMADusterLev, wwmadusterlev_cobwebs)
+
+    # Black Velvetopia cobwebs are split across two regions.
+    # Technically, these locations could all go in either BVRB or BVRBDuster, but it's more accurate to split the
+    # cobwebs into the physical regions they are located in.
+    bvrbduster_cobwebs = {LocationName.CobwebDiegosHouseFireplace, LocationName.CobwebDiegosHouseGrindrail}
+    # All the remaining cobwebs are in BVRB.
+    bvrb_cobwebs = set(BV_Cobweb_Checks) - bvrbduster_cobwebs
+    _add_locations_to_existing_region(multiworld, player, RegionName.BVRB, bvrb_cobwebs)
+    _add_locations_to_existing_region(multiworld, player, RegionName.BVRBDuster, bvrbduster_cobwebs)
+
+    # Meat Circus cobwebs are split across two regions.
+    mctc_escort_cobwebs = {LocationName.CobwebTunnelOfLoveOllieEscortExit}
+    mctc_cobwebs = set(MC_Cobweb_Checks) - mctc_escort_cobwebs
+    _add_locations_to_existing_region(multiworld, player, RegionName.MCTC, mctc_cobwebs)
+    _add_locations_to_existing_region(multiworld, player, RegionName.MCTCEscort, mctc_escort_cobwebs)
+
 
 
 def create_psyregions(world: MultiWorld, player: int):

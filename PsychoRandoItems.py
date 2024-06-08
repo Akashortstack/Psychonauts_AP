@@ -152,7 +152,8 @@ PSYCHORANDO_ITEM_TABLE = {
     ItemName.DowsingRod: 1,
 
     # 110 Psicards, filler item, increase if adding more positions
-    ItemName.PsiCard: 110,
+    # 54 are added for Cobweb Shuffle
+    ItemName.PsiCard: 110 + 54,
 
     # AP Placeholders, 317 total.
     # These have no corresponding AP item and are assumed to always be last in PsychoRando's item order.

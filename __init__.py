@@ -18,7 +18,7 @@ from .Items import (
     AP_ITEM_OFFSET
 )
 from .ItemUtils import repeated_item_names_gen
-from .Locations import all_locations, AP_LOCATION_OFFSET, deep_arrowhead_locations
+from .Locations import all_locations, AP_LOCATION_OFFSET, deep_arrowhead_locations, mental_cobweb_locations
 from .Names import ItemName, LocationName
 from .Options import Goal, PsychonautsOptions, slot_data_options
 from . import Regions
@@ -153,6 +153,12 @@ class PSYWorld(World):
         item_counts[ItemName.AHSmall] += small_count
         item_counts[ItemName.AHLarge] += large_count
 
+    @staticmethod
+    def _add_mental_cobweb_shuffle_items(item_counts: Dict[str, int]):
+        # A single Mental Cobweb can normally be turned into a PSI Card at the loom in Ford's Sanctuary, so add as many
+        # PSI Cards to the pool as Mental Cobweb Locations.
+        item_counts[ItemName.PsiCard] += len(mental_cobweb_locations)
+
     def create_items(self):
         """
         Fills ItemPool 
@@ -176,6 +182,10 @@ class PSYWorld(World):
         if self.options.DeepArrowheadShuffle:
             self._add_deep_arrowhead_shuffle_items(adjusted_item_counts)
 
+        # Add items for MentalCobwebShuffle
+        if self.options.MentalCobwebShuffle:
+            self._add_mental_cobweb_shuffle_items(adjusted_item_counts)
+
         # Create the initial item pool.
         item_pool = list(map(self.create_item, repeated_item_names_gen(item_dictionary_table, adjusted_item_counts)))
 
@@ -186,7 +196,7 @@ class PSYWorld(World):
         # Add filler/junk items to fill out the remaining locations.
         # If there are more locations remaining than the desired maximum number of filler items to add, also add the
         # Feather and Watering Can junk items to the pool.
-        desired_max_filler = 107  # This is arbitrary based on the maximum of 110 Psi Cards placeable in the game world.
+        desired_max_filler = 107  # This is arbitrary based on the max number of Psi Cards placeable in the game world.
         excess = num_locations_to_fill - desired_max_filler
         if excess >= 1:
             item_pool.append(self.create_item(ItemName.Feather))
@@ -211,6 +221,8 @@ class PSYWorld(World):
 
         if self.options.DeepArrowheadShuffle:
             Regions.create_deep_arrowhead_locations(self.multiworld, self.player)
+        if self.options.MentalCobwebShuffle:
+            Regions.create_mental_cobweb_locations(self.multiworld, self.player)
 
     def set_rules(self):
         """
