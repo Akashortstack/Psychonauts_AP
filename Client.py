@@ -9,15 +9,11 @@ from typing import Dict, Any, List, Tuple
 import ModuleUpdate
 ModuleUpdate.update()
 import Utils
-from .Items import (
-    item_dictionary_table,
-    item_counts,
-    AP_ITEM_OFFSET,
-    reverse_item_dictionary_table,
-    find_item_name_from_psy_id,
-)
-from .Locations import AP_LOCATION_OFFSET, all_fillable_locations
+
+from .Items import AP_ITEM_OFFSET, reverse_item_dictionary_table
+from .Locations import AP_LOCATION_OFFSET, PSYCHOSEED_LOCATION_IDS
 from .PsychoSeed import gen_psy_ids, PSY_NON_LOCAL_ID_START
+from .PsychoRandoItems import PSYCHORANDO_ITEM_LOOKUP, PSYCHORANDO_BASE_ITEM_IDS
 
 logger = logging.getLogger("Client")
 
@@ -84,7 +80,6 @@ class PsychonautsContext(CommonContext):
     game = "Psychonauts"
     items_handling = 0b111  # full remote
 
-    max_item_counts: Dict[int, int]
     local_psy_location_to_local_psy_item_id: Dict[int, int]  # server state
     local_items_placed_as_ap_items: Dict[int, int]  # server state
     has_local_location_data: bool  # server state
@@ -100,17 +95,12 @@ class PsychonautsContext(CommonContext):
         self.clear_mod_data_warning = False
         self.game_communication_path = None
 
-        # The maximum number of each item that Psychonauts can receive before it runs out of unique IDs for that item.
-        self.max_item_counts = {item_dictionary_table[item_name] + AP_ITEM_OFFSET: count
-                                for item_name, count in item_counts.items()}
-
         # When connecting to a server, the contents of self.locations_scouted are sent in a LocationScouts request,
         # filling self.locations_info once the LocationsInfo response is received.
-        # Scout all local locations so that the client can figure out the Psychonauts item IDs of all locally placed
-        # items.
+        # Scout all local locations used in PsychoSeed generation so that the client can figure out the Psychonauts item
+        # IDs of all locally placed items.
         # Note: Event locations cannot be scouted.
-        self.locations_scouted.update(location_id + AP_LOCATION_OFFSET
-                                      for location_id in all_fillable_locations.values())
+        self.locations_scouted.update(location_id + AP_LOCATION_OFFSET for location_id in PSYCHOSEED_LOCATION_IDS)
 
         # These are read from self.locations_info after the response from the initial request of scouting all local
         # locations:
@@ -175,22 +165,23 @@ class PsychonautsContext(CommonContext):
                         os.remove(root+"/"+file)
 
     def calc_psy_ids_from_scouted_local_locations(self):
-        # Attempt to figure out the Psychonauts IDs for all locally placed items.
+        # Attempt to figure out the Psychonauts IDs for all locally placed items at locations used in PsychoSeed
+        # generation.
         location_tuples = []
-        for psy_location_id in all_fillable_locations.values():
+        for psy_location_id in PSYCHOSEED_LOCATION_IDS:
             ap_location_id = psy_location_id + AP_LOCATION_OFFSET
             scouted_network_item = self.locations_info.get(ap_location_id)
             if scouted_network_item is None:
                 # Some or all of the requested location info has not been received yet.
                 # Generally, this shouldn't happen because sending a LocationScouts request for all local locations
-                # is one of the first things the client does after connecting to a server.
+                # is one of the first things the client does after connecting to a slot.
                 return False
             is_local_item = scouted_network_item.player == self.slot
             if is_local_item:
-                item_name = reverse_item_dictionary_table[scouted_network_item.item - AP_ITEM_OFFSET]
+                local_item_name = reverse_item_dictionary_table[scouted_network_item.item - AP_ITEM_OFFSET]
             else:
-                item_name = None
-            location_tuples.append((is_local_item, item_name, psy_location_id))
+                local_item_name = None
+            location_tuples.append((is_local_item, local_item_name, psy_location_id))
 
         # All the information needed to figure out the Psychonaunts item IDs of locally placed items has been
         # acquired.
@@ -211,24 +202,18 @@ class PsychonautsContext(CommonContext):
 
         return True
 
-    def receive_local_item(self, index, ap_location_id, ap_item_id, base_psy_item_id):
+    def receive_local_item(self, index, ap_location_id, ap_item_id):
         """
         Receive an item from the local world.
         """
-        # The maximum number of times this item can be received by Psychonauts due to Psychonauts having a limited
-        # number of unique IDs per item.
-        max_item_count = self.max_item_counts[ap_item_id]
-        # Maximum Psychonauts ID for this item when there are multiple copies.
-        max_psy_item_id = base_psy_item_id + max_item_count - 1
-
         # Locally placed items must write the exact Psychonauts item ID they were placed as.
         # Writing locally placed items is required for resuming an in-progress slot from a new save file without having
         # to manually collect the local items again.
         psy_location_id = ap_location_id - AP_LOCATION_OFFSET
         if psy_location_id not in self.local_psy_location_to_local_psy_item_id:
-            print(f"Local item {ap_item_id} ({base_psy_item_id}) received from non-existent local location"
+            print(f"Local item {ap_item_id} received from non-existent local location"
                   f" {ap_location_id}. Sending as a non-local item instead.")
-            self.receive_non_local_item(index, base_psy_item_id)
+            self.receive_non_local_item(index, ap_item_id)
             return
 
         # Get the Psychonauts item id for the item at this local location.
@@ -240,25 +225,32 @@ class PsychonautsContext(CommonContext):
             self.receive_non_local_item(index, self.local_items_placed_as_ap_items[local_item_psy_id])
             return
 
-        # Check that the Psychonauts ID matches the item AP thinks is at this location.
-        if base_psy_item_id <= local_item_psy_id <= max_psy_item_id:
+        # Check that the PsychoRando item at this location matches the item AP thinks is at this location.
+        ap_item_name = reverse_item_dictionary_table.get(ap_item_id - AP_ITEM_OFFSET)
+        expected_item_name = PSYCHORANDO_ITEM_LOOKUP.get(local_item_psy_id)
+        if ap_item_name and ap_item_name == expected_item_name:
             # Tell Psychonauts it has received the item.
             with open(os.path.join(self.game_communication_path, "ItemsReceived.txt"), 'a') as f:
                 f.write(f"{index},{local_item_psy_id},{LOCAL_ITEM_IDENTIFIER}\n")
         else:
             # This should not happen unless the scouted location data is incorrect or the Psychonauts item IDs have been
             # incorrectly calculated from the scouted location data.
-            ap_item_name = reverse_item_dictionary_table.get(base_psy_item_id, f"Unknown {ap_item_id}")
-            expected_item_name = find_item_name_from_psy_id(local_item_psy_id)
+            if ap_item_name is None:
+                ap_item_name = f"Unknown AP Item {ap_item_id - AP_ITEM_OFFSET}"
             if expected_item_name is None:
-                expected_item_name = f"Unknown {local_item_psy_id + AP_ITEM_OFFSET}"
+                expected_item_name = f"Unknown PsychoRando Item {local_item_psy_id}"
             logger.error("Error: Tried to receive item '%s' from local location '%i', but the item should be '%s'"
                          " according to scouted location info.", ap_item_name, ap_location_id, expected_item_name)
 
-    def receive_non_local_item(self, index, base_psy_item_id):
+    def receive_non_local_item(self, index, ap_item_id):
         """
         Receive an item from another world.
         """
+        # Subtract the AP item offset and get the item name.
+        item_name = reverse_item_dictionary_table[ap_item_id - AP_ITEM_OFFSET]
+        # Get the first PsychoRando ID for this item name. If there are duplicate PsychoRando IDs for this item, sending
+        # any of them should work, but for consistency, we'll always send the first PsychoRando ID.
+        base_psy_item_id = PSYCHORANDO_BASE_ITEM_IDS[item_name]
         # Tell Psychonauts it has received the item.
         with open(os.path.join(self.game_communication_path, "ItemsReceived.txt"), 'a') as f:
             f.write(f"{index},{base_psy_item_id},{NON_LOCAL_ITEM_IDENTIFIER}\n")
@@ -267,15 +259,11 @@ class PsychonautsContext(CommonContext):
         if not self.has_local_location_data:
             raise RuntimeError("receive_item() was called before local location data has been received and processed")
 
-        ap_item_id = network_item.item
-        # Subtract the AP item offset to get the base item ID for Psychonauts.
-        base_psy_item_id = ap_item_id - AP_ITEM_OFFSET
-
         # Check if the item was placed locally.
         if network_item.player == self.slot:
-            self.receive_local_item(index, network_item.location, ap_item_id, base_psy_item_id)
+            self.receive_local_item(index, network_item.location, network_item.item)
         else:
-            self.receive_non_local_item(index, base_psy_item_id)
+            self.receive_non_local_item(index, network_item.item)
 
     def clear_mod_data(self):
         for root, dirs, files in os.walk(self.moddata_folder):
@@ -415,34 +403,37 @@ async def game_watcher(ctx: PsychonautsContext):
                     if "DeathLink" in ctx.tags:
                         await ctx.send_death(death_text = f"{ctx.player_names[ctx.slot]} became lost in thought!")
                 f.close
-            
+
+            # Initialize an empty list and set.
+            # The list maintains the order and the set provides fast comparisons and __contains__() checks.
             sending = []
-            # Initialize an empty table
-            collected_table = []
+            sending_set = set()
             victory = False
             
             # Open the file in read mode
             with open(os.path.join(ctx.game_communication_path, "ItemsCollected.txt"), 'r') as f:
-                collected_items = f.readlines()            
+                collected_items = f.readlines()
                 # Iterate over each line in the file
                 for line in collected_items:
-                    # Convert the line to a float and add it to the table
-                    value = float(line.strip())
-                    # Keep track of already collected values
-                    if value not in collected_table:
-                        # add the base_id 42690000
-                        sending = sending+[(int(value + AP_LOCATION_OFFSET))]
-                        collected_table.append(value)
-                f.close()
+                    # Convert the line to an int, add the offset to convert to AP, and add it to the list and set
+                    value = int(line.strip()) + AP_LOCATION_OFFSET
+                    # Keep track of already collected values to ensure there are no duplicates.
+                    if value not in sending_set:
+                        sending.append(value)
+                        sending_set.add(value)
 
             for root, dirs, files in os.walk(ctx.game_communication_path):
                 for file in files:
                     if file.find("victory.txt") > -1:
                         victory = True
-                        
-            ctx.locations_checked = sending
-            message = [{"cmd": 'LocationChecks', "locations": sending}]
-            await ctx.send_msgs(message)
+
+            if ctx.locations_checked != sending_set:
+                # The checked locations differ from before, so message the server and update the checked locations for
+                # the next loop.
+                ctx.locations_checked = sending_set
+                message = [{"cmd": 'LocationChecks', "locations": sending}]
+                await ctx.send_msgs(message)
+
             if not ctx.finished_game and victory == True:
                 await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
                 ctx.finished_game = True

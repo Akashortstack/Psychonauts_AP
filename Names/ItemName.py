@@ -146,7 +146,8 @@ SashaButton = "Sasha's Button"
 Feather = "Crow Feather"
 CobwebDuster = "Cobweb Duster"
 SquirrelDinner = "Squirrel Roast Dinner"
+DowsingRod = "Dowsing Rod"
 
 #Needed for Victory!
 Victory = "Victory"
-Filler = "Event Filler"
+Filler = "Filler"
