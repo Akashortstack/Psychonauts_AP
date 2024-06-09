@@ -13,6 +13,13 @@ class StartingMentalMagnet(Toggle):
     display_name = "Start with Mental Magnet"
     default = True
 
+
+class StartingCobwebDuster(Toggle):
+    """Start with the Cobweb Duster."""
+    display_name = "Start with Cobweb Duster"
+    default = False
+
+
 class RandomStartingMinds(Range):
     """Start with a random number of mind unlocking items."""
     display_name = "Random Starting Minds"
@@ -87,10 +94,18 @@ class DeepArrowheadShuffle(Toggle):
     default = False
 
 
+class MentalCobwebShuffle(Toggle):
+    """Add Mental Cobweb checks and shuffle an extra PSI Card into the pool for each Mental Cobweb.
+    Mental Cobweb locations must be collecting using the Cobweb Duster."""
+    display_name = "Mental Cobweb Shuffle"
+    default = False
+
+
 @dataclass
 class PsychonautsOptions(PerGameCommonOptions):
     StartingLevitation: StartingLevitation
     StartingMentalMagnet: StartingMentalMagnet
+    StartingCobwebDuster: StartingCobwebDuster
     RandomStartingMinds: RandomStartingMinds
     LootboxVaults: LootboxVaults
     EasyMillaRace: EasyMillaRace
@@ -101,6 +116,7 @@ class PsychonautsOptions(PerGameCommonOptions):
     BrainsRequired: BrainsRequired
     RequireMeatCircus: RequireMeatCircus
     DeepArrowheadShuffle: DeepArrowheadShuffle
+    MentalCobwebShuffle: MentalCobwebShuffle
 
 
 slot_data_options: List[str] = [
@@ -115,4 +131,5 @@ slot_data_options: List[str] = [
     "BrainsRequired",
     "RequireMeatCircus",
     "DeepArrowheadShuffle",
+    "MentalCobwebShuffle",
 ]

@@ -5,7 +5,7 @@ from worlds.generic.Rules import add_item_rule, add_rule
 
 from .Names import LocationName, ItemName, RegionName
 from .Items import BrainJar_Table, local_set
-from .Locations import deep_arrowhead_locations
+from .Locations import deep_arrowhead_locations, mental_cobweb_locations
 
 # I don't know what is going on here, but it works???
 # Thanks Jared :)
@@ -340,6 +340,21 @@ class PsyRules:
             for deep_ah_location_name in deep_arrowhead_locations:
                 location = multiworld.get_location(deep_ah_location_name, player)
                 add_rule(location, has_dowsing_rod)
+
+        if self.world.options.MentalCobwebShuffle:
+            local_only_forbidden.update(mental_cobweb_locations.keys())
+
+            for mental_cobweb_location_name in mental_cobweb_locations:
+                location = multiworld.get_location(mental_cobweb_location_name, player)
+                # For simplicity, the rule is currently added to all mental cobweb locations, but it might be worth
+                # considering skipping adding the rule if the location's region already requires the Cobweb Duster to
+                # access.
+                add_rule(location, self.has_cobwebduster)
+
+            # Extra per-cobweb rules that are not covered by the Region the cobweb is in:
+            # BB Grindrail Wall requires Levitation because the ground around the cobweb is sloped and Raz bounces off
+            # it when falling onto it too fast, so Levitation is need to float down slowly.
+            add_rule(multiworld.get_location(LocationName.CobwebGrindrailWall, player), self.has_levitation)
 
         if local_only_forbidden:
             def forbid_local_only(item: Item):

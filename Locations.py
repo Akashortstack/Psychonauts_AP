@@ -506,6 +506,108 @@ deep_arrowhead_locations = {
     **CABH_Deep_Arrowhead_Checks,
 }
 
+# Mental Cobweb locations.
+# These are not included in PsychoRando seed generation so the IDs must be greater than all locations which are included
+# in PsychoRando seed generation.
+# The Cobwebs for each level are ordered by their internal names in Psychonauts, so sometimes the order of the Cobwebs
+# is a bit weird.
+BB_Cobweb_Checks = {
+    LocationName.CobwebTrapezeCobweb: 552,
+    LocationName.CobwebTightropeTutorial: 553,
+    LocationName.CobwebGrindrailWall: 554,
+    LocationName.CobwebBunnyRoomDoor: 555,
+    LocationName.CobwebTunnelOfLogsEnd: 556,
+}
+
+SA_Cobweb_Checks = {
+    LocationName.CobwebBlockArchLeft: 557,
+    LocationName.CobwebBlockArchRight: 558,
+    LocationName.CobwebBackOfShoeboxTower: 559,
+    LocationName.CobwebShoeboxTower: 560,
+    LocationName.CobwebFlameTowerArch: 561,
+}
+
+MI_Cobweb_Checks = {
+    LocationName.CobwebIntroStatueCorner: 562,
+    LocationName.CobwebBehindPinballLadder: 563,
+    LocationName.CobwebGrindrailRings: 564,
+    LocationName.CobwebFanRoomEntrance: 565,
+    LocationName.CobwebPartyRoomFloor: 566,
+}
+
+BT_Cobweb_Checks = {
+    LocationName.CobwebBathtubDrain: 567,
+    LocationName.CobwebForestPathThorns: 568,
+    LocationName.CobwebForestHighPlatform: 569,
+    LocationName.CobwebShadowMonsterMeat: 570,
+    LocationName.CobwebThornTowerRight: 571,
+}
+
+LO_Cobweb_Checks = {
+    LocationName.CobwebSkyscraperBeforeDam: 572,
+    LocationName.CobwebSkyscrapersBeforeTunnel: 573,
+    LocationName.CobwebBehindLasers: 574,
+    LocationName.CobwebEndOfDam: 575,
+    LocationName.CobwebGroundAfterBridge: 576,
+}
+
+MM_Cobweb_Checks = {
+    LocationName.CobwebThirdHouse: 577,
+    LocationName.CobwebPostOfficeLobby: 578,
+    LocationName.CobwebRightHouseBeforePostOffice: 579,
+    LocationName.CobwebWebbedGarage: 580,
+    LocationName.CobwebBookDepository: 581,
+}
+
+TH_Cobweb_Checks = {
+    LocationName.CobwebBackstageCorridor: 582,
+    LocationName.CobwebBelowTeleporter: 583,
+    LocationName.CobwebStorageRoomLeft: 584,
+    LocationName.CobwebInTheAudience: 585,
+    LocationName.CobwebBelowTheCritic: 586,
+    LocationName.CobwebBehindStage: 587,
+    LocationName.CobwebStorageRoomRight: 588,
+}
+
+WW_Cobweb_Checks = {
+    LocationName.CobwebBeneathSmallArch: 589,
+    LocationName.CobwebBlacksmithsRightBuildingWindow: 590,
+    LocationName.CobwebBlacksmithsLeftBuilding: 591,
+    LocationName.CobwebBlacksmithsRightBuildingRoof: 592,
+    LocationName.CobwebCarpentersHouse: 593,
+    LocationName.CobwebFredsHouseBasement: 594,
+    LocationName.CobwebUnderTheGuillotine: 595,
+}
+
+BV_Cobweb_Checks = {
+    LocationName.CobwebDiegosHouseGrindrail: 596,
+    LocationName.CobwebDiegosHouse: 597,
+    LocationName.CobwebSewerShowerTunnel: 598,
+    LocationName.CobwebAboveQueenOfHearts: 599,
+    LocationName.CobwebSewerBeforeGate: 600,
+    LocationName.CobwebDiegosHouseFireplace: 601,
+    LocationName.CobwebNearDiegosHouse: 602,
+}
+
+MC_Cobweb_Checks = {
+    LocationName.CobwebTunnelOfLoveOllieEscortExit: 603,
+    LocationName.CobwebEntranceHall1: 604,
+    LocationName.CobwebEntranceHall2: 605,
+}
+
+mental_cobweb_locations = {
+    **BB_Cobweb_Checks,
+    **SA_Cobweb_Checks,
+    **MI_Cobweb_Checks,
+    **BT_Cobweb_Checks,
+    **LO_Cobweb_Checks,
+    **MM_Cobweb_Checks,
+    **TH_Cobweb_Checks,
+    **WW_Cobweb_Checks,
+    **BV_Cobweb_Checks,
+    **MC_Cobweb_Checks,
+}
+
 # Includes locations that may not be enabled.
 all_fillable_locations = {
     **CA_Checks,
@@ -522,6 +624,7 @@ all_fillable_locations = {
     **BV_Checks,
     **MC_Checks,
     **deep_arrowhead_locations,
+    **mental_cobweb_locations
 }
 
 all_locations = {
@@ -534,6 +637,7 @@ all_locations = {
 # placed.
 _FULLY_REMOTE_LOCATION_IDS = {
     *deep_arrowhead_locations.values(),
+    *mental_cobweb_locations.values()
 }
 # IDs of locations that place items into the game world, and are therefore used in PsychoSeed generation.
 PSYCHOSEED_LOCATION_IDS = set(all_fillable_locations.values())

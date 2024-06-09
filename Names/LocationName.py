@@ -276,29 +276,44 @@ PoleSwingingTutorial = "(BB Area 2) Pole-Swinging Tutorial"
 TrapezeCobweb = "(BB Area 2) Trapeze Cobweb"
 TrapezePlatform = "(BB Area 2) Trapeze Platform"
 InsidePlaneWreckage = "(BB Area 2) Inside Plane Wreckage"
+CobwebTrapezeCobweb = "(BB Area 2 Cobweb) Trapeze Cobweb"
+CobwebTightropeTutorial = "(BB Area 2 Cobweb) Tightrope Tutorial"
+CobwebGrindrailWall = "(BB Area 2 Cobweb) Grindrail Wall"
 
 # Obstacle Course Finale [BBLT] 
 EndOfObstacleCourseLeft = "(BB Finale) End of Obstacle Course Left"
 EndOfObstacleCourseRight = "(BB Finale) End of Obstacle Course Right"
 BasicBrainingComplete = "(BB Finale) Basic Braining Complete"
+CobwebBunnyRoomDoor = "(BB Finale Cobweb) Bunny Room Door"
+CobwebTunnelOfLogsEnd = "(BB Finale Cobweb) Tunnel of Logs End"
 
-# Sasha's Shooting Gallery [SACU] 
+# Sasha's Shooting Gallery [SACU]
+# Face 1
 OnTheBed = "(SA Main) On the Bed"
 OnThePillow = "(SA Main) On the Pillow"
 BuildingBlocksLeft = "(SA Main) Building Blocks Left"
 BuildingBlocksBelow = "(SA Main) Building Blocks Below"
 BuildingBlocksRight = "(SA Main) Building Blocks Right"
 TopOfBedFrame = "(SA Main) Top of Bed Frame"
+CobwebBlockArchLeft = "(SA Main Cobweb) Block Arch Left"
+CobwebBlockArchRight = "(SA Main Cobweb) Block Arch Right"
+# Face 2
 RoundPlatformsBottom = "(SA Main) Round Platforms Bottom"
 RoundPlatformsNearValve = "(SA Main) Round Platforms Near Valve"
 RoundPlatformsFarFromValve = "(SA Main) Round Platforms Far from Valve"
+# Face 3
 SideOfCubeFace3 = "(SA Main) Side of Cube Face 3"
 BottomOfShoeboxLadder = "(SA Main) Bottom of Shoebox Ladder"
 ShoeboxPedestal = "(SA Main) Shoebox Pedestal"
 ShoeboxTowerTop = "(SA Main) Shoebox Tower Top"
+CobwebBackOfShoeboxTower = "(SA Main Cobweb) Back of Shoebox Tower"
+CobwebShoeboxTower = "(SA Main Cobweb) Shoebox Tower"
+# Face 4
 FlameTowerSteps = "(SA Main) Flame Tower Steps"
 FlameTowerTop1 = "(SA Main) Flame Tower Top 1"
 FlameTowerTop2 = "(SA Main) Flame Tower Top 2"
+CobwebFlameTowerArch = "(SA Main) Flame Tower Arch"
+# Completion
 SashasShootingGalleryComplete = "(SA Main) Sasha's Shooting Gallery Complete"
 
 # The Lounge [MIFL] 
@@ -312,6 +327,9 @@ GrindrailRings = "(MI Area 1) Grindrail Rings"
 CensorHallway = "(MI Area 1) Censor Hallway"
 PinkBowlBottom = "(MI Area 1) Pink Bowl Bottom"
 PinkBowlSmallPlatform = "(MI Area 1) Pink Bowl Small Platform"
+CobwebIntroStatueCorner = "(MI Area 1 Cobweb) Intro Statue Corner"
+CobwebBehindPinballLadder = "(MI Area 1 Cobweb) Behind Pinball Ladder"
+CobwebGrindrailRings = "(MI Area 1 Cobweb) Grindrail Rings"
 
 # The Party [MILL] 
 BubblyFanBottom = "(MI Finale) Bubbly Fan Bottom"
@@ -319,6 +337,8 @@ BubblyFanPlatform = "(MI Finale) Bubbly Fan Platform"
 BubblyFanTop = "(MI Finale) Bubbly Fan Top"
 MillasPartyRoom = "(MI Finale) Milla's Party Room"
 MillasDancePartyComplete = "(MI Finale) Milla's Dance Party Complete"
+CobwebFanRoomEntrance = "(MI Finale Cobweb) Fan Room Entrance"
+CobwebPartyRoomFloor = "(MI Finale Cobweb) Party Room Floor"
 
 # The Nightmare Woods [NIMP] 
 OutsideCaravan = "(BT Main) Outside Caravan"
@@ -334,6 +354,11 @@ ForestPathThorns = "(BT Main) Forest Path Thorns"
 BehindThornTowerLeft = "(BT Main) Behind Thorn Tower Left"
 BehindThornTowerMid = "(BT Main) Behind Thorn Tower Mid"
 BehindThornTowerRight = "(BT Main) Behind Thorn Tower Right"
+CobwebShadowMonsterMeat = "(BT Main Cobweb) Shadow Monster Meat"
+CobwebForestHighPlatform = "(BT Main Cobweb) Forest High Platform"
+CobwebForestPathThorns = "(BT Main Cobweb) Forest Path Thorns"
+CobwebBathtubDrain = "(BT Main Cobweb) Bathtub Drain"
+CobwebThornTowerRight = "(BT Main Cobweb) Thorn Tower Right"
 BrainTumblerExperimentComplete = "(BT Boss) Brain Tumbler Experiment Complete"
 
 # Lungfishopolis City [LOMA] 
@@ -354,6 +379,11 @@ SkyscraperAfterBridge = "(LO Main) Skyscraper after Bridge"
 TunnelSuitcaseTag = "(LO Main) Train Tunnel"
 FinalSkyscrapersLeft = "(LO Main) Final Skyscrapers Left"
 FinalSkyscrapersRight = "(LO Main) Final Skyscrapers Right"
+CobwebSkyscraperBeforeDam = "(LO Main Cobweb) Skyscraper Before Dam"
+CobwebSkyscrapersBeforeTunnel = "(LO Main Cobweb) Skyscrapers Before Tunnel"
+CobwebBehindLasers = "(LO Main Cobweb) Behind Lasers"
+CobwebEndOfDam = "(LO Main Cobweb) End of Dam"
+CobwebGroundAfterBridge = "(LO Main Cobweb) Ground after Bridge"
 
 # Kochamara Arena [LOCB] 
 KochamaraIntroLeft = "(LO Boss) Kochamara Intro Left"
@@ -383,10 +413,15 @@ LandscapersHouseKitchenAmmoUp = "(MM Neighborhood) Landscapers House Kitchen"
 PowerlineIslandSandboxHatboxTag = "(MM Neighborhood) Powerline Island Sandbox"
 PowerlineIslandLeftMemoryVault = "(MM Neighborhood) Powerline Island Left"
 PowerlineIslandRightMaxLives = "(MM Neighborhood) Powerline Island Right"
+CobwebThirdHouse = "(MM Neighborhood Cobweb) Third House"
+CobwebPostOfficeLobby = "(MM Neighborhood Cobweb) Post Office Lobby"
+CobwebRightHouseBeforePostOffice = "(MM Neighborhood Cobweb) Right House before Post Office"
+CobwebWebbedGarage = "(MM Neighborhood Cobweb) Webbed Garage"
 
 # The Neighborhood 2 [MMI2] 
 BehindBookDepositorySteamerTrunk = "(MM Depository) Behind Book Depository"
 MilkmanComplete = "(MM Depository) Milkman Complete"
+CobwebBookDepository = "(MM Depository Cobweb) Book Depository"
 
 # The Stage [THMS] 
 NearTheCriticPurse = "(TH Stage) Near the Critic"
@@ -399,6 +434,13 @@ StorageRoomLeftSteamertrunk = "(TH Stage) Storage Room Left"
 StorageRoomRightLowerSuitcaseTag = "(TH Stage) Storage Room Right Lower"
 StorageRoomRightUpperCandle1 = "(TH Stage) Storage Room Right Upper"
 BonitasRoom = "(TH Stage) Bonita's Room"
+CobwebBackstageCorridor = "(TH Stage Cobweb) Backstage Corridor"
+CobwebBelowTeleporter = "(TH Stage Cobweb) Below Teleporter"
+CobwebStorageRoomLeft = "(TH Stage Cobweb) Storage Room Left"
+CobwebInTheAudience = "(TH Stage Cobweb) In the Audience"
+CobwebBelowTheCritic = "(TH Stage Cobweb) Below the Critic"
+CobwebBehindStage = "(TH Stage Cobweb) Behind Stage"
+CobwebStorageRoomRight = "(TH Stage Cobweb) Storage Room Right"
 
 # The Catwalks [THCW] 
 DoghouseSlicersDufflebagTag = "(TH Catwalks) Doghouse Slicers"
@@ -437,6 +479,13 @@ HelpTheKnight = "(WW Main) Help the Knight"
 HelpVillager2 = "(WW Main) Help Villager 2"
 HelpVillager3 = "(WW Main) Help Villager 3"
 WaterlooWorldComplete = "(WW Main) Waterloo World Complete"
+CobwebBeneathSmallArch = "(WW Main Cobweb) Beneath Small Arch"
+CobwebBlacksmithsRightBuildingWindow = "(WW Main Cobweb) Blacksmith's Right Building Window"
+CobwebBlacksmithsLeftBuilding = "(WW Main Cobweb) Blacksmith's Left Building"
+CobwebBlacksmithsRightBuildingRoof = "(WW Main Cobweb) Blacksmith's Right Building Roof"
+CobwebCarpentersHouse = "(WW Main Cobweb) Carpenter's House"
+CobwebFredsHouseBasement = "(WW Main Cobweb) Fred's House Basement"
+CobwebUnderTheGuillotine = "(WW Main Cobweb) Under the Guillotine"
 
 # Running Against the Bull [BVRB] 
 ClubStreetLadySteamertrunk = "(BV Streets) Club Street Lady"
@@ -452,6 +501,13 @@ DiegosBedSuitcaseTag = "(BV Streets) Diego's Bed"
 DiegosRoomHatbox = "(BV Streets) Diego's Room"
 DiegosHouseGrindrailSuitcase = "(BV Streets) Diego's House Grindrail"
 GrindrailBalconyConfusionAmmoUp = "(BV Streets) Grindrail Balcony"
+CobwebDiegosHouseGrindrail = "(BV Streets Cobweb) Diego's House Grindrail"
+CobwebDiegosHouse = "(BV Streets Cobweb) Diego's House"
+CobwebSewerShowerTunnel = "(BV Streets Cobweb) Sewer Shower Tunnel"
+CobwebAboveQueenOfHearts = "(BV Streets Cobweb) Above Queen of Hearts"
+CobwebSewerBeforeGate = "(BV Streets Cobweb) Sewer Before Gate"
+CobwebDiegosHouseFireplace = "(BV Streets Cobweb) Diego's House Fireplace"
+CobwebNearDiegosHouse = "(BV Streets Cobweb) Near Diego's House"
 
 # Edgar's Sanctuary [BVES] 
 SanctuaryBalconyPurseTag = "(BV Edgar) Sanctuary Balcony"
@@ -475,6 +531,9 @@ TunnelOfLoveStartPurse = "(MC Main) Tunnel of Love Start"
 TunnelOfLoveCornerSuitcase = "(MC Main) Tunnel of Love Corner"
 TunnelOfLoveRailDufflebagTag = "(MC Main) Tunnel of Love Rail"
 NextToTheFatLadyDufflebag = "(MC Main) Next to the Final Door"
+CobwebTunnelOfLoveOllieEscortExit = "(MC Main Cobweb) Tunnel of Love Ollie Escort Exit"
+CobwebEntranceHall1 = "(MC Main Cobweb) Entrance Hall 1"
+CobwebEntranceHall2 = "(MC Main Cobweb) Entrance Hall 2"
 FinalBossEvent = "(MC Boss) Final Boss Defeated"
 
 #Ford's Shop, only a location if Cobweb Duster vanilla
