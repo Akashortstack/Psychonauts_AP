@@ -325,6 +325,18 @@ class PsyRules:
 
         self.set_psy_goal()
 
+        # Prevent items that must be attacked to collect them from being placed at the Golden Acorn location because
+        # punching breaks invisibility, which causes the squirrel to hide the item before the punch connects.
+        # It is still possible to collect the items using the 'wrecking ball' ability of level 2 or 3 Progressive
+        # Levitation, but this is not part of the logic.
+        golden_acorn_loc = multiworld.get_location(LocationName.SquirrelsAcornGoldenAcorn, player)
+        punch_to_break_set = {
+            *BrainJar_Table,
+            ItemName.Vault
+        }
+        # Brain Jars and Vaults from other Psychonauts players are OK because they are placed as AP placeholder items.
+        add_item_rule(golden_acorn_loc, lambda item: item.player != player or item.name not in punch_to_break_set)
+
         # Locations which are not included in PsychoSeed generation do not place items into the Psychonauts game world,
         # instead relying on the Archipelago client to tell Psychonauts to spawn in the item as if it were receiving a
         # non-local item, so these locations cannot contain Psychonauts items that can only be placed locally.
