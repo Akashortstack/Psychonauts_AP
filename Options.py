@@ -13,6 +13,13 @@ class StartingMentalMagnet(Toggle):
     display_name = "Start with Mental Magnet"
     default = True
 
+
+class StartingCobwebDuster(Toggle):
+    """Start with the Cobweb Duster."""
+    display_name = "Start with Cobweb Duster"
+    default = False
+
+
 class RandomStartingMinds(Range):
     """Start with a random number of mind unlocking items."""
     display_name = "Random Starting Minds"
@@ -98,6 +105,7 @@ class MentalCobwebShuffle(Toggle):
 class PsychonautsOptions(PerGameCommonOptions):
     StartingLevitation: StartingLevitation
     StartingMentalMagnet: StartingMentalMagnet
+    StartingCobwebDuster: StartingCobwebDuster
     RandomStartingMinds: RandomStartingMinds
     LootboxVaults: LootboxVaults
     EasyMillaRace: EasyMillaRace
