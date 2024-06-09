@@ -1,4 +1,4 @@
-# Psychonauts Randomizer Setup Guide
+# Psychonauts Archipelago Setup Guide
 
 ##Setting up the required mods
 1. Install Psychonauts for PC, Astralathe, and the Psychonauts Randomizer Mod from the AP Companion Branch.

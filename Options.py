@@ -21,9 +21,9 @@ class RandomStartingMinds(Range):
     default = 0
 
 class LootboxVaults(Toggle):
-    """Turns all Memory Vaults into Lootboxes! Vaults will contain 10-100 Arrowheads, with a 50% chance to recieve a rank up.
-    If you get really lucky, you can even win jackpots of up to 500 Arrowheads or Five Ranks Up!
-    If False, Vaults will always give One Rank Up and 25 Arrowheads."""
+    """Turns all Memory Vaults into Lootboxes! Vaults will contain 10-50 Arrowheads, with a 50% chance to recieve a rank up.
+    If you get really lucky, you can even win jackpots of up to 250 Arrowheads or Five Ranks Up!
+    If False, Vaults will always give One Rank Up and 15 Arrowheads."""
     display_name = "Lootbox Vaults"
     default = True
 

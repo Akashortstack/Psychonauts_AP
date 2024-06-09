@@ -44,6 +44,9 @@ PSYCHORANDO_ITEM_TABLE = {
     ItemName.Clairvoyance: 2,
     ItemName.Shield: 3,
 
+    # Super Palm Bomb
+    ItemName.SuperPalmBomb: 1,
+
     # 6 Max Ammo Up
     ItemName.AmmoUp: 6,
 
@@ -154,7 +157,7 @@ PSYCHORANDO_ITEM_TABLE = {
     # 110 Psicards, filler item, increase if adding more positions
     ItemName.PsiCard: 110,
 
-    # AP Placeholders, 317 total.
+    # AP Placeholders, 318 total.
     # These have no corresponding AP item and are assumed to always be last in PsychoRando's item order.
     # AP Placeholders are used to represent items from other worlds and to place local items when PsychoRando has run
     # out of IDs to place more of that local item in the game world. It is assumed that there is always enough AP

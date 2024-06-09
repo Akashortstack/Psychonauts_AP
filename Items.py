@@ -35,7 +35,7 @@ Props_Table = {
     ItemName.Musket: 20,
 
     # Enabled with DeepArrowheadShuffle, otherwise available from the Main Lodge store as normal
-    ItemName.DowsingRod: 93
+    ItemName.DowsingRod: 93,
 }
 
 MindUnlocks_Table = {
@@ -69,7 +69,8 @@ General_Table = {
     ItemName.Vault: 42,
     ItemName.AHSmall: 43,
     ItemName.AHLarge: 44,
-    ItemName.PsiCard: 45
+    ItemName.PsiCard: 45,
+    ItemName.SuperPalmBomb: 94,
 }
 
 BrainJar_Table = {
@@ -165,6 +166,7 @@ useful_set = {
     *BaggageTags_Table,
     *Baggage_Table,
     ItemName.AHLarge,
+    ItemName.SuperPalmBomb,
 }
 
 local_set = {

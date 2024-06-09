@@ -224,6 +224,7 @@ def create_psyregions(world: MultiWorld, player: int):
         LocationName.LakeShoreCard,
         LocationName.TinyIslandCard,
         LocationName.RockWallGapPsychonautsComic1,
+        LocationName.LungfishBossComplete,
     ]
     create_region(RegionName.CABH, locCABH_names)
 
