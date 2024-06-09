@@ -25,7 +25,7 @@ class RandomStartingMinds(Range):
     display_name = "Random Starting Minds"
     range_start = 0
     range_end = 9
-    default = 0
+    default = 3
 
 class LootboxVaults(Toggle):
     """Turns all Memory Vaults into Lootboxes! Vaults will contain 10-50 Arrowheads, with a 50% chance to recieve a rank up.
@@ -54,7 +54,7 @@ class EnemyDamageMultiplier(Range):
     default = 1
 
 class InstantDeathMode(Toggle):
-    """Take any amount of damage, die instantly. Has priority over Enemy Damage Multiplier"""
+    """Take any amount of damage, die instantly. Has priority over Enemy Damage Multiplier."""
     display_name = "Instant Death Mode"
     default = False
 
@@ -64,7 +64,7 @@ class Goal(Choice):
 
     Brain Hunt: Find the required amount of Camper Brains and re-brain them in Ford's Sanctuary.
 
-    Asylum Brain Tank and Brain Hunt: Find the required amount of Camper Brains, and defeat the Coach Oleander Brain Tank."""
+    Asylum Brain Tank and Brain Hunt: Find the required amount of Camper Brains, AND defeat the Coach Oleander Brain Tank."""
     display_name = "Goal"
     option_braintank = 0
     option_brainhunt = 1
@@ -81,7 +81,7 @@ class BrainsRequired(Range):
     default = 10
 
 class RequireMeatCircus(Toggle):
-    """Require finishing Meat Circus Final Bosses in addition to your goal"""
+    """Require finishing Meat Circus Final Bosses in addition to your goal."""
     display_name = "Require Meat Circus"
     default = True
 
