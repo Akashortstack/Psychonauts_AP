@@ -48,7 +48,6 @@ class PsychonautsWeb(WebWorld):
             "Multiworld Setup Guide",
             "A guide to playing Psychonauts with Archipelago.",
             "English",
-            # Not finished yet
             "setup_en.md",
             "setup/en",
             ["Akashortstack"]
@@ -58,15 +57,15 @@ class PsychonautsWeb(WebWorld):
 class PSYWorld(World):
     """
     Psychonauts is a third-person action platformer game developed by Double Fine Productions, published by Majesco Entertainment, and released in 2005.
-    The player follows Razputin, a young boy gifted with Psychic abilities. After sneaking into a secret psychic summer camp, it's up to Raz to explore 
-    the minds of other characters, and save his fellow psychic campers from an evil doctor.
+    The player follows Razputin, a young boy gifted with Psychic abilities. After sneaking into Whispering Rock Psychic Summer Camp, it's up to Raz to explore 
+    the minds of other characters in order to save his fellow psychic campers, and the world, from an evil threat.
     
     """
     game = "Psychonauts"
     web = PsychonautsWeb()
 
     settings: ClassVar[PsychonautsSettings]
-    required_client_version = (0, 4, 4)
+    required_client_version = (0, 4, 6)
     options_dataclass = PsychonautsOptions
     options: PsychonautsOptions
 
@@ -84,16 +83,11 @@ class PSYWorld(World):
         """ 
         for item in local_set:
             self.options.local_items.value.add(item)
-
-        # if self.multiworld.StartingLevitation[self.player]:
-        #     self.multiworld.push_precollected(self.create_item(ItemName.Levitation1))
        
     def create_item(self, name: str) -> Item:
         """
         Returns created PSYItem
         """
-        # TODO: current code fails test/general/test_items: test_create_item
-        # Raises AttributeError for all brain jars, fully functional when generating
         if name in BrainJar_Table:
             # make brains filler if BrainHunt not a selected option
             if self.options.Goal == 0:
