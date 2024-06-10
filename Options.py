@@ -88,15 +88,21 @@ class RequireMeatCircus(Toggle):
 
 class DeepArrowheadShuffle(Toggle):
     """Add Deep Arrowhead checks and shuffle the Dowsing Rod and extra Arrowhead Bundles into the item pool.
-    Deep Arrowhead locations must be dug up from the ground using the Dowsing Rod. Digging up a Deep Arrowhead again,
-    after waiting 10 minutes unpaused in-game time for it to respawn, will award arrowheads like normal."""
+
+    Deep Arrowhead locations must be dug up from the ground using the Dowsing Rod and will set a shorter 10-minute
+    (unpaused in-game time) respawn time after being dug up for the first time. Digging up a Deep Arrowhead again, after
+    waiting for it to respawn, will award arrowheads like normal and set the normal 30-minute respawn time.
+
+    The Deep Arrowheads found under the Lake are not affected by this option."""
     display_name = "Deep Arrowhead Shuffle"
     default = False
 
 
 class MentalCobwebShuffle(Toggle):
-    """Add Mental Cobweb checks and shuffle an extra PSI Card into the pool for each Mental Cobweb.
-    Mental Cobweb locations must be collecting using the Cobweb Duster."""
+    """Add Mental Cobweb checks and shuffle an extra PSI Card into the item pool for each Mental Cobweb.
+
+    Mental Cobweb locations must be collecting using the Cobweb Duster. Collecting a Mental Cobweb will not add it to
+    Raz's inventory, so the loom in Ford's Sanctuary will have no use."""
     display_name = "Mental Cobweb Shuffle"
     default = False
 
