@@ -21,10 +21,10 @@ class StartingCobwebDuster(Toggle):
 
 
 class RandomStartingMinds(Range):
-    """Start with a random number of mind unlocking items."""
+    """Start with a random number of mind/area unlocking items."""
     display_name = "Random Starting Minds"
     range_start = 0
-    range_end = 9
+    range_end = 10
     default = 3
 
 class LootboxVaults(Toggle):

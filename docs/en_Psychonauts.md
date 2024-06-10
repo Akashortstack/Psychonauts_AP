@@ -18,6 +18,7 @@ In addition, there are other changes to the game that make it better optimized f
 - Crossing the Lake to reach the Asylum requires using the Lungfish Call item.
 - Emotional Baggage and Emotional Baggage Tags are no longer level specific.
 - Sorting any piece of Emotional Baggage rewards one Rank Up.
+- Memory Vaults now provide additional arrowheads and Rank Ups on opening.
 - In Gloria’s Theater, the Megaphone item is no longer given to the player after giving the Knight of Joy script to Gloria, and is instead part of the collectibles pool. The scripts themselves are left untouched.
 - New Randomizer Only Locations:
     - Basic Braining, End of Obstacle Course Platform (Two)
@@ -45,14 +46,12 @@ The [player options page for this game](../player-options) contains all the opti
 - Prop Items Required from Each Mind
 - Cobweb Duster
 - Rank Up Rewards, Every Five Ranks
-- Emotional Baggage
-- Emotional Baggage Tags
+- Emotional Baggage and Emotional Baggage Tags
 - Memory Vaults
 - Scavenger Hunt Items
 - Arrowhead Bundles, Small and Large
 - Maximum Lives, Ammo, and Confusion Ammo
-- PsiChallengeMarkers
-- PsiCards
+- PsiChallengeMarkers and Psicards
 
 <h2 style="text-transform:none";>What Psychonauts items can appear in other players' worlds?</h2>
 

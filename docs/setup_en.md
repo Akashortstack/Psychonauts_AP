@@ -1,44 +1,36 @@
 # Psychonauts Archipelago Setup Guide
+<h2 style="text-transform:none";>Quick Links</h2>
 
-##Setting up the required mods
-1. Install Psychonauts for PC, Astralathe, and the Psychonauts Randomizer Mod from the AP Companion Branch.
-    Full Psychonauts Randomizer and Astralathe setup guide here: https://docs.google.com/document/d/1cI3M07nWfDuBkv2M2c4NtCHPyq9koH4f2p53fgCQS4E/edit?usp=sharing
-    **MAKE SURE TO USE THE AP COMPANION BRANCH**
-    
-2. Download the psychonauts.apworld and place inside your Archipelago/lib/worlds folder
+- [Game Info Page](../../../../games/Psychonauts/info/en)
+- [Player Options Page](../../../../games/Psychonauts/player-options)
+- [PsychoRando Setup Guide](https://docs.google.com/document/d/1b7QOnOLmTSvdC7A1YK3bsSmhtSOsAMs0XF5j-tyE6Zw/edit?usp=sharing)
 
-3. Find the folder that contains your Psychonauts and Astralathe installation, and copy the folder directory. For example, the most common place for the Steam version is "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Psychonauts"  
+<h2 style="text-transform:none";>Required Software:</h2>
+`Psychonauts` for PC
 
-4. Run ArchipelagoLauncher.exe and open host.yaml from the Archipelago Launcher, find the psychonauts_options and paste your psychonauts game directory into the root_directory setting between the quotes.
+- [Steam](https://store.steampowered.com/app/3830/Psychonauts/)
+- [Xbox](https://www.xbox.com/en-US/games/store/Psychonauts/C5HHPG1TXDNG)
 
-5. Click "Generate Template Settings". This will open file explorer.
-Find "Psychonauts.yaml" and copy it to /Players/ (create this folder if it does not exist)
+[Astralathe Mod Loader](https://gitlab.com/scrunguscrungus/astralathe/-/releases)
+[PsychoRando AP Branch](https://github.com/Akashortstack/PsychoRando/releases)
+[Psychonauts AP World](https://github.com/Akashortstack/Psychonauts_AP/releases)
 
-6. Open the YAML file and change the line that says "name: Player{number}" to your desired player name.
-Adjust the settings in the YAML to your liking
+<h3 style="text-transform:none";>Updating Your Host.yaml</h3>
 
-7. Run ArchipelagoGenerate.exe
+Find the folder that contains your Psychonauts and Astralathe installation, and copy the folder directory. For example, the most common place for the Steam version is "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Psychonauts"
 
-8. Take the newly created AP_XXX.zip file in /output/ and upload it here: https://archipelago.gg/uploads
+Run ArchipelagoLauncher.exe and open host.yaml from the Archipelago Launcher, find the psychonauts_options and paste your psychonauts game directory into the root_directory setting between the quotes. If the pasted root directory contains single slashes between lines, change all of these to double slashes. `If you don't, the client may fail to open.`
 
-9. Unzip the AP_XXX.zip file. Find the zipped file containing your player number and name, and unzip it. This contains a file called RandoSeed.lua 
 
-10. Find your Psychonauts game directory and open /ModResource/PsychoRando/Scripts
+<h3 style="text-transform:none";>Installing A Seed</h3>
 
-11. Paste RandoSeed.lua from your generated Archipelago file into this folder. Replace the file in the destination if needed.
+When you generate a game, the Archipelago Seed .zip will include a Psychonuats .zip folder. Extract the Psychonauts .zip and find the RandoSeed.lua file inside. Copy this file, then find your Psychonauts directory where Astralathe and the PsychoRando mod are installed. Inside the PsychoRando mod, find the Scripts folder and paste RandoSeed.lua inside this folder. Make sure to overwrite the old file.
 
-12. Run AstralatheLauncher.exe to open the game. You should see your player number and name on the menu screen, along with your current randomizer version.
+<h2 style="text-transform:none";>Using the Psychonauts Client</h2>
 
-13. From the menu, enter the yellow door to start a new game.
+Once you have launched the game using AstralatheLauncher.exe and are on the title screen, run the ArchipelagoPsychonautsClient.exe. <br>
+When you successfully connect to the server the client will automatically hook into the game to send/receive checks. <br>
+Enter the Yellow Door and choose a bunk to start a new game. Raz will wake up in the Collective Unconscious, and you can start playing! <br>
+Most checks will be sent to you anywhere outside a load or cutscene. Checks are sent one item at a time. <br>
+To swap between seeds, just change your RandoSeed.lua in the Scripts folder. The Client uses the seed name from RandoSeed.lua to keep information between seeds seperated. <br>
 
-14. Using the Archipelago Launcher, open the Psychonauts Client and connect to your server hosted on archipelago.gg
-
-15. Once you've started a new save file and connected to the server, you can start playing!
-
-## Configuring your YAML file
-
-### What is a YAML file and why do I need one?
-
-Your YAML file contains a set of configuration options which provide the generator with information about how it should
-generate your game. Each player of a multiworld will provide their own YAML file. This setup allows each player to enjoy
-an experience customized for their taste, and different players in the same multiworld can all have different options.

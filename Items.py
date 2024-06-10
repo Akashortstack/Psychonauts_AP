@@ -14,7 +14,6 @@ Props_Table = {
     ItemName.Cake: 5,
     ItemName.LilisBracelet: 6,
     ItemName.OarsmansBadge: 7,
-    ItemName.SashaButton: 8,
     ItemName.CobwebDuster: 9,
     ItemName.SquirrelDinner: 10,
 
@@ -39,6 +38,7 @@ Props_Table = {
 }
 
 MindUnlocks_Table = {
+    ItemName.SashaButton: 8,
     ItemName.CoachMind: 21,
     ItemName.SashaMind: 22,
     ItemName.MillaMind: 23,
